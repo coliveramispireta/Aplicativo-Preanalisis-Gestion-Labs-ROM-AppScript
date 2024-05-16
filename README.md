@@ -92,19 +92,17 @@ AS	CMP
 
       - 1 libro (con 4 hojas)
  ```bash
-| COLUMNA | HOJA 1     | HOJA 2              | HOJA 3                 | HOJA 4               |
+| COLUMNA | HOJA 1     | HOJA 2              | HOJA 3                 | HOJA 4                |
 | ------- | ---------- | --------------------| -----------------------| --------------------- |
 | A       | nombre     | PROCEDENCIA         | ENFERMEDAD             | LABORATORIO DE DESTINO|
 | B       | Usuario    | INSTITUCION / DISA  | LABORATORIO DE DESTINO | ID                    |
 | C       | Contraseña | INSTITUCION         | SEDE DE PROCESO        | QR                    |
-| D       | Correo     | DISA                |                         |                       |
-| E       | Parametro  |                     |                         |                       |
-| F       | Cargo      |                     |                         |                       |
-| G       | Sede       |                     |                         |                       |
-| H       | ROL        |                     |                         |                       |
-
-
-    ```  
+| D       | Correo     | DISA                |                        |                       |
+| E       | Parametro  |                     |                        |                       |
+| F       | Cargo      |                     |                        |                       |
+| G       | Sede       |                     |                        |                       |
+| H       | ROL        |                     |                        |                       |
+```  
 
 2. **Configuración del Proyecto:**
 
