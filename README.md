@@ -42,6 +42,7 @@ Este repositorio contiene medidas de validaciones de credenciales y autenticaci�
    - Anota los Nombres de la hojas ( 6 hojas)
   
      - 2 libros (cada unno con una hoja con las mismas caberas)
+```bash
 A	ID
 B	PRIMERA SEDE
 C	PERSONAL QUE RECEPCIONA
@@ -89,18 +90,21 @@ AP	"USUARIO QUE REGISTRA ENTREGA"
 AQ	"USUARIO QUE REGISTRA RECHAZO"
 AR	Fecha de Solicitud
 AS	CMP
+```
 
       - 1 libro (con 4 hojas)
- ```bash        
-**COLUMNA	|  HOJA 1	|  HOJA 2	         |  HOJA 3	               |  HOJA 4**
-A	      |nombre	   |PROCEDENCIA         |	ENFERMEDAD	            |LABORATORIO DE DESTINO
-B	      |   Usuario	|INSTITUCION / DISA  |	LABORATORIO DE DESTINO	|   ID
-C	      |Contraseña	|INSTITUCION	      |  SEDE DE PROCESO	      | QR
-D	      |Correo	   |DISA		
+ ```bash
+  
+COLUMNA	|  HOJA 1	|  HOJA 2	           | HOJA 3	                  | HOJA 4
+A	      |nombre	   |  PROCEDENCIA         | ENFERMEDAD	               | LABORATORIO DE DESTINO
+B	      |Usuario	   |  INSTITUCION / DISA  | LABORATORIO DE DESTINO 	| ID
+C	      |Contraseña	|  INSTITUCION	        | SEDE DE PROCESO	         | QR
+D	      |Correo	   |  DISA		
 E	      |Parametro	|		
 F	      |Cargo		|	
 G	      |Sede			|
 H	      |ROL			|
+
     ```  
 
 2. **Configuración del Proyecto:**
