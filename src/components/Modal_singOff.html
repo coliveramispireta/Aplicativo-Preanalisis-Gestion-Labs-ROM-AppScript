@@ -1,0 +1,67 @@
+      <div class="container">
+  <div id="alertCerrarSesion" class="alert alert-danger position-fixed top-50 start-50 translate-middle text-align-center" role="alert" hidden>
+    <div style="display: inline-flex; align-items: center;">
+      <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor"
+        class="bi bi-exclamation-triangle-fill" viewBox="0 0 16 16">
+        <path
+          d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+      </svg>
+      <h1 style="font-weight: 600">&nbsp;&nbsp;&nbsp; ¿SIGUE AHI?</h1>
+    </div>
+    <p style="font-style: oblique">Haz clic en cualquier parte de la pantalla para continuar. </p>
+    <p style="font-style: oblique; margin-top: -4.5%"> La sesión expira en <span id="number" style="font-weight: 600; zoom:120%" ></span> segundos.</p>
+  </div>
+      <!-- Modal -->
+      <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="staticBackdropLabel">Notificación</h1>
+              <a href="https://appromcnsp.com/"
+                class="btn-close"></a>
+            </div>
+            <div class="modal-body">
+              La sesión expiró.
+            </div>
+            <div class="modal-footer">
+              <a href="https://appromcnsp.com/"
+                class="btn btn-secondary">Cerrar Sesión</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+
+        <script>
+                let n = 480
+                let l = document.getElementById("number");
+                const id = window.setInterval(function(){
+                      document.onclick = function(){
+                        n = 480
+                      };
+                      l.innerText = n;
+                      n--;
+
+                      const alertCerrarSesion = document.getElementById("alertCerrarSesion");
+                      if (n > 60) {
+                     alertCerrarSesion.hidden = true;
+                    } if (n <= 60 && n > -1 ){              
+                     alertCerrarSesion.hidden = false;
+                    } if (n <= -1){
+                          const crearModal = bootstrap.Modal.getOrCreateInstance("#staticBackdrop");
+                          crearModal.show();
+                          alertCerrarSesion.hidden = true;
+                          clearInterval(id);
+
+                           setTimeout(function() {
+                            window.location.href = "https://appromcnsp.com";
+                                                      
+                        }, 5000);
+
+
+                       }
+                       
+                },1000);
+
+  </script>

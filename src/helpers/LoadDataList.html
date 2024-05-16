@@ -1,0 +1,104 @@
+// DOM LOAD "ENFERMEDAD"
+<script>
+  window.addEventListener("load", loadEnfDatalist);
+  
+  function loadEnfDatalist() {
+  google.script.run
+  .withSuccessHandler (cargarDatalistEnf)
+  .getdataEnfermedad()
+  }
+  
+  function cargarDatalistEnf(dataEnfermedad){
+  const inputs = [
+  document.getElementById("datalistOptionsEnfermedad"),
+  document.getElementById("datalistOptionsEnfermedad1"),
+  document.getElementById("datalistOptionsEnfermedad2"),
+  document.getElementById("datalistOptionsEnfermedad3"),
+  document.getElementById("datalistOptionsEnfermedad4"),
+  document.getElementById("datalistOptionsEnfermedad5"),
+  document.getElementById("datalistOptionsEnfermedad6"),
+  document.getElementById("datalistOptionsEnfermedadv2"),
+  document.getElementById("datalistOptionsEnfermedadv3"),
+  document.getElementById("datalistOptionsEnfermedadv4")
+  ];
+  
+  dataEnfermedad.forEach(enfermedad => {
+  inputs.forEach(input => {
+  const option = document.createElement("option");
+  option.value = enfermedad[0];
+  option.text = enfermedad[1];
+  option.dataset.referencia = enfermedad[1];
+  input.appendChild(option);
+  });
+  });
+  }
+  
+  
+  // DOM LOAD "PROCEDENCIA"
+  
+  window.addEventListener("load", loadInfoDatalist);
+  
+  function loadInfoDatalist() {
+  google.script.run
+  .withSuccessHandler (cargarDatalistPRO)
+  .getDataProcedencia()
+  }
+  
+  function cargarDatalistPRO(dataProcedencia){
+  const inputs = [
+  document.getElementById("datalistOptionsPv1"),
+  document.getElementById("datalistOptionsPv2"),
+  document.getElementById("datalistOptionsPv3"),
+  document.getElementById("datalistOptionsPv4"),
+  ];
+  
+  dataProcedencia.forEach( procedencia =>{
+  inputs.forEach(input => {
+  const option = document.createElement("option");
+  option.value = procedencia[0];
+  option.text = procedencia[1];
+  option.dataset.referencia = procedencia[1];
+  input.appendChild(option);
+  });
+  });
+  }
+
+
+  //DATALIST PERSONAL 
+let dataPersonal = [];
+window.addEventListener("load", loadPersonalDatalist);
+
+function loadPersonalDatalist() {
+google.script.run
+.withSuccessHandler (cargarDatalistPersonal)
+.getdataPersonal()
+}
+
+
+
+function cargarDatalistPersonal(data){
+dataPersonal = data;
+  const inputs = [
+  document.getElementById("datalistPersonalRecepcion"),
+  document.getElementById("datalistPersonal2DARecepcion"),
+  document.getElementById("datalistPersonal3RARecepcion"),
+  ];
+
+data.forEach( personal =>{
+inputs.forEach(input => {
+const option = document.createElement("option");
+option.value = personal[0];
+option.text = personal[5];
+option.dataset.referencia = personal[5];
+input.appendChild(option);
+});
+});
+}
+
+
+
+
+
+
+
+</script>

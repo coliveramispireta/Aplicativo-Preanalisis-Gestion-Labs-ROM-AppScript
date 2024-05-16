@@ -1,0 +1,804 @@
+
+  <script>
+    const seleccionEnfermedad = document.getElementById("enfermedad");
+
+
+            window.addEventListener("load", function() {
+            setTimeout(validarUser, 5000); // 5000 milisegundos = 5 segundos
+            });                                                
+                    function validarUser(e){
+                      const user = document.getElementById("personalRegistro").value;
+                      const alertaUser = document.getElementById("alertaValidacionUser");
+                      const buttonGrabar = document.getElementById("buttonGrabarDengue");
+                      if ( user.length == 0){
+                        alertaUser.hidden = false;
+                        buttonGrabar.disabled = true;
+                      } else if (user.length > 0){
+                        alertaUser.hidden = true;
+                      }
+                    }
+
+// VALIDAR DATA LIST PERSONAL
+
+ const inputPersonalRec = document.getElementById("personalRecepcion");
+inputPersonalRec.addEventListener("blur", validarPersonalRec);
+
+function validarPersonalRec(e){
+const inputPersonalValue = document.getElementById("personalRecepcion").value;
+const alertaValidacionP = document.getElementById("alertaValidacionP");
+const buttonGrabar = document.getElementById("buttonGrabarDengue");
+const found = dataPersonal.some(personal => personal[0] === inputPersonalValue);
+console.log(found);
+if (found){
+console.log("!esta!");
+alertaValidacionP.hidden = true;
+
+} else {
+console.log("no esta!");
+alertaValidacionP.hidden = false;
+buttonGrabar.disabled = true;
+
+}
+}
+
+//DATALIST 1 PROCEDENCIA
+                
+             function actualizarInfop1(datalist){
+              const dtlProcedencia = document.getElementById("datalistOptionsPv1");
+               for (let i = 0; i < dtlProcedencia.options.length; i++){
+                 
+                 if (dtlProcedencia.options[i].value === datalist.value){
+                 document.getElementById("labRef").value = dtlProcedencia.options[i].getAttribute("data-referencia");
+                 break;
+                 }else{
+                   document.getElementById("labRef").value = "";
+                 }
+               }
+               console.log(datalist.value);
+                    if (datalist.value === "INS - JESÚS MARÍA" || datalist.value === "INS - CHORRILLOS" ){
+                        document.getElementById('flexRadioDefault1').checked = false;
+    document.getElementById('flexRadioDefault2').removeAttribute('checked');
+    document.getElementById('flexRadioDefault3').removeAttribute('checked');
+    document.getElementById('flexRadioDefault2').setAttribute('required', true);
+    document.getElementById('flexRadioDefault3').removeAttribute('required');
+  } else {
+    document.getElementById('flexRadioDefault1').checked = true;
+    document.getElementById('flexRadioDefault2').removeAttribute('required');
+    document.getElementById('flexRadioDefault3').removeAttribute('required');
+  }
+
+             }
+
+const inputProcedencia = document.getElementById("procedencia"); 
+inputProcedencia.addEventListener("blur", validarProcedencia);
+
+function validarProcedencia(e){
+  const inputlabRef = document.getElementById("labRef").value;
+  const alertalabRef = document.getElementById("alertaValidacion");
+  const buttonGrabar = document.getElementById("buttonGrabarDengue");
+  if ( inputlabRef.length == 0){
+    alertalabRef.hidden = false;
+    buttonGrabar.disabled = true;
+
+  } else if (inputlabRef.length > 0){
+    alertalabRef.hidden = true;
+
+  }
+}
+
+
+               
+               
+ 
+//DATALIST ENFERMEDAD
+      
+ 
+seleccionEnfermedad.addEventListener("blur", validarEnfermedad);
+
+function validarEnfermedad(e){
+  const inputlabDes = document.getElementById("labDes").value;
+  const alertalabDes = document.getElementById("alertaValidacionlabDes");
+  const buttonGrabar = document.getElementById("buttonGrabarDengue");
+  if ( inputlabDes.length == 0){
+    alertalabDes.hidden = false;
+    buttonGrabar.disabled = true;
+
+  } else if (inputlabDes.length > 0){
+    alertalabDes.hidden = true;
+
+  }
+}
+
+//ENFERMEDAD
+
+           function actualizarInfoEnfermedad(datalist){
+            const dtlenfermedad = document.getElementById("datalistOptionsEnfermedad");
+               for (let i = 0; i < dtlenfermedad.options.length; i++){
+                 if (dtlenfermedad.options[i].value === datalist.value){
+                 document.getElementById("labDes").value = dtlenfermedad.options[i].getAttribute("data-referencia");
+                 break;
+                 }else{
+                   document.getElementById("labDes").value = "";
+                 }
+               }
+             }
+
+
+
+// SUBENFERMEDAD1
+
+                 function actualizarInfoEnfermedad1(datalist){
+                  const dtlenfermedad1 = document.getElementById("datalistOptionsEnfermedad1");
+               for (let i = 0; i < dtlenfermedad1.options.length; i++){
+                 if (dtlenfermedad1.options[i].value === datalist.value){
+                 document.getElementById("labDes1").value = dtlenfermedad1.options[i].getAttribute("data-referencia");
+                 break;
+                 }else{
+                   document.getElementById("labDes1").value = "";
+                 }
+               }
+             }
+
+// SUBENFERMEDAD2
+
+                 function actualizarInfoEnfermedad2(datalist){
+                  const dtlenfermedad2 = document.getElementById("datalistOptionsEnfermedad2");
+               for (let i = 0; i < dtlenfermedad2.options.length; i++){
+                 if (dtlenfermedad2.options[i].value === datalist.value){
+                 document.getElementById("labDes2").value = dtlenfermedad2.options[i].getAttribute("data-referencia");
+                 break;
+                 }else{
+                   document.getElementById("labDes2").value = "";
+                 }
+               }
+             }
+
+// SUBENFERMEDAD3
+
+                 function actualizarInfoEnfermedad3(datalist){
+                  const dtlenfermedad3 = document.getElementById("datalistOptionsEnfermedad3");
+               for (let i = 0; i < dtlenfermedad3.options.length; i++){
+                 if (dtlenfermedad3.options[i].value === datalist.value){
+                 document.getElementById("labDes3").value = dtlenfermedad3.options[i].getAttribute("data-referencia");
+                 break;
+                 }else{
+                   document.getElementById("labDes3").value = "";
+                 }
+               }
+             }
+
+// SUBENFERMEDAD4
+
+                 function actualizarInfoEnfermedad4(datalist){
+                  const dtlenfermedad4 = document.getElementById("datalistOptionsEnfermedad4");
+               for (let i = 0; i < dtlenfermedad4.options.length; i++){
+                 if (dtlenfermedad4.options[i].value === datalist.value){
+                 document.getElementById("labDes4").value = dtlenfermedad4.options[i].getAttribute("data-referencia");
+                 break;
+                 }else{
+                   document.getElementById("labDes4").value = "";
+                 }
+               }
+             }
+
+ // SUBENFERMEDAD5
+                 function actualizarInfoEnfermedad5(datalist){
+               for (let i = 0; i < dtlenfermedad5.options.length; i++){
+                 if (dtlenfermedad5.options[i].value === datalist.value){
+                 document.getElementById("labDes5").value = dtlenfermedad5.options[i].getAttribute("data-referencia");
+                 break;
+                 }else{
+                   document.getElementById("labDes5").value = "";
+                 }
+               }
+             }
+
+
+  // SUBENFERMEDAD6
+
+                 function actualizarInfoEnfermedad6(datalist){
+                  const dtlenfermedad6 = document.getElementById("datalistOptionsEnfermedad6");
+               for (let i = 0; i < dtlenfermedad6.options.length; i++){
+                 if (dtlenfermedad6.options[i].value === datalist.value){
+                 document.getElementById("labDes6").value = dtlenfermedad6.options[i].getAttribute("data-referencia");
+                 break;
+                 }else{
+                   document.getElementById("labDes6").value = "";
+                 }
+               }
+             }
+
+
+
+//////////////////////////
+
+
+const codigoIDD = document.getElementById("codigoId"); 
+
+ codigoIDD.addEventListener("change", (e) =>{ 
+const buttonGrabarDengue = document.getElementById("buttonGrabarDengue");  
+const ocultarValidacionID = document.getElementById("ocultarValidacionID");
+const ocultar2ValidacionID = document.getElementById("ocultar2ValidacionID");
+const codigo = (e.target.value);  
+
+                  google.script.run
+                  .withSuccessHandler(mensaje =>{
+                      if (mensaje === "ERROR"){
+                      swal("Aviso de Duplicidad", "El Código ID "+codigo+" ya existe en la base de datos. Por favor ingresa un código diferente", "error");
+                      ocultarValidacionID.hidden = true;
+                      ocultar2ValidacionID.hidden = true;
+                      } else {
+                      ocultarValidacionID.hidden = false;
+                      ocultar2ValidacionID.hidden = false;
+                      codigoIDD.readOnly = true;
+                      codigoIDD.classList.add('invalidInput');
+                      buttonGrabarDengue.disabled = true;
+                      document.getElementById("personalRegistro").value = userActual;
+
+                      }
+                        })
+                  .duplicado(codigo)
+                })
+
+
+
+             
+const checkEnfermedades = document.getElementById("checkSubEnfermedad");
+const celdasEnfermedades = document.getElementById("enfermedadesGrupales");
+
+
+const campos1 = document.getElementById("subCampos1");
+const campos2 = document.getElementById("subCampos2");
+const campos3 = document.getElementById("subCampos3");
+const campos4 = document.getElementById("subCampos4");
+const campos5 = document.getElementById("subCampos5");
+const campos6 = document.getElementById("subCampos6");
+const subEnfermedad1 = document.getElementById("subEnfermedad1");
+const subEnfermedad2 = document.getElementById("subEnfermedad2");
+const subEnfermedad3 = document.getElementById("subEnfermedad3");
+const subEnfermedad4 = document.getElementById("subEnfermedad4");
+const subEnfermedad5 = document.getElementById("subEnfermedad5");
+const subEnfermedad6 = document.getElementById("subEnfermedad6");
+const subTipomuestras1 = document.getElementById("subTipomuestras1");
+const subTipomuestras2 = document.getElementById("subTipomuestras2");
+const subTipomuestras3 = document.getElementById("subTipomuestras3");
+const subTipomuestras4 = document.getElementById("subTipomuestras4");
+const subTipomuestras5 = document.getElementById("subTipomuestras5");
+const subTipomuestras6 = document.getElementById("subTipomuestras6");
+const labDes1 = document.getElementById("labDes1");
+const labDes2 = document.getElementById("labDes2");
+const labDes3 = document.getElementById("labDes3");
+const labDes4 = document.getElementById("labDes4");
+const labDes5 = document.getElementById("labDes5");
+const labDes6 = document.getElementById("labDes6");
+const subCantidadMuestras1 = document.getElementById("subCantidadMuestras1");
+const subCantidadMuestras2 = document.getElementById("subCantidadMuestras2");
+const subCantidadMuestras3 = document.getElementById("subCantidadMuestras3");
+const subCantidadMuestras4 = document.getElementById("subCantidadMuestras4");
+const subCantidadMuestras5 = document.getElementById("subCantidadMuestras5");
+const subCantidadMuestras6 = document.getElementById("subCantidadMuestras6");
+const cantidadMuestrasMX = document.getElementById("cantidadMuestrasMX");
+
+
+              seleccionEnfermedad.addEventListener("change", (e) =>{ 
+        console.log("PRUEBA: ", e.target.value);
+const formSubEnfermedades = document.getElementById("formSubEnfermedades");
+  
+              if (e.target.value === "SÍNDROME GUILLIAN BARRÉ" || e.target.value === "SÍNDROME I. HEMORRÁGICO" || e.target.value === "SÍNDROME FEBRIL" || e.target.value === "TORCH" || e.target.value === "TORCHS"){           
+                checkEnfermedades.disabled = true;
+                checkEnfermedades.checked = true;
+                cantidadMuestrasMX.readOnly = true;
+                cantidadMuestrasMX.style.backgroundColor = "#EDEDED";
+                cantidadMuestrasMX.style.borderColor = "#B0B0B0";
+
+
+                const codigo = document.getElementById("codigoId").value;
+                const subcodigo1 = codigo + "-SUB01";
+                document.getElementById("subCodigoID1").value = subcodigo1;
+                const subcodigo2 = codigo + "-SUB02";
+                document.getElementById("subCodigoID2").value = subcodigo2;
+                const subcodigo3 = codigo + "-SUB03";
+                document.getElementById("subCodigoID3").value = subcodigo3;
+                const subcodigo4 = codigo + "-SUB04";
+                document.getElementById("subCodigoID4").value = subcodigo4;
+                const subcodigo5 = codigo + "-SUB05";
+                document.getElementById("subCodigoID5").value = subcodigo5;
+                const subcodigo6 = codigo + "-SUB06";
+                document.getElementById("subCodigoID6").value = subcodigo6;
+
+                celdasEnfermedades.style.display = "block";
+
+                      if (e.target.value === "TORCH"){
+                            subEnfermedad1.value = "TOXOPLASMOSIS";
+                            subEnfermedad2.value = "RUBEOLA";
+                            subEnfermedad3.value = "CITOMEGALOVIRUS";
+                            subEnfermedad4.value = "HERPES";
+                            subEnfermedad5.value = "";
+                            subEnfermedad6.value = "";
+                            campos1.hidden = false;
+                            campos2.hidden = false;
+                            campos3.hidden = false;
+                            campos4.hidden = false;
+                            campos5.hidden = true;
+                            campos6.hidden = true;
+                            subTipomuestras1.value = "SUERO";
+                            subTipomuestras2.value = "SUERO";
+                            subTipomuestras3.value = "SUERO";
+                            subTipomuestras4.value = "SUERO";
+                            subTipomuestras5.value = "";
+                            subTipomuestras6.value = "";
+                            subCantidadMuestras1.value = "";
+                            subCantidadMuestras2.value = "";
+                            subCantidadMuestras3.value = "";
+                            subCantidadMuestras4.value = "";
+                            subCantidadMuestras5.value = "";
+                            subCantidadMuestras6.value = "";
+                            labDes1.value = "LRN DE METAXÉNICAS Y ZOONOSIS PARASITARIA";
+                            labDes2.value = "LRN DE VIRUS INMUNOPREVENIBLES";
+                            labDes3.value = "LRN DE VIRUS DE TRANSMISIÓN SEXUAL";
+                            labDes4.value = "LRN DE VIRUS INMUNOPREVENIBLES";
+                            labDes5.value = "";
+                            labDes6.value = "";
+                      } else if (e.target.value === "TORCHS"){
+                            subEnfermedad1.value = "TOXOPLASMOSIS";
+                            subEnfermedad2.value = "RUBEOLA";
+                            subEnfermedad3.value = "CITOMEGALOVIRUS";
+                            subEnfermedad4.value = "HERPES";
+                            subEnfermedad5.value = "SIFILIS";
+                            subEnfermedad6.value = "";
+                            campos1.hidden = false;
+                            campos2.hidden = false;
+                            campos3.hidden = false;
+                            campos4.hidden = false;
+                            campos5.hidden = false;
+                            campos6.hidden = true;
+                            subTipomuestras1.value = "SUERO";
+                            subTipomuestras2.value = "SUERO";
+                            subTipomuestras3.value = "SUERO";
+                            subTipomuestras4.value = "SUERO";
+                            subTipomuestras5.value = "SUERO";
+                            subTipomuestras6.value = "";
+                            subCantidadMuestras1.value = "";
+                            subCantidadMuestras2.value = "";
+                            subCantidadMuestras3.value = "";
+                            subCantidadMuestras4.value = "";
+                            subCantidadMuestras5.value = "";
+                            subCantidadMuestras6.value = "";
+                            labDes1.value = "LRN DE METAXÉNICAS Y ZOONOSIS PARASITARIA";
+                            labDes2.value = "LRN DE VIRUS INMUNOPREVENIBLES";
+                            labDes3.value = "LRN DE VIRUS DE TRANSMISIÓN SEXUAL";
+                            labDes4.value = "LRN DE VIRUS INMUNOPREVENIBLES";
+                            labDes5.value = "LRN DE BACTERIOLOGÍA ESPECIAL";
+                            labDes6.value = "";
+                      } else if (e.target.value === "SÍNDROME I. HEMORRÁGICO"){
+                            subEnfermedad1.value = "FIEBRE AMARILLA";
+                            subEnfermedad2.value = "LEPTOSPIROSIS";
+                            subEnfermedad3.value = "HEPATITIS";
+                            subEnfermedad4.value = "DENGUE";
+                            subEnfermedad5.value = "";
+                            subEnfermedad6.value = "";
+                            campos1.hidden = false;
+                            campos2.hidden = false;
+                            campos3.hidden = false;
+                            campos4.hidden = false;
+                            campos5.hidden = false;
+                            campos6.hidden = true;
+                            subTipomuestras1.value = "SUERO";
+                            subTipomuestras2.value = "SUERO";
+                            subTipomuestras3.value = "SUERO";
+                            subTipomuestras4.value = "SUERO";
+                            subTipomuestras5.value = "";
+                            subTipomuestras6.value = "";
+                            subCantidadMuestras1.value = "";
+                            subCantidadMuestras2.value = "";
+                            subCantidadMuestras3.value = "";
+                            subCantidadMuestras4.value = "";
+                            subCantidadMuestras5.value = "";
+                            subCantidadMuestras6.value = "";
+                            labDes1.value = "LRN DE METAXÉNICAS Y ZOONOSIS VIRALES";
+                            labDes2.value = "LRN DE METAXÉNICAS Y ZOONOSIS BACTERIANAS";
+                            labDes3.value = "LRN DE VIRUS DE TRANSMISIÓN SEXUAL";
+                            labDes4.value = "LRN DE METAXÉNICAS Y ZOONOSIS VIRALES";
+                            labDes5.value = "";
+                            labDes6.value = "";
+                                                   
+                      } else if (e.target.value === "SÍNDROME GUILLIAN BARRÉ"){
+                            subEnfermedad1.value = "ZIKA";
+                            subEnfermedad2.value = "INFLUENZA";
+                            subEnfermedad3.value = "ENTEROVIRUS";
+                            subEnfermedad4.value = "ENTEROPATÓGENOS";
+                            subEnfermedad5.value = "ZIKA";
+                            subEnfermedad6.value = "";
+                            campos1.hidden = false;
+                            campos2.hidden = false;
+                            campos3.hidden = false;
+                            campos4.hidden = false;
+                            campos5.hidden = false;
+                            campos6.hidden = false;
+                            subTipomuestras1.value = "SUERO";
+                            subTipomuestras2.value = "HISOPADO NASOFARÍNGEO";
+                            subTipomuestras3.value = "HECES";
+                            subTipomuestras4.value = "HECES";
+                            subTipomuestras5.value = "ORINA";
+                            subTipomuestras6.value = "";
+                            subCantidadMuestras1.value = "";
+                            subCantidadMuestras2.value = "";
+                            subCantidadMuestras3.value = "";
+                            subCantidadMuestras4.value = "";
+                            subCantidadMuestras5.value = "";
+                            subCantidadMuestras6.value = "";
+                            labDes1.value = "LRN DE METAXÉNICAS Y ZOONOSIS VIRALES";
+                            labDes2.value = "LRN DE VIRUS INMUNOPREVENIBLES";
+                            labDes3.value = "LRN DE VIRUS INMUNOPREVENIBLES";
+                            labDes4.value = "LRN DE BACTERIOLOGÍA CLÍNICA";
+                            labDes5.value = "LRN DE METAXÉNICAS Y ZOONOSIS VIRALES";
+                            labDes6.value = "";
+                        
+                      } else if (e.target.value === "SÍNDROME FEBRIL"){
+                            subEnfermedad1.value = "LEPTOSPIROSIS";
+                            subEnfermedad2.value = "DENGUE";
+                            subEnfermedad3.value = "RICKETTSIAS";
+                            subEnfermedad4.value = "ENFERMEDAD DE CARRIÓN";
+                            subEnfermedad5.value = "";
+                            subEnfermedad6.value = "";
+                            campos1.hidden = false;
+                            campos2.hidden = false;
+                            campos3.hidden = false;
+                            campos4.hidden = false;
+                            campos5.hidden = false;
+                            campos6.hidden = false;
+                            subTipomuestras1.value = "SUERO";
+                            subTipomuestras2.value = "SUERO";
+                            subTipomuestras3.value = "SUERO";
+                            subTipomuestras4.value = "SUERO";
+                            subTipomuestras5.value = "";
+                            subTipomuestras6.value = "";
+                            subCantidadMuestras1.value = "";
+                            subCantidadMuestras2.value = "";
+                            subCantidadMuestras3.value = "";
+                            subCantidadMuestras4.value = "";
+                            subCantidadMuestras5.value = "";
+                            subCantidadMuestras6.value = "";
+                            labDes1.value = "LRN DE METAXÉNICAS Y ZOONOSIS BACTERIANAS";
+                            labDes2.value = "LRN DE METAXÉNICAS Y ZOONOSIS VIRALES";
+                            labDes3.value = "LRN DE METAXÉNICAS Y ZOONOSIS BACTERIANAS";
+                            labDes4.value = "LRN DE METAXÉNICAS Y ZOONOSIS BACTERIANAS";
+                            labDes5.value = "";
+                            labDes6.value = "";
+                        
+                      }
+
+                      if (subEnfermedad1.value === "") {
+                          subTipomuestras1.required = false;
+                          subCantidadMuestras1.required = false;
+                        } else {
+                          subTipomuestras1.required = true;
+                          subCantidadMuestras1.required = true;
+                        }
+
+                         if (subEnfermedad2.value === "") {
+                          subTipomuestras2.required = false;
+                          subCantidadMuestras2.required = false;
+                        } else {
+                          subTipomuestras2.required = true;
+                          subCantidadMuestras2.required = true;
+                        }
+
+                         if (subEnfermedad3.value === "") {
+                          subTipomuestras3.required = false;
+                          subCantidadMuestras3.required = false;
+                        } else {
+                          subTipomuestras3.required = true;
+                          subCantidadMuestras3.required = true;
+                        }
+
+                         if (subEnfermedad4.value === "") {
+                          subTipomuestras4.required = false;
+                          subCantidadMuestras4.required = false;
+                        } else {
+                          subTipomuestras4.required = true;
+                          subCantidadMuestras4.required = true;
+                        }
+
+                         if (subEnfermedad5.value === "") {
+                          subTipomuestras5.required = false;
+                          subCantidadMuestras5.required = false;
+                        } else {
+                          subTipomuestras5.required = true;
+                          subCantidadMuestras5.required = true;
+                        }
+
+                         if (subEnfermedad6.value === "") {
+                          subTipomuestras6.required = false;
+                          subCantidadMuestras6.required = false;
+                        } else {
+                          subTipomuestras6.required = true;
+                          subCantidadMuestras6.required = true;
+                        }
+
+
+              } else {
+                checkEnfermedades.disabled = true;
+                checkEnfermedades.checked = false;
+                cantidadMuestrasMX.readOnly = false;
+                cantidadMuestrasMX.style.backgroundColor = "";
+                cantidadMuestrasMX.style.borderColor = "";
+
+                celdasEnfermedades.style.display = "none";
+                            subEnfermedad1.value = "";
+                            subEnfermedad2.value = "";
+                            subEnfermedad3.value = "";
+                            subEnfermedad4.value = "";
+                            subEnfermedad5.value = "";
+                            subEnfermedad6.value = "";
+                            subTipomuestras1.value = "";
+                            subTipomuestras2.value = "";
+                            subTipomuestras3.value = "";
+                            subTipomuestras4.value = "";
+                            subTipomuestras5.value = "";
+                            subTipomuestras6.value = "";
+                            subCantidadMuestras1.value = "";
+                            subCantidadMuestras2.value = "";
+                            subCantidadMuestras3.value = "";
+                            subCantidadMuestras4.value = "";
+                            subCantidadMuestras5.value = "";
+                            subCantidadMuestras6.value = "";
+                            labDes1.value = "";
+                            labDes2.value = "";
+                            labDes3.value = "";
+                            labDes4.value = "";
+                            labDes5.value = "";
+                            labDes6.value = "";
+                            cantidadMuestrasMX.value = "";
+              }
+              })
+
+
+subCantidadMuestras1.addEventListener("change", (e) =>{
+    cantidadMuestrasMX.value = 0;
+    let valores = [subCantidadMuestras1.value, subCantidadMuestras2.value, subCantidadMuestras3.value, subCantidadMuestras4.value, subCantidadMuestras5.value, subCantidadMuestras6.value];
+    for (let valor of valores) {
+        if (!isNaN(parseInt(valor))) {
+            cantidadMuestrasMX.value = parseInt(cantidadMuestrasMX.value) + parseInt(valor);
+        }
+    }
+})
+
+subCantidadMuestras2.addEventListener("change", (e) =>{
+    cantidadMuestrasMX.value = 0;
+    let valores = [subCantidadMuestras1.value, subCantidadMuestras2.value, subCantidadMuestras3.value, subCantidadMuestras4.value, subCantidadMuestras5.value, subCantidadMuestras6.value];
+    for (let valor of valores) {
+        if (!isNaN(parseInt(valor))) {
+            cantidadMuestrasMX.value = parseInt(cantidadMuestrasMX.value) + parseInt(valor);
+        }
+    }
+})
+subCantidadMuestras3.addEventListener("change", (e) =>{
+    cantidadMuestrasMX.value = 0;
+    let valores = [subCantidadMuestras1.value, subCantidadMuestras2.value, subCantidadMuestras3.value, subCantidadMuestras4.value, subCantidadMuestras5.value, subCantidadMuestras6.value];
+    for (let valor of valores) {
+        if (!isNaN(parseInt(valor))) {
+            cantidadMuestrasMX.value = parseInt(cantidadMuestrasMX.value) + parseInt(valor);
+        }
+    }
+})
+subCantidadMuestras4.addEventListener("change", (e) =>{
+    cantidadMuestrasMX.value = 0;
+    let valores = [subCantidadMuestras1.value, subCantidadMuestras2.value, subCantidadMuestras3.value, subCantidadMuestras4.value, subCantidadMuestras5.value, subCantidadMuestras6.value];
+    for (let valor of valores) {
+        if (!isNaN(parseInt(valor))) {
+            cantidadMuestrasMX.value = parseInt(cantidadMuestrasMX.value) + parseInt(valor);
+        }
+    }
+})
+subCantidadMuestras5.addEventListener("change", (e) =>{
+    cantidadMuestrasMX.value = 0;
+    let valores = [subCantidadMuestras1.value, subCantidadMuestras2.value, subCantidadMuestras3.value, subCantidadMuestras4.value, subCantidadMuestras5.value, subCantidadMuestras6.value];
+    for (let valor of valores) {
+        if (!isNaN(parseInt(valor))) {
+            cantidadMuestrasMX.value = parseInt(cantidadMuestrasMX.value) + parseInt(valor);
+        }
+    }
+})
+subCantidadMuestras6.addEventListener("change", (e) =>{
+    cantidadMuestrasMX.value = 0;
+    let valores = [subCantidadMuestras1.value, subCantidadMuestras2.value, subCantidadMuestras3.value, subCantidadMuestras4.value, subCantidadMuestras5.value, subCantidadMuestras6.value];
+    for (let valor of valores) {
+        if (!isNaN(parseInt(valor))) {
+            cantidadMuestrasMX.value = parseInt(cantidadMuestrasMX.value) + parseInt(valor);
+        }
+    }
+})
+
+
+
+        subEnfermedad1.addEventListener("change", (e) =>{
+            if (e.target.value === ""){           
+                  subTipomuestras1.value = "";
+                  subCantidadMuestras1.value = "";    
+                  subTipomuestras1.required = false;
+                  subCantidadMuestras1.required = false;              
+                  } else {
+                  subTipomuestras1.required = true;
+                  subCantidadMuestras1.required = true; 
+                  }
+                  })
+         subEnfermedad2.addEventListener("change", (e) =>{
+            if (e.target.value === ""){           
+                  subTipomuestras2.value = "";
+                  subCantidadMuestras2.value = "";  
+                  subTipomuestras2.required = false;
+                  subCantidadMuestras2.required = false;              
+                  } else {
+                  subTipomuestras2.required = true;
+                  subCantidadMuestras2.required = true;                 
+                  } 
+                  })
+        subEnfermedad3.addEventListener("change", (e) =>{
+            if (e.target.value === ""){           
+                  subTipomuestras3.value = "";
+                  subCantidadMuestras3.value = "";  
+                  subTipomuestras3.required = false;
+                  subCantidadMuestras3.required = false;              
+                  } else {
+                  subTipomuestras3.required = true;
+                  subCantidadMuestras3.required = true;                 
+                  } 
+                  })                                   
+        subEnfermedad4.addEventListener("change", (e) =>{
+            if (e.target.value === ""){           
+                  subTipomuestras4.value = "";
+                  subCantidadMuestras4.value = "";    
+                  subTipomuestras4.required = false;
+                  subCantidadMuestras4.required = false;              
+                  } else {
+                  subTipomuestras4.required = true;
+                  subCantidadMuestras4.required = true;               
+                  } 
+                  })
+        subEnfermedad5.addEventListener("change", (e) =>{
+            if (e.target.value === ""){           
+                  subTipomuestras5.value = "";
+                  subCantidadMuestras5.value = "";  
+                  subTipomuestras5.required = false;
+                  subCantidadMuestras5.required = false;              
+                  } else {
+                  subTipomuestras5.required = true;
+                  subCantidadMuestras5.required = true;                 
+                  } 
+                  })
+        subEnfermedad6.addEventListener("change", (e) =>{
+            if (e.target.value === ""){           
+                  subTipomuestras6.value = "";
+                  subCantidadMuestras6.value = "";  
+                  subTipomuestras6.required = false;
+                  subCantidadMuestras6.required = false;              
+                  } else {
+                  subTipomuestras6.required = true;
+                  subCantidadMuestras6.required = true;                 
+                  } 
+                  })
+
+
+ const seleccionTemperatura = document.getElementById("temperatura");
+               seleccionEnfermedad.addEventListener("change", (e) =>{ 
+        //console.log(e.target.value);
+              if (e.target.value === "TUBERCULOSIS"){           
+                seleccionTemperatura.disabled = true;
+                              
+              } else {
+                seleccionTemperatura.disabled = false;
+                
+              }
+              })
+
+              checkEnfermedades.addEventListener('change', (e) =>{ 
+        //console.log(e.target.checked);
+              if(e.target.checked === true){
+                const codigo = document.getElementById("codigoId").value;
+                const subcodigo1 = codigo + "-SUB01";
+                document.getElementById("subCodigoID1").value = subcodigo1;
+                const subcodigo2 = codigo + "-SUB02";
+                document.getElementById("subCodigoID2").value = subcodigo2;
+                const subcodigo3 = codigo + "-SUB03";
+                document.getElementById("subCodigoID3").value = subcodigo3;
+                const subcodigo4 = codigo + "-SUB04";
+                document.getElementById("subCodigoID4").value = subcodigo4;
+                const subcodigo5 = codigo + "-SUB05";
+                document.getElementById("subCodigoID5").value = subcodigo5;
+                const subcodigo6 = codigo + "-SUB06";
+                document.getElementById("subCodigoID6").value = subcodigo6;
+
+                celdasEnfermedades.style.display = "block";
+              } else {
+                celdasEnfermedades.style.display = "none";
+              }
+              })
+
+
+function validarCamposVacios() {
+  const codigoId = document.getElementById("codigoId"); 
+  const buttonGrabarDengue = document.getElementById("buttonGrabarDengue"); 
+  const form = document.getElementById("myForm");
+  const visibleInputs = form.querySelectorAll("input:not([type='hidden']):not([type='checkbox']):not([type='radio'], [type='hidden']), select:not([type='hidden']), textarea:not([type='hidden'])");
+  
+  for (let i = 0; i < visibleInputs.length; i++) {
+    const input = visibleInputs[i];
+    if (
+      input.offsetParent !== null && // Verifica si el elemento es visible
+      input.value.trim() === "" && // Verifica si el valor está vacío
+      input.id !== "comentarioTextarea" && // Excluye el campo comentarioTextarea
+      (input.id !== "temperatura" || !input.disabled) && // Excluye el campo temperatura
+      input.id !== "codigoId" && // Excluye el campo codigoID
+      !input.closest("#enfermedadesGrupales") // Excluye los campos dentro de #enfermedadesGrupales
+    ) {
+      console.log("Aún hay campos vacíos.");
+      buttonGrabarDengue.disabled = true;
+      return false; // Si encuentra un campo vacío visible, retorna false
+    }
+  }
+  if (codigoId.readOnly){
+  console.log("No hay campos vacíos.");
+  buttonGrabarDengue.disabled = false;
+  return true; // Si no encuentra campos vacíos visibles, retorna true
+  }
+}
+
+
+// Asignar el evento de cambio a todos los campos del formulario
+const form = document.getElementById("myForm");
+
+form.addEventListener("change", function() {
+  const resultado = validarCamposVacios();
+  console.log(resultado);
+});
+
+
+// Obtener el modal
+const modal = document.getElementById('createModalCARGARDENGUE');
+
+// Detectar cuándo se cierra el modal
+modal.addEventListener('hidden.bs.modal', function () {
+    const codigoIDD = document.getElementById("codigoId"); 
+    const buttonGrabarDengue = document.getElementById("buttonGrabarDengue");  
+    const ocultarValidacionID = document.getElementById("ocultarValidacionID");
+    const ocultar2ValidacionID = document.getElementById("ocultar2ValidacionID");
+    const form = document.getElementById('myForm');
+    form.reset();
+    ocultarValidacionID.hidden = true;
+    ocultar2ValidacionID.hidden = true;
+    codigoIDD.readOnly = false;
+codigoId.classList.remove('invalidInput');
+    buttonGrabarDengue.disabled = true;
+});
+
+
+
+
+
+  function nuevaMuestra(){
+  
+  const form = document.getElementById("myForm");
+  const buttonGrabarDengue = document.getElementById("buttonGrabarDengue");
+  const codigoIDD = document.getElementById("codigoId"); 
+
+  google.script.run
+    .withSuccessHandler()
+    .grabarNuevaMuestra(form); 
+      form.reset();
+      const crearModal = bootstrap.Modal.getOrCreateInstance("#createModalCARGARDENGUE");
+      crearModal.hide();
+swal("Bien Hecho!", "Datos guardados correctamente!", "success");
+     buttonGrabarDengue.disabled= true;
+         codigoIDD.readOnly = false;
+codigoId.classList.remove('invalidInput');
+        } 
+
+
+
+
+
+
+
+            
+  </script>

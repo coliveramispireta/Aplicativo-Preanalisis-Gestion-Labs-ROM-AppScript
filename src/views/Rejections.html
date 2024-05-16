@@ -1,0 +1,236 @@
+
+
+  <h3 id="titulos">Muestras No Conformes</h3>  
+         <div style="margin-top:-2%; margin-left: 7% " class="row d-flex justify-content-center ">     
+            <div style="zoom: 80%" class="col-md-2">
+              <div class="form-floating mb-5 ">   
+                <input  type="number" name="buscarCodigoId" id="buscarCodigoId" class="form-control" data-placeholder="" required>
+                <label for="buscarCodigoId" >Código ID </label>
+                  <div class="invalid-feedback">
+                    *Campo obligatorio
+                  </div>
+              </div>
+            </div>
+              <div class="col-md-2">
+                <button id="buttonBuscarRch" style="zoom: 90%"type="button" class="btn btn-primary btn-lg" onclick="buscarRegistrosRechazos()">Buscar</button>
+                 <button id="buttonBuscarRchLoading" style="zoom: 90%" class="btn btn-primary btn-lg" type="button" hidden disabled>
+  <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+  Cargando...
+</button>
+              </div>
+         </div>  
+        
+  <div id="spinnerLoadSUB" class="spinner-border text-dark spinnerLoadSUB" role="status" hidden>
+      <span class="visually-hidden">Loading...</span>
+  </div>
+
+            <div style="margin-top:1%" class="row d-flex justify-content-evenly mb-3">  
+              <div style="zoom: 80%" class="col-md-4">
+                <div class="form-floating mb-5 ">   
+                  <input style="background-color: #EDEDED; border-color: #B0B0B0" type="text" name="buscarMotivoRechazo" id="buscarMotivoRechazo" class="form-control" data-placeholder="" readonly>
+                  <label for="buscarMotivoRechazo" >Motivo de Rechazo (Tipo 1) </label>
+                </div>
+              </div>
+              <div style="zoom: 80%" class="col-md-2">
+                <div class="form-floating mb-5 ">   
+                  <input style="background-color: #EDEDED; border-color: #B0B0B0" type="number" name="buscarCantidadRechazo" id="buscarCantidadRechazo" class="form-control" data-placeholder="" readonly>
+                  <label for="buscarCantidadRechazo" >Cantidad de Rechazos</label>
+                </div>
+              </div>
+           </div>
+
+           <div style="margin-top:-2%" class="row d-flex justify-content-evenly mb-3">  
+               <div style="zoom: 80%" class="col-md-4">
+                <div class="form-floating mb-5 ">   
+                  <input style="background-color: #EDEDED; border-color: #B0B0B0" type="text" name="buscarMotivoRechazo2" id="buscarMotivoRechazo2" class="form-control" data-placeholder="" readonly>
+                  <label for="buscarMotivoRechazo2" >Motivo de Rechazo (Tipo 2) </label>
+                </div>
+              </div>
+              <div style="zoom: 80%" class="col-md-2">
+                <div class="form-floating mb-5 ">   
+                  <input style="background-color: #EDEDED; border-color: #B0B0B0" type="number" name="buscarCantidadRechazo2" id="buscarCantidadRechazo2" class="form-control" data-placeholder="" readonly>
+                  <label for="buscarCantidadRechazo2" >Cantidad de Rechazos</label>
+                </div>
+              </div>
+           </div>
+
+
+          <div class="table-responsive">
+         <table style="width:120%; text-align:center; border: 1px solid #C1C1C1" id="RegistrosTablaRZ" class="table table-striped table-bordered">
+          <thead class="table-success">
+            <tr style="color: #858585; vertical-align: middle">
+              <th>PROCEDENCIA</th>
+              <th>INSTITUCIÓN / DISA</th>
+              <th>ENFERMEDAD</th>
+              <th>TIPO DE MUESTRA</th>
+              <th>ORIGEN</th>
+              <th>NÚMERO DE OFICIO</th>
+              <th>MOTIVO DE MUESTRA</th>
+              <th>TIPO DE EMPAQUE</th>
+              <th>TEMP.</th>
+              <th>CANT.</th>
+              <th>COMENTARIOS</th>
+              <th><span style="color:transparent">""</span>RECHAZO<span style="color:transparent">""</span> "TIPO 1"</th>
+              <th><span style="color:transparent">""</span>RECHAZO<span style="color:transparent">""</span> "TIPO 2"</th>
+           
+              
+
+            </tr>  
+          </thead>  
+          <tbody id="RegistrosTablaBody">
+          </tbody>
+         </table>
+        </div>
+             
+
+         <template id="registrosRow">
+            <tr>
+              <td style="vertical-align: middle" class="registro1"></td>
+              <td style="vertical-align: middle" class="registro2"></td>
+              <td style="vertical-align: middle" class="registro3"></td>
+              <td style="vertical-align: middle" class="registro4"></td>
+              <td style="vertical-align: middle" class="registro5"></td>
+              <td style="vertical-align: middle" class="registro6"></td>
+              <td style="vertical-align: middle" class="registro7"></td>
+              <td style="vertical-align: middle" class="registro8"></td>
+              <td style="vertical-align: middle" class="registro9"></td>
+              <td style="vertical-align: middle" class="registro10"></td>
+              <td style="vertical-align: middle" class="registro11"></td>
+              <td style="vertical-align: middle"><button type="button" class="btn btn-danger btn-sm agregarSubidRZ" data-bs-toggle="modal" data-bs-target="#createModalRch"> 🚫 Rechazar</button></td>
+
+<td style="vertical-align: middle"><button type="button" class="btn btn-warning btn-sm agregarSubidRZ" data-bs-toggle="modal" data-bs-target="#createModalRch2"> 🚫 Rechazar</button></td>
+              </tr>
+         </template>
+          </br>
+
+<input  type="number" value="5" name="buscarFechaEntregaLab" id="totalesConformes__input"  data-placeholder="" hidden>
+<input  type="number" value="5" name="buscarFechaEntregaLab" id="totalesRechazos__input"  data-placeholder="" hidden>
+
+
+<img   style="zoom: 95%; filter: brightness(1.1); mix-blend-mode: multiply" jsaction="rcuQ6b:trigger.M8vzZb;" class="imagenRechazo ocultar-div" jsname="Q4LuWd" width="180" height="180" alt=" " src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQaJT-DZDPKVJcuIuFNA0WCUHCCcAECshrJ6Q&amp;usqp=CAU" data-iml="2200.39999999851">
+
+
+      <div class="row d-flex justify-content-evenly mb-3">
+        <div style="zoom: 80%" class="col-md-2">
+          <div class="col">
+            <h3 class="totalesRechazos">No Conformes:</h3>  
+          </div>
+          <div class="col textRechazos_totales" id="totalesRechazosInput" class="col">
+            </div>
+        </div>  
+
+        <div style="zoom: 80%" class="col-md-2">
+          <div class="col">
+            <h3 class="totalesConformes">Conformes:</h3>  
+          </div>  
+          <div class="col textConformes_totales" id="totalesConformesInput" class="col">
+            </div>  
+        </div>
+      </div>
+</br>
+           
+
+          </main> 
+
+         
+ <!-- Modal create -->
+          <div class="modal fade" id="createModalRch" tabindex="-1" aria-labelledby="createModalLabelRch" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="createModalLabelRch">Agregar Rechazo</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+            <form name="agregarModalRch" id="agregarModalRch" class="needs-validation" method="post" action="<?= pubUrl ?>" >                  
+              <div style="zoom: 80%" class="col">
+                <div class="form-floating mb-5 ">   
+                  <input style="background-color: #EDEDED; border-color: #B0B0B0" type="text" name="mostrarCodigoID" id="mostrarCodigoID" class="form-control" data-placeholder="" readonly>
+                  <label for="mostrarCodigoID" >Código ID </label>
+                </div>
+              </div>
+              <div style="zoom: 80%" class="col">
+                <div class="form-floating mb-5 " id="modalMotivoR">   
+                  <select type="text" name="guardarMotivoRechazo" id="guardarMotivoRechazo" class="form-select" data-placeholder="" required>
+                    <?!= include("Lista-MotivoRechazo") ?> 
+                  </select>
+                  <label for="guardarMotivoRechazo" >Motivo de Rechazo </label>
+                  <div class="invalid-feedback">
+                    *Campo obligatorio
+                  </div>
+                </div>
+              </div>
+                <div style="zoom: 80%" class="col">
+                <div class="form-floating mb-5 " id="modalCantR">   
+                  <input  type="number" name="guardarCantidadRechazo" id="guardarCantidadRechazo" class="form-control" data-placeholder="" required>
+                  <label for="guardarCantidadRechazo" >Cantidad de Rechazos</label>
+                  <div class="invalid-feedback">
+                    *Campo obligatorio
+                  </div>
+                </div>
+              </div>
+                  </form>  
+                  <div id="alertaModalRch1" class="alert alert-danger" role="alert" hidden>
+                          *Completa todos los campos!
+                  </div>                  
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button id="ButtonModalGrabarRz" type="button" class="btn btn-primary" onclick="validarFormularioRech()">Grabar</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+<!-- Modal create2 -->
+          <div class="modal fade" id="createModalRch2" tabindex="-1" aria-labelledby="createModalLabelRch2" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="createModalLabelRch">Agregar 2do tipo de Rechazo</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+            <form name="agregarModalRch2" id="agregarModalRch2" class="needs-validation" method="post" action="<?= pubUrl ?>" >                  
+              <div style="zoom: 80%" class="col">
+                <div class="form-floating mb-5 ">   
+                  <input style="background-color: #EDEDED; border-color: #B0B0B0" type="text" name="mostrarCodigoID2" id="mostrarCodigoID2" class="form-control" data-placeholder="" readonly>
+                  <label for="mostrarCodigoID2" >Código ID </label>
+                </div>
+              </div>
+              <div style="zoom: 80%" class="col">
+                <div class="form-floating mb-5 " id="modalMotivoR2">   
+                  <select type="text" name="guardarMotivoRechazo2" id="guardarMotivoRechazo2" class="form-select" data-placeholder="" required>
+                    <?!= include("Lista-MotivoRechazo") ?> 
+                  </select>
+                  <label for="guardarMotivoRechazo2" >Motivo de Rechazo </label>
+                  <div class="invalid-feedback">
+                    *Campo obligatorio
+                  </div>
+                </div>
+              </div>
+                <div style="zoom: 80%" class="col">
+                <div class="form-floating mb-5 " id="modalCantR2">   
+                  <input  type="number" name="guardarCantidadRechazo2" id="guardarCantidadRechazo2" class="form-control" data-placeholder="" required>
+                  <label for="guardarCantidadRechazo2" >Cantidad de Rechazos</label>
+                  <div class="invalid-feedback">
+                    *Campo obligatorio
+                  </div>
+                </div>
+              </div>
+                  </form>  
+                  <div id="alertaModalRch2" class="alert alert-danger" role="alert" hidden>
+                          *Completa todos los campos!
+                  </div>                 
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button id="ButtonModalGrabarRz2" type="button" class="btn btn-primary" onclick="validarFormularioRech2()">Grabar</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+             

@@ -1,0 +1,739 @@
+ <script>
+  const entrega_page = document.getElementById("entrega_page");
+// FUNCIONES ENTREGA LABORATORIO
+
+ function buscarRegistrosEntrega(){ 
+    const codigoIDBuscado = entrega_page.querySelector("#buscarCodigoId").value;
+
+    let laboratorioBuscado = entrega_page.querySelector("#buscarLabEntrega");
+    let lfechaBuscada = entrega_page.querySelector("#buscarFechaEntregaLab");
+
+    let dpersonalBuscado = entrega_page.querySelector("#buscarPersonalDigitacion");
+    let dfechaBuscada = entrega_page.querySelector("#buscarFechaDigitacion");
+    
+    let psedeBuscada = entrega_page.querySelector("#buscar1raSede");
+    let ppersonalBuscado = entrega_page.querySelector("#buscarPersonalRecepcion");
+    let pfechaBuscada = entrega_page.querySelector("#buscarFecha");
+
+    let sSedeBuscada = entrega_page.querySelector("#buscar2raSede");
+    let spersonalBuscado = entrega_page.querySelector("#buscarPersonalRecepcion2");
+    let sfechaBuscada = entrega_page.querySelector("#buscarFecha2");
+
+    let tsedeBuscada = entrega_page.querySelector("#buscar3raSede");
+    let tpersonalBuscado = entrega_page.querySelector("#buscarPersonalRecepcion3");
+    let tfechaBuscada = entrega_page.querySelector("#buscarFecha3");
+
+    //const texto = entrega_page.querySelector("#buscarCodigoId").value;
+    //entrega_page.querySelector("#mostrarCodigoID").value=texto;
+
+    //const texto = entrega_page.querySelector("#mostrarCodigoID");
+     
+
+    google.script.run
+    .withSuccessHandler( info =>{
+      let tableBody = entrega_page.querySelector("#RegistrosTablaBody");
+      tableBody.innerHTML = "";
+      if ( info.length > 0){
+        psedeBuscada.value = info[0][1];
+
+        //texto.value = info[0][0];
+        ppersonalBuscado.value = info[0][2];
+        pfechaBuscada.value = info[0][13];
+
+        sSedeBuscada.value = info[0][16];
+        spersonalBuscado.value = info[0][17];
+        sfechaBuscada.value = info[0][18];
+
+        tsedeBuscada.value = info[0][19];
+        tpersonalBuscado.value = info[0][20];
+        tfechaBuscada.value = info[0][21];
+
+        dpersonalBuscado.value = info[0][22];
+        dfechaBuscada.value = info[0][23];
+
+        laboratorioBuscado.value = info[0][26];
+        lfechaBuscada.value = info[0][27];
+
+
+        const estadoPageEntrega = entrega_page.querySelector("#estadoPageEntrega");
+        const estadoPageRechazo = entrega_page.querySelector("#estadoPageRechazo");
+        const divEstadoEntrega = entrega_page.querySelector("#divEstadoEntrega");
+        const totalRechazo = Number(info[0][29]) + Number(info[0][31]);
+        if (info[0][33] === "RECHAZO TOTAL"){
+        estadoPageEntrega.innerHTML = info[0][33];
+        divEstadoEntrega.hidden = false; 
+        } else {     
+        estadoPageEntrega.innerHTML = info[0][32] 
+        estadoPageRechazo.innerHTML = " - Contiene (" + totalRechazo + ") Rechazo(s)" ;
+        divEstadoEntrega.hidden = false;            
+        }
+        
+        //step recepcion
+        const mostrarStepSede1 = entrega_page.querySelector("#stepSede1");
+        const psedeBuscadaP = entrega_page.querySelector("#buscar1raSede").value;
+        mostrarStepSede1.innerHTML = psedeBuscadaP; 
+    
+        const mostrarStepPersonal1 = entrega_page.querySelector("#stepPersonal1");
+        const ppersonalBuscadoP = entrega_page.querySelector("#buscarPersonalRecepcion").value;
+        mostrarStepPersonal1.innerHTML = ppersonalBuscadoP; 
+
+         const mostrarStepRegistro1 = entrega_page.querySelector("#stepRegistro1");
+        const registroBuscadoP = info[0][38];
+        mostrarStepRegistro1.innerHTML = registroBuscadoP; 
+        
+        const mostrarStepFecha1 = entrega_page.querySelector("#stepFecha1");
+        const pfechaBuscadaP = entrega_page.querySelector("#buscarFecha").value;
+        //mostrarStepFecha1.innerHTML = pfechaBuscadaP;
+        entrega_page.querySelector("#stepFecha1").value=pfechaBuscadaP;
+        mostrarStepFecha1.hidden = false;
+
+        //step recepcion 2
+        const mostrarStepSede2 = entrega_page.querySelector("#stepSede2");
+        const psedeBuscada2P = entrega_page.querySelector("#buscar2raSede").value;
+        mostrarStepSede2.innerHTML = psedeBuscada2P; 
+    
+        const mostrarStepPersonal2 = entrega_page.querySelector("#stepPersonal2");
+        const ppersonalBuscado2P = entrega_page.querySelector("#buscarPersonalRecepcion2").value;
+        mostrarStepPersonal2.innerHTML = ppersonalBuscado2P; 
+        
+        const mostrarStepFecha2 = entrega_page.querySelector("#stepFecha2");
+        const pfechaBuscada2P = entrega_page.querySelector("#buscarFecha2").value;
+        //mostrarStepFecha2.innerHTML = pfechaBuscada2P;
+        entrega_page.querySelector("#stepFecha2").value=pfechaBuscada2P;
+        mostrarStepFecha2.hidden = false;
+
+        //step recepcion 3
+        const mostrarStepSede3 = entrega_page.querySelector("#stepSede3");
+        const psedeBuscada3P = entrega_page.querySelector("#buscar3raSede").value;
+        mostrarStepSede3.innerHTML = psedeBuscada3P; 
+    
+        const mostrarStepPersonal3 = entrega_page.querySelector("#stepPersonal3");
+        const ppersonalBuscado3P = entrega_page.querySelector("#buscarPersonalRecepcion3").value;
+        mostrarStepPersonal3.innerHTML = ppersonalBuscado3P; 
+        
+        const mostrarStepFecha3 = entrega_page.querySelector("#stepFecha3");
+        const pfechaBuscada3P = entrega_page.querySelector("#buscarFecha3").value;
+        //mostrarStepFecha3.innerHTML = pfechaBuscada3P;
+        entrega_page.querySelector("#stepFecha3").value=pfechaBuscada3P;
+        mostrarStepFecha3.hidden = false;
+
+        //step Digitacion 
+        const mostrarStepPersonalD = entrega_page.querySelector("#stepPersonalDigitacion");
+        const ppersonalBuscado3D = entrega_page.querySelector("#buscarPersonalDigitacion").value;
+        mostrarStepPersonalD.innerHTML = ppersonalBuscado3D; 
+        
+        const mostrarStepFechaD = entrega_page.querySelector("#stepFechaDigitacion");
+        const pfechaBuscadaD = entrega_page.querySelector("#buscarFechaDigitacion").value;
+        //mostrarStepFechaD.innerHTML = pfechaBuscadaD;
+        entrega_page.querySelector("#stepFechaDigitacion").value=pfechaBuscadaD;
+        mostrarStepFechaD.hidden = false;
+
+         //step Entrega 
+        const mostrarStepLaboratorioD = entrega_page.querySelector("#stepLaboratorioDestino");
+        const pLaboratorioD = entrega_page.querySelector("#buscarLabEntrega").value;
+        mostrarStepLaboratorioD.innerHTML = pLaboratorioD; 
+        
+        const mostrarStepFechaE = entrega_page.querySelector("#stepFechaEntrega");
+        const pfechaBuscadaE = entrega_page.querySelector("#buscarFechaEntregaLab").value;
+        //mostrarStepFechaE.innerHTML = pfechaBuscadaE;
+
+        entrega_page.querySelector("#stepFechaEntrega").value=pfechaBuscadaE;
+        mostrarStepFechaE.hidden = false;
+
+
+
+
+        info.forEach(registro =>{
+          const template = entrega_page.querySelector("#registrosRow");
+          const templateRow = template.content; 
+
+          let tr = templateRow.cloneNode(true);
+          let col0 = tr.querySelector(".registro0");
+          let col1 = tr.querySelector(".registro1");
+          let col2 = tr.querySelector(".registro2");
+          let col3 = tr.querySelector(".registro3");
+          let col301 = tr.querySelector(".registro301");
+          let col4 = tr.querySelector(".registro4");
+          let col5 = tr.querySelector(".registro5");
+          let col6 = tr.querySelector(".registro6");
+          let col7 = tr.querySelector(".registro7");
+          let col8 = tr.querySelector(".registro8");
+          let col9 = tr.querySelector(".registro9");
+          let col10 = tr.querySelector(".registro10");
+          let col11 = tr.querySelector(".registro11");
+          let col12 = tr.querySelector(".registro12");
+
+          let colH1 = tr.querySelector(".registroH1");
+          let colH2 = tr.querySelector(".registroH2");
+          let colH3 = tr.querySelector(".registroH3");
+          let colH4 = tr.querySelector(".registroH4");
+          let colH5 = tr.querySelector(".registroH5");
+
+
+          col0.textContent = registro[0];
+          col1.textContent = registro[3];
+          col2.textContent = registro[4];
+          col3.textContent = registro[5];
+          col301.textContent = registro[26];
+          col4.textContent = registro[6];
+          col5.textContent = registro[7];
+          col6.textContent = registro[8];
+          col7.textContent = registro[9];
+          col8.textContent = registro[10];
+          col9.textContent = registro[11]+"°C";
+          col10.textContent = registro[12];
+          col11.textContent = registro[14];
+          col12.textContent = registro[34];
+
+          colH1.textContent = registro[1];
+          colH2.textContent = registro[16];
+          colH3.textContent = registro[19];
+          colH4.textContent = registro[23];
+          colH5.textContent = registro[27];
+          
+
+
+          
+
+          tableBody.appendChild(tr)
+
+        })
+            spinnerEnt.hidden=false;
+            spinnerLoadEnt.hidden=true;
+      }else{
+        swal("Oops!", "El código ID que intenta buscar, no se encuentra registrado en la base de datos!", "error");
+            spinnerEnt.hidden=false;
+            spinnerLoadEnt.hidden=true;
+      }
+    })
+    .buscarCamposRegistros(codigoIDBuscado);
+}
+
+
+
+
+function validarFormularioEnt(){
+   const formEnt = entrega_page.querySelector("#agregarModalEnt");
+   const alertEnt = entrega_page.querySelector("#alertaModalEnt");
+   const button1 = entrega_page.querySelector("#guardarLaboratoriosDestino").value;
+   const button2 = entrega_page.querySelector("#guardarFechaEnt").value;
+   const estadoPageEntrega = entrega_page.querySelector("#estadoPageEntrega").textContent;
+
+   const alertFch = entrega_page.querySelector("#alertaModalFch");
+   const buttonStep = entrega_page.querySelector("#stepFechaDigitacion").value;
+   const alertFch3 = entrega_page.querySelector("#alertaModalFchActual");
+   
+    const hoy = new Date();
+    const mes = hoy.getMonth() + 1;
+    const mes2d = mes.toString().padStart(2, '0');
+    const dia = hoy.getDate().toString().padStart(2, '0');
+
+    const fecha = hoy.getFullYear() + '-' + mes2d + '-' + dia ;
+    const hora = hoy.getHours().toString().padStart(2, '0') + ':' + hoy.getMinutes().toString().padStart(2, '0');
+    const fechaYHora = fecha + 'T' + hora;
+  
+ if (estadoPageEntrega === "RECEPCIONADO (PENDIENTE DE DIGITAR)") {
+    swal("Oficio Sin Digitar", "No se pueden grabar los datos de entrega, ya que el oficio aún no ha sido digitado. Por favor asegurese que el estado sea 'DIGITADO (PENDIENTE DE ENTREGAR).'", "warning");
+  } else {
+    
+     if (button1.length < 1 || button2.length < 1 ){
+     alertEnt.hidden = false;
+   } else if (button2 < buttonStep){
+     alertFch.hidden = false;
+      } else if (button2 > fechaYHora){
+     alertFch3.hidden = false;
+   } else {
+    alertEnt.hidden = true;
+    google.script.run
+    .withSuccessHandler()
+    .agregarCRUDent(formEnt);  
+      formEnt.reset();
+      const crearModal = bootstrap.Modal.getOrCreateInstance("#createModalEnt");
+      crearModal.hide();
+
+    swal("Bien hecho!", "Datos guardados correctamente!", "success");  //BANDEJA DE SALIDA
+    $("#RegistrosTablaEE td").empty();
+    $("#contenedorPrueba :input").val('');
+    $("#divOculto :input").val('');
+    $("#divInformativo :input").val('');
+    $("#divSteps :input").val('');
+    $("#divSteps span").text("");
+       }
+    }
+ }
+
+
+ 
+
+ function validarFormularioEnt2(){
+   const formEnt2 = entrega_page.querySelector("#agregarModalEnt2");
+   const alertEnt = entrega_page.querySelector("#alertaModalEnt2");
+   
+   const button2 = entrega_page.querySelector("#guardarFechaEnt2").value;
+   const estadoPageEntrega = entrega_page.querySelector("#estadoPageEntrega").textContent;
+
+   const buttonStep = entrega_page.querySelector("#stepFechaDigitacion").value;
+   const alertFch2 = entrega_page.querySelector("#alertaModalFch2");
+   const alertFch4 = entrega_page.querySelector("#alertaModalFch2Actual");
+
+    const hoy = new Date();
+    const mes = hoy.getMonth() + 1;
+    const mes2d = mes.toString().padStart(2, '0');
+    const dia = hoy.getDate().toString().padStart(2, '0');
+
+    const fecha = hoy.getFullYear() + '-' + mes2d + '-' + dia ;
+    const hora = hoy.getHours().toString().padStart(2, '0') + ':' + hoy.getMinutes().toString().padStart(2, '0');
+    const fechaYHora = fecha + 'T' + hora;
+
+  if (estadoPageEntrega === "RECEPCIONADO (PENDIENTE DE DIGITAR)") {
+    swal("Oficio Sin Digitar", "No se pueden grabar los datos de entrega, ya que el oficio aún no ha sido digitado. Por favor asegurese que el estado sea 'DIGITADO (PENDIENTE DE ENTREGAR).'", "warning");
+  } else {
+
+     if (button2.length < 1 ){
+     alertEnt.hidden = false;
+     } else if (button2 < buttonStep){
+     alertFch2.hidden = false;
+      } else if (button2 > fechaYHora){
+     alertFch4.hidden = false;
+   } else {
+    alertEnt.hidden = true;
+    google.script.run
+    .withSuccessHandler()
+    .agregarCRUDent2(formEnt2);  
+
+      formEnt2.reset();
+      const crearModal = bootstrap.Modal.getOrCreateInstance("#createModalEnt2");
+      crearModal.hide();
+    swal("¡Excelente! Los datos se han guardado con éxito.", "Si quieres asegurarte de que tus datos realmente se han guardado, espera unos 8 segundos y busca el código de nuevo. De lo contrario, puedes quedarte tranquilo/a y confiar en que tus datos ya están a salvo. ¡Te lo garantizo!", "success");
+
+entrega_page.querySelectorAll("#RegistrosTablaEE td").forEach(td => td.innerHTML = "");
+entrega_page.querySelectorAll("#contenedorPrueba input").forEach(input => input.value = "");
+entrega_page.querySelectorAll("#divOculto input").forEach(input => input.value = "");
+entrega_page.querySelectorAll("#divInformativo input").forEach(input => input.value = "");
+entrega_page.querySelectorAll("#divSteps input").forEach(input => input.value = "");
+entrega_page.querySelectorAll("#divSteps span").forEach(span => span.textContent = "");
+
+
+      }
+    }
+    
+ }
+
+
+ function grabarEditarEntrega(){
+   const alert3 = entrega_page.querySelector("#alertaModalEDIT");
+    const button1 = entrega_page.querySelector("#enfermedadEDIT").value;
+    const button2 = entrega_page.querySelector("#tipoMuestraEditEnt").value;
+    const button3 = entrega_page.querySelector("#origenMuestraEdit").value;
+    const button4 = entrega_page.querySelector("#nroOficioEdit").value;
+    const button5 = entrega_page.querySelector("#motivoMuestraEdit").value;
+    const button6 = entrega_page.querySelector("#tipoEmpaqueEdit").value;
+    const button7 = entrega_page.querySelector("#cantidadMuestrasEdit").value;
+    const button8 = entrega_page.querySelector("#procedenciaEDIT").value;
+    const button9 = entrega_page.querySelector("#labRefEDIT").value;
+    const button10 = entrega_page.querySelector("#labDesEDIT").value;
+    const button11 = entrega_page.querySelector("#cantidadMuestrasMXEdit").value;
+
+    const formEdit = entrega_page.querySelector("#agregarEditar");
+   
+  if (button1.length < 1 || button2.length < 1 || button3.length < 1 || button4.length < 1 || button5.length < 1 || button6.length < 1 || button7.length < 1 || button8.length < 1 || button9.length < 1 || button10.length < 1 || button11.length < 1 ){
+     alert3.hidden = false;
+     ////console.log(button3.length);
+   } else {
+    alert3.hidden = true;
+    google.script.run
+    .withSuccessHandler()
+    .agregarCRUDEdit(formEdit);  
+      formEdit.reset();
+      const crearModal = bootstrap.Modal.getOrCreateInstance("#createModalEntEDIT");
+      crearModal.hide();
+    swal("Bien hecho!", "Datos actualizados correctamente!", "success");
+      }
+   }
+
+
+   
+
+                const passwordField = entrega_page.querySelector("#firmaLab");
+
+passwordField.addEventListener("input", function(event) {
+    const input = event.target;
+    input.classList.add("hidden-password");
+});
+
+
+         
+             function actualizarInfop4(datalist){
+              const dtlProcedenciav4 = entrega_page.querySelector("#datalistOptionsPv4");
+               for (let i = 0; i < dtlProcedenciav4.options.length; i++){
+                 if (dtlProcedenciav4.options[i].value === datalist.value){
+                 entrega_page.querySelector("#labRefEDIT").value = dtlProcedenciav4.options[i].getAttribute("data-referencia");
+                 break;
+                 }else{
+                   entrega_page.querySelector("#labRefEDIT").value = "";
+                 }
+               }
+             }
+
+             const inputProcedenciav4 = entrega_page.querySelector("#procedenciaEDIT"); 
+inputProcedenciav4.addEventListener("blur", validarProcedencia4);
+
+function validarProcedencia4(e){
+  const inputlabRef = entrega_page.querySelector("#labRefEDIT").value;
+  const alertalabRef = entrega_page.querySelector("#alertaValidacion");
+  const buttonGrabar = entrega_page.querySelector("#ButtonModalGrabarEDIT");
+  if ( inputlabRef.length == 0){
+    alertalabRef.hidden = false;
+    buttonGrabar.disabled = true;
+
+  } else if (inputlabRef.length > 0){
+    alertalabRef.hidden = true;
+   buttonGrabar.disabled = false;
+  }
+}
+
+
+                 function actualizarInfoEnfermedadv4(datalist){
+                  const dtlenfermedadv4 = entrega_page.querySelector("#datalistOptionsEnfermedadv4");
+               for (let i = 0; i < dtlenfermedadv4.options.length; i++){
+                 if (dtlenfermedadv4.options[i].value === datalist.value){
+                 entrega_page.querySelector("#labDesEDIT").value = dtlenfermedadv4.options[i].getAttribute("data-referencia");
+                 break;
+                 }else{
+                   entrega_page.querySelector("#labDesEDIT").value = "";
+                 }
+               }
+             }
+ 
+const inputEnfermedadv4 = entrega_page.querySelector("#enfermedadEDIT"); 
+inputEnfermedadv4.addEventListener("blur", validarEnfermedad4);
+
+function validarEnfermedad4(e){
+  const inputlabDes = entrega_page.querySelector("#labDesEDIT").value;
+  const alertalabDes = entrega_page.querySelector("#alertaValidacionlabDes");
+  const buttonGrabar = entrega_page.querySelector("#ButtonModalGrabarEDIT");
+  if ( inputlabDes.length == 0){
+    alertalabDes.hidden = false;
+    buttonGrabar.disabled = true;
+
+  } else if (inputlabDes.length > 0){
+    alertalabDes.hidden = true;
+   buttonGrabar.disabled = false;
+  }
+}
+
+
+        
+                        const spinnerSUBv4 = entrega_page.querySelector("#spinnerLoadSUB");
+                        const spinnerEnt = entrega_page.querySelector("#buttonBuscarEnt");
+                        const spinnerLoadEnt = entrega_page.querySelector("#buttonBuscarEntLoading");
+
+                        spinnerEnt.addEventListener("click", cargarEnvio);
+
+                        function cargarEnvio (e){
+                      //console.log(e);
+                          spinnerEnt.hidden=true;
+                          spinnerLoadEnt.hidden=false;
+                        }
+
+
+                          // verificar clic tabla  
+                          const tablaTitulosv4 = entrega_page.querySelector("#RegistrosTablaEE");
+                          tablaTitulosv4.addEventListener("click", verificarClicE);
+                          tablaTitulosv4.addEventListener("click", verificarClicSub);
+
+                          function verificarClicE(e){
+                    const campo1 = entrega_page.querySelector("#guardarLaboratoriosDestino");
+                    const campo2 = entrega_page.querySelector("#guardarFechaEnt");
+                    const campo4 = entrega_page.querySelector("#guardarFechaEnt2");
+                    const campo5 = entrega_page.querySelector("#codigoDesde");
+                    const campo6 = entrega_page.querySelector("#codigoHasta");
+                    const campo7 = entrega_page.querySelector("#firmaLab");
+                                      
+                    const alert = entrega_page.querySelector("#alertaModalEnt");
+                    const alert2 = entrega_page.querySelector("#alertaModalEnt2");
+                    const alert3 = entrega_page.querySelector("#alertaModalEDIT");
+
+                    const alertFch = entrega_page.querySelector("#alertaModalFch");
+                    const alertFch2 = entrega_page.querySelector("#alertaModalFch2");
+                    const alertFch3 = entrega_page.querySelector("#alertaModalFchActual");
+                    const alertFch4 = entrega_page.querySelector("#alertaModalFch2Actual");
+
+                  alertFch.hidden = true;
+                  alertFch2.hidden = true;
+                  alertFch3.hidden = true;
+                  alertFch4.hidden = true;
+
+                  alert.hidden = true;
+                  alert2.hidden = true;
+                  alert3.hidden = true;     
+                  campo1.value = undefined;
+                  campo2.value = undefined;
+                  campo4.value = undefined;
+                  campo5.value = "";
+                  campo6.value = "";
+                  campo7.value = "";
+
+            if (e.target && (e.target.id === "button1" || e.target.id === "button2" || e.target.id === "button3")) {
+                    const tIndex = e.target.parentNode.parentNode.rowIndex;                
+                    const tableRow = e.target.parentNode.parentNode;
+                    const codigoRecuperado = tableRow.cells[1].textContent;
+                
+                
+                  if (e.target.id === "button1") {
+                    const tableProcedencia = tableRow.cells[2].innerHTML;
+                    const tableLabRef = tableRow.cells[3].innerHTML;
+                    const tableEnfermedad = tableRow.cells[4].innerHTML;
+                    const tableLabDes = tableRow.cells[5].innerHTML;
+                    const tableTipoMuestra = tableRow.cells[6].innerHTML;
+                    const tableOrigen = tableRow.cells[7].innerHTML;
+                    const tableOficio = tableRow.cells[8].innerHTML;
+                    const tableMotivo = tableRow.cells[9].innerHTML;
+                    const tableTipoEmpaque = tableRow.cells[10].innerHTML;
+                    const tableTemperatura = parseFloat(tableRow.cells[11].innerHTML.replace("°C", ""));
+                    const tableCantidad = tableRow.cells[12].innerHTML;
+                    const tableComentario = tableRow.cells[14].innerHTML;
+                    const tableCantidadMX = tableRow.cells[13].innerHTML;
+
+                    entrega_page.querySelector("#MostrarCodigoIDEdit").value = codigoRecuperado;
+                    entrega_page.querySelector("#procedenciaEDIT").value = tableProcedencia;
+                    entrega_page.querySelector("#labRefEDIT").value = tableLabRef;
+                    entrega_page.querySelector("#enfermedadEDIT").value = tableEnfermedad;
+                    entrega_page.querySelector("#labDesEDIT").value = tableLabDes;
+                    entrega_page.querySelector("#tipoMuestraEditEnt").value = tableTipoMuestra;
+                    entrega_page.querySelector("#origenMuestraEdit").value = tableOrigen;
+                    entrega_page.querySelector("#nroOficioEdit").value = tableOficio;
+                    entrega_page.querySelector("#motivoMuestraEdit").value = tableMotivo;
+                    entrega_page.querySelector("#tipoEmpaqueEdit").value = tableTipoEmpaque;
+                    entrega_page.querySelector("#temperaturaEdit").value = tableTemperatura;
+                    entrega_page.querySelector("#cantidadMuestrasEdit").value = tableCantidad;
+                    entrega_page.querySelector("#cantidadMuestrasMXEdit").value = tableCantidadMX;
+                    entrega_page.querySelector("#comentarioTextareaEdit").value = tableComentario;
+                   
+              } else if (e.target.id === "button2") {    
+                  entrega_page.querySelector("#mostrarCodigoID").value = codigoRecuperado;
+
+                    const buttonGrabar = entrega_page.querySelector("#ButtonModalGrabarE");
+                    const inputFecha = entrega_page.querySelector("#modalFechaE");
+                    const inputLab = entrega_page.querySelector("#modalLaboratorio");
+                  
+                    const tableBody = entrega_page.querySelector("#RegistrosTablaEE");
+                    const tableBodyCount = tableBody.rows.length;
+                    
+                    if(tableBodyCount > 2){
+                      if (tIndex === 1){
+                        buttonGrabar.hidden = true;
+                        inputFecha.hidden = true;
+                        inputLab.hidden = true;   
+                      
+                      } else {
+                        buttonGrabar.hidden = false;
+                        inputFecha.hidden = false;
+                        inputLab.hidden = false;                 
+                      }
+                    } 
+                    
+              } else if (e.target.id === "button3") {
+                  entrega_page.querySelector("#mostrarCodigoID2").value = codigoRecuperado;
+        
+                    const buttonGrabar2 = entrega_page.querySelector("#ButtonModalGrabarE2");
+                    const inputFecha2 = entrega_page.querySelector("#modalFechaE2");
+                    const inputLab2 = entrega_page.querySelector("#modalLaboratorio");
+
+                    const tableBody = entrega_page.querySelector("#RegistrosTablaEE");
+                    const tableBodyCount = tableBody.rows.length;
+                    const tableComentario = tableRow.cells[14].innerHTML;
+                     entrega_page.querySelector("#comentarioTextarea").value = tableComentario;
+
+                    const sede1 = tableRow.cells[15].textContent;
+                    const sede2 = tableRow.cells[16].textContent;
+                    const sede3 = tableRow.cells[17].textContent;
+                    const fecgaDig = tableRow.cells[18].textContent;
+                    const fechaEnt = tableRow.cells[19].textContent;
+                    let ultimaSedeE;
+
+console.log("sede1: ", sede1);
+console.log("sede2: ", sede2);
+console.log("sede3: ", sede3);
+console.log("Fecha Digitación: ", fecgaDig);
+console.log("Fecha Entrega: ", fechaEnt);
+
+                          if (sede3 !== "") { // Verificar si es una cadena no vacía
+                          ultimaSedeE = sede3;
+                        } else if (sede2 !== "") { // Verificar si es una cadena no vacía
+                          ultimaSedeE = sede2;
+                        } else if (sede1 !== "") { // Verificar si es una cadena no vacía
+                          ultimaSedeE = sede1;
+                        } else {
+                          ultimaSedeE = "Datos inconsistentes"; // Asignar un valor predeterminado en caso de cadenas vacías
+                        }
+
+console.log("Ultima sede: " + ultimaSedeE);
+entrega_page.querySelector("#ultimaSedeText").innerHTML = ultimaSedeE;
+
+                    if(tableBodyCount > 2){
+                      if (tIndex === 1){
+                        buttonGrabar2.hidden = true;
+                        inputFecha2.hidden = true;
+                        inputLab2.hidden = true;   
+                    
+                      } else {
+                        buttonGrabar2.hidden = false;
+                        inputFecha2.hidden = false;
+                        inputLab2.hidden = false;
+                        }
+                      } 
+                    } 
+                  }
+                }
+
+ function verificarClicSub(e){
+   spinnerSUBv4.hidden=false; 
+
+                  const tRow = e.target.parentNode.rowIndex;
+                  const tRow2 = e.target.parentNode.parentNode.rowIndex;
+                  const tableRow = e.target.parentNode.parentNode;
+                  let codigoRecuperado;
+
+                  if (e.target && (e.target.id === "button1" || e.target.id === "button2" || e.target.id === "button3")) {
+                    codigoRecuperado = tableRow.cells[1].textContent;
+
+                  } else {
+                    codigoRecuperado = e.target.parentNode.cells[1].textContent;
+                    }
+
+                  if (tRow === 0 || tRow === 1 || tRow2 === 1 ){
+                            spinnerSUBv4.hidden=true;     
+
+                  } else {  
+                    
+    let laboratorioBuscado = entrega_page.querySelector("#buscarLabEntrega");
+    let lfechaBuscada = entrega_page.querySelector("#buscarFechaEntregaLab");
+
+    let dpersonalBuscado = entrega_page.querySelector("#buscarPersonalDigitacion");
+    let dfechaBuscada = entrega_page.querySelector("#buscarFechaDigitacion");
+    
+    let psedeBuscada = entrega_page.querySelector("#buscar1raSede");
+    let ppersonalBuscado = entrega_page.querySelector("#buscarPersonalRecepcion");
+    let pfechaBuscada = entrega_page.querySelector("#buscarFecha");
+
+    let sSedeBuscada = entrega_page.querySelector("#buscar2raSede");
+    let spersonalBuscado = entrega_page.querySelector("#buscarPersonalRecepcion2");
+    let sfechaBuscada = entrega_page.querySelector("#buscarFecha2");
+
+    let tsedeBuscada = entrega_page.querySelector("#buscar3raSede");
+    let tpersonalBuscado = entrega_page.querySelector("#buscarPersonalRecepcion3");
+    let tfechaBuscada = entrega_page.querySelector("#buscarFecha3");     
+
+    google.script.run
+    .withSuccessHandler( info =>{
+        if ( info.length > 0){
+        psedeBuscada.value = info[0][1];
+
+        ppersonalBuscado.value = info[0][2];
+        pfechaBuscada.value = info[0][13];
+
+        sSedeBuscada.value = info[0][16];
+        spersonalBuscado.value = info[0][17];
+        sfechaBuscada.value = info[0][18];
+
+        tsedeBuscada.value = info[0][19];
+        tpersonalBuscado.value = info[0][20];
+        tfechaBuscada.value = info[0][21];
+
+        dpersonalBuscado.value = info[0][22];
+        dfechaBuscada.value = info[0][23];
+
+        laboratorioBuscado.value = info[0][26];
+        lfechaBuscada.value = info[0][27];
+
+        const estadoPageEntrega = entrega_page.querySelector("#estadoPageEntrega");
+        const estadoPageRechazo = entrega_page.querySelector("#estadoPageRechazo");
+        const divEstadoEntrega = entrega_page.querySelector("#divEstadoEntrega");
+        const totalRechazo = Number(info[0][29]) + Number(info[0][31]);
+        
+              if (info[0][33] === "RECHAZO TOTAL"){
+              estadoPageEntrega.innerHTML = info[0][33];
+              divEstadoEntrega.hidden = false; 
+
+        } else {     
+        estadoPageEntrega.innerHTML = info[0][32] 
+        estadoPageRechazo.innerHTML = " - Contiene (" + totalRechazo + ") Rechazo(s)" ;
+        divEstadoEntrega.hidden = false;       
+        }
+
+        //step recepcion
+        const mostrarStepSede1 = entrega_page.querySelector("#stepSede1");
+        const psedeBuscadaP = entrega_page.querySelector("#buscar1raSede").value;
+        mostrarStepSede1.innerHTML = psedeBuscadaP; 
+    
+        const mostrarStepPersonal1 = entrega_page.querySelector("#stepPersonal1");
+        const ppersonalBuscadoP = entrega_page.querySelector("#buscarPersonalRecepcion").value;
+        mostrarStepPersonal1.innerHTML = ppersonalBuscadoP; 
+        
+        const mostrarStepFecha1 = entrega_page.querySelector("#stepFecha1");
+        const pfechaBuscadaP = entrega_page.querySelector("#buscarFecha").value;
+        //mostrarStepFecha1.innerHTML = pfechaBuscadaP;
+        entrega_page.querySelector("#stepFecha1").value=pfechaBuscadaP;
+        mostrarStepFecha1.hidden = false;
+
+        //step recepcion 2
+        const mostrarStepSede2 = entrega_page.querySelector("#stepSede2");
+        const psedeBuscada2P = entrega_page.querySelector("#buscar2raSede").value;
+        mostrarStepSede2.innerHTML = psedeBuscada2P; 
+    
+        const mostrarStepPersonal2 = entrega_page.querySelector("#stepPersonal2");
+        const ppersonalBuscado2P = entrega_page.querySelector("#buscarPersonalRecepcion2").value;
+        mostrarStepPersonal2.innerHTML = ppersonalBuscado2P; 
+        
+        const mostrarStepFecha2 = entrega_page.querySelector("#stepFecha2");
+        const pfechaBuscada2P = entrega_page.querySelector("#buscarFecha2").value;
+        //mostrarStepFecha2.innerHTML = pfechaBuscada2P;
+        entrega_page.querySelector("#stepFecha2").value=pfechaBuscada2P;
+        mostrarStepFecha2.hidden = false;
+
+        //step recepcion 3
+        const mostrarStepSede3 = entrega_page.querySelector("#stepSede3");
+        const psedeBuscada3P = entrega_page.querySelector("#buscar3raSede").value;
+        mostrarStepSede3.innerHTML = psedeBuscada3P; 
+    
+        const mostrarStepPersonal3 = entrega_page.querySelector("#stepPersonal3");
+        const ppersonalBuscado3P = entrega_page.querySelector("#buscarPersonalRecepcion3").value;
+        mostrarStepPersonal3.innerHTML = ppersonalBuscado3P; 
+        
+        const mostrarStepFecha3 = entrega_page.querySelector("#stepFecha3");
+        const pfechaBuscada3P = entrega_page.querySelector("#buscarFecha3").value;
+        //mostrarStepFecha3.innerHTML = pfechaBuscada3P;
+        entrega_page.querySelector("#stepFecha3").value=pfechaBuscada3P;
+        mostrarStepFecha3.hidden = false;
+
+        //step Digitacion 
+        const mostrarStepPersonalD = entrega_page.querySelector("#stepPersonalDigitacion");
+        const ppersonalBuscado3D = entrega_page.querySelector("#buscarPersonalDigitacion").value;
+        mostrarStepPersonalD.innerHTML = ppersonalBuscado3D; 
+        
+        const mostrarStepFechaD = entrega_page.querySelector("#stepFechaDigitacion");
+        const pfechaBuscadaD = entrega_page.querySelector("#buscarFechaDigitacion").value;
+        //mostrarStepFechaD.innerHTML = pfechaBuscadaD;
+        entrega_page.querySelector("#stepFechaDigitacion").value=pfechaBuscadaD;
+        mostrarStepFechaD.hidden = false;
+
+         //step Entrega 
+        const mostrarStepLaboratorioD = entrega_page.querySelector("#stepLaboratorioDestino");
+        const pLaboratorioD = entrega_page.querySelector("#buscarLabEntrega").value;
+        mostrarStepLaboratorioD.innerHTML = pLaboratorioD; 
+        
+        const mostrarStepFechaE = entrega_page.querySelector("#stepFechaEntrega");
+        const pfechaBuscadaE = entrega_page.querySelector("#buscarFechaEntregaLab").value;
+
+        entrega_page.querySelector("#stepFechaEntrega").value=pfechaBuscadaE;
+        mostrarStepFechaE.hidden = false;
+        
+        spinnerSUBv4.hidden=true; 
+             }                
+         })
+    .buscarCamposRegistros(codigoRecuperado);  
+      } 
+    }
+
+</script>

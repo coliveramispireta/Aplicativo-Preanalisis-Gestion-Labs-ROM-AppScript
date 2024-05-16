@@ -1,0 +1,95 @@
+ <script>
+const for027_page = document.getElementById("for027_page");
+
+// FUNCIONES BUSQUEDA FOR027
+
+ function buscarRegistrosBusquedaFOR027(){ 
+
+    const sede = for027_page.querySelector("#sede").value;                 
+    const fechaInicio = for027_page.querySelector("#fechaInicio").value; 
+    const fechaFin = for027_page.querySelector("#fechaFin").value;
+    const laboDes = for027_page.querySelector("#laboDes").value;
+    const dato = [sede, laboDes, fechaInicio, fechaFin];
+
+    google.script.run
+    .withSuccessHandler( info =>{
+      let tableBody = for027_page.querySelector("#RegistrosTablaBody");
+      tableBody.innerHTML = "";
+      if ( info.length > 0){
+
+        info.forEach(registro =>{
+          const template = for027_page.querySelector("#registrosRow");
+          const templateRow = template.content; 
+
+          let tr = templateRow.cloneNode(true);
+          let col1 = tr.querySelector(".registro1");
+          let col2 = tr.querySelector(".registro2");
+          let col3 = tr.querySelector(".registro3");
+          let col4 = tr.querySelector(".registro4");
+          let col5 = tr.querySelector(".registro5");
+          let col6 = tr.querySelector(".registro6");
+          let col7 = tr.querySelector(".registro7");
+          let col8 = tr.querySelector(".registro8");
+          let col9 = tr.querySelector(".registro9");
+         
+          let idLabs;
+
+          if (registro[37] === "123456789987654321123456987123456789987654321123456987" ){
+            idLabs = "1GnMHFDMhmUSO3-vfo2i_XvUsmR57K77n";
+          } else if (registro[37] === "654789932151891635132165493654789932151891635132165493" ) {
+            idLabs = "1A-mTmxxtdS_A84zruYBlW7xT12YDakvp";
+          } else if (registro[37] === "995959591486264642312654255995959591486264642312654255" ) {
+            idLabs = "1omRrB9kMSgIxEB1vSAH_cKRc2AQCRVy6";
+          }  else if (registro[37] === "845165132165132135456313373845165132165132135456313373" ) {
+            idLabs = "1UPKXQcIDxUC6B8DK8b1iH1iEbRb6FDXG";
+          }  else if (registro[37] === "198165358543153541847888888198165358543153541847888888" ) {
+            idLabs = "1aXth2UjC1dFIZVX7Yk-FaHbGA5nWsPwK";
+          }  else if (registro[37] === "545487872121516288828882468545487872121516288828882468" ) {
+            idLabs = "19ieNjXQ0FXhHNTnnN3Ze2dWdHH3P5hlU";
+          }  else if (registro[37] === "369369852741369191978920009369369852741369191978920009" ) {
+            idLabs = "1Kn6J5V6F-q19XDNWZiTits2Gy_DxzVww";
+          }  else if (registro[37] === "789191919397898000482780105789191919397898000482780105" ) {
+            idLabs = "1VL6xlzDL11bdikzOaRh4wRC7wDphuRh2";
+          }  else if (registro[37] === "791346973548629825015000959791346973548629825015000959" ) {
+            idLabs = "1RyaYJchmKQmqtGiHaMxlmwpTeKm4UN1u";
+          }  else if (registro[37] === "104070890909090503058020585104070890909090503058020585" ) {
+            idLabs = "13tgReMAqY3x8mSVVy1m0bC6bP9_nST5W";
+          }  else if (registro[37] === "215484800909090905902841268215484800909090905902841268" ) {
+            idLabs = "1Uaove_KC9A-fDfzUZPivBH4HHTSSklup";
+          }  else if (registro[37] === "875421999909090901070704125875421999909090901070704125" ) {
+            idLabs = "18bit-QjWdDh5ai5tfJEfG_RZBTUvx9gz";
+          }  else {
+            idLabs = "null";
+          }   
+
+          col1.textContent = registro[3];
+          col2.textContent = registro[34];
+          col3.textContent = registro[6];
+          col4.textContent = registro[12];
+          col5.textContent = registro[35]+" / "+ registro[36];
+          col6.textContent = registro[26];
+          col7.innerHTML =  `<img src="https://drive.google.com/uc?export=view&id=${idLabs}" style="filter: brightness(1.1); mix-blend-mode: multiply;" width="80" height="80" alt="">`;
+          col8.textContent = registro[27];
+          col9.textContent = registro[14];
+
+          tableBody.appendChild(tr)
+        })
+                       
+            spinnerBusq.hidden=false;
+            spinnerLoadBusq.hidden=true;
+            
+      }else{
+        swal("Oops!", "No se encuentran registros en la base de datos!", "error");
+            spinnerBusq.hidden=false;
+            spinnerLoadBusq.hidden=true;
+      }
+    })
+    .buscarCamposRegistrosFOR027(dato);
+
+   
+ 
+}
+              
+
+
+ </script>

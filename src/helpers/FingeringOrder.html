@@ -1,0 +1,796 @@
+<script>
+    const digitacion_page = document.getElementById("digitacion_page");
+
+// FUNCIONES DATOS DIGITACION
+
+    function buscarRegistrosDigitacion(){ 
+    const codigoIDBuscado = digitacion_page.querySelector("#buscarCodigoId").value;
+
+    let dpersonalBuscado = digitacion_page.querySelector("#buscarPersonalDigitacion");
+    let dfechaBuscada = digitacion_page.querySelector("#buscarFechaDigitacion");
+    
+    let psedeBuscada = digitacion_page.querySelector("#buscar1raSede");
+    let ppersonalBuscado = digitacion_page.querySelector("#buscarPersonalRecepcion");
+    let pfechaBuscada = digitacion_page.querySelector("#buscarFecha");
+
+    let sSedeBuscada = digitacion_page.querySelector("#buscar2raSede");
+    let spersonalBuscado = digitacion_page.querySelector("#buscarPersonalRecepcion2");
+    let sfechaBuscada = digitacion_page.querySelector("#buscarFecha2");
+
+    let tsedeBuscada = digitacion_page.querySelector("#buscar3raSede");
+    let tpersonalBuscado = digitacion_page.querySelector("#buscarPersonalRecepcion3");
+    let tfechaBuscada = digitacion_page.querySelector("#buscarFecha3");
+
+    let cantidadBuscada = digitacion_page.querySelector("#cantidadBuscada");
+
+    //const texto = digitacion_page.querySelector("#buscarCodigoId").value;
+    //digitacion_page.querySelector("#mostrarCodigoID").value=texto;
+
+    //const texto = digitacion_page.querySelector("#mostrarCodigoID");
+     
+
+    google.script.run
+    .withSuccessHandler( info =>{
+      let tableBody = digitacion_page.querySelector("#RegistrosTablaBody");
+      tableBody.innerHTML = "";
+      if ( info.length > 0){
+
+       // texto.value = info[0][0];
+        psedeBuscada.value = info[0][1];
+        ppersonalBuscado.value = info[0][2];
+        pfechaBuscada.value = info[0][13];
+
+        sSedeBuscada.value = info[0][16];
+        spersonalBuscado.value = info[0][17];
+        sfechaBuscada.value = info[0][18];
+
+        tsedeBuscada.value = info[0][19];
+        tpersonalBuscado.value = info[0][20];
+        tfechaBuscada.value = info[0][21];
+
+        dpersonalBuscado.value = info[0][22];
+        dfechaBuscada.value = info[0][23];
+
+        cantidadBuscada.value = info[0][12];
+
+        const cortarCodigo = digitacion_page.querySelector("#cortarCodigo");
+        if (info[0][5] === "SÍNDROME GUILLIAN BARRÉ" || info[0][5] === "SÍNDROME I. HEMORRÁGICO" || info[0][5] === "SÍNDROME FEBRIL" || info[0][5] === "TORCH" || info[0][5] === "TORCHS") {
+            cortarCodigo.hidden = true;
+          } else {
+            cortarCodigo.hidden = false;
+          }
+
+
+
+         const estadoPageDig = digitacion_page.querySelector("#estadoPageDig");
+        const divEstadoDig = digitacion_page.querySelector("#divEstadoDig");
+        const totalRechazo = Number(info[0][29]) + Number(info[0][31]);  
+        if (info[0][33] === "RECHAZO TOTAL"){
+        estadoPageDig.innerHTML = info[0][33];
+        divEstadoDig.hidden = false; 
+        } else {     
+        estadoPageDig.innerHTML = info[0][32] + " - Contiene (" + totalRechazo + ") Rechazo(s)" ;
+        divEstadoDig.hidden = false;       
+        }
+
+        //step recepcion
+        const mostrarStepSede1 = digitacion_page.querySelector("#stepSede1");
+        const psedeBuscadaP = digitacion_page.querySelector("#buscar1raSede").value;
+        mostrarStepSede1.innerHTML = psedeBuscadaP; 
+    
+        const mostrarStepPersonal1 = digitacion_page.querySelector("#stepPersonal1");
+        const ppersonalBuscadoP = digitacion_page.querySelector("#buscarPersonalRecepcion").value;
+        mostrarStepPersonal1.innerHTML = ppersonalBuscadoP; 
+
+         const mostrarStepRegistro1 = digitacion_page.querySelector("#stepRegistro1");
+        const registroBuscadoP = info[0][38];
+        mostrarStepRegistro1.innerHTML = registroBuscadoP; 
+        
+        const mostrarStepFecha1 = digitacion_page.querySelector("#stepFecha1");
+        const pfechaBuscadaP = digitacion_page.querySelector("#buscarFecha").value;
+        //mostrarStepFecha1.innerHTML = pfechaBuscadaP;
+        digitacion_page.querySelector("#stepFecha1").value=pfechaBuscadaP;
+        mostrarStepFecha1.hidden = false;
+
+        //step recepcion 2
+        const mostrarStepSede2 = digitacion_page.querySelector("#stepSede2");
+        const psedeBuscada2P = digitacion_page.querySelector("#buscar2raSede").value;
+        mostrarStepSede2.innerHTML = psedeBuscada2P; 
+    
+        const mostrarStepPersonal2 = digitacion_page.querySelector("#stepPersonal2");
+        const ppersonalBuscado2P = digitacion_page.querySelector("#buscarPersonalRecepcion2").value;
+        mostrarStepPersonal2.innerHTML = ppersonalBuscado2P; 
+        
+        const mostrarStepFecha2 = digitacion_page.querySelector("#stepFecha2");
+        const pfechaBuscada2P = digitacion_page.querySelector("#buscarFecha2").value;
+        //mostrarStepFecha2.innerHTML = pfechaBuscada2P;
+        digitacion_page.querySelector("#stepFecha2").value=pfechaBuscada2P;
+        mostrarStepFecha2.hidden = false;
+
+        //step recepcion 3
+        const mostrarStepSede3 = digitacion_page.querySelector("#stepSede3");
+        const psedeBuscada3P = digitacion_page.querySelector("#buscar3raSede").value;
+        mostrarStepSede3.innerHTML = psedeBuscada3P; 
+    
+        const mostrarStepPersonal3 = digitacion_page.querySelector("#stepPersonal3");
+        const ppersonalBuscado3P = digitacion_page.querySelector("#buscarPersonalRecepcion3").value;
+        mostrarStepPersonal3.innerHTML = ppersonalBuscado3P; 
+        
+        const mostrarStepFecha3 = digitacion_page.querySelector("#stepFecha3");
+        const pfechaBuscada3P = digitacion_page.querySelector("#buscarFecha3").value;
+        //mostrarStepFecha3.innerHTML = pfechaBuscada3P;
+        digitacion_page.querySelector("#stepFecha3").value=pfechaBuscada3P;
+        mostrarStepFecha3.hidden = false;
+
+        //step Digitacion 
+        const mostrarStepPersonalD = digitacion_page.querySelector("#stepPersonalDigitacion");
+        const ppersonalBuscado3D = digitacion_page.querySelector("#buscarPersonalDigitacion").value;
+        mostrarStepPersonalD.innerHTML = ppersonalBuscado3D; 
+        
+        const mostrarStepFechaD = digitacion_page.querySelector("#stepFechaDigitacion");
+        const pfechaBuscadaD = digitacion_page.querySelector("#buscarFechaDigitacion").value;
+        //mostrarStepFechaD.innerHTML = pfechaBuscadaD;
+        digitacion_page.querySelector("#stepFechaDigitacion").value=pfechaBuscadaD;
+        mostrarStepFechaD.hidden = false;
+
+        
+        info.forEach(registro =>{
+          const template = digitacion_page.querySelector("#registrosRow");
+          const templateRow = template.content; 
+          
+
+           let tr = templateRow.cloneNode(true);
+          let col0 = tr.querySelector(".registro0");
+          let col1 = tr.querySelector(".registro1");
+          let col2 = tr.querySelector(".registro2");
+          let col3 = tr.querySelector(".registro3");
+          let col301 = tr.querySelector(".registro301");
+          let col4 = tr.querySelector(".registro4");
+          let col5 = tr.querySelector(".registro5");
+          let col6 = tr.querySelector(".registro6");
+          let col7 = tr.querySelector(".registro7");
+          let col8 = tr.querySelector(".registro8");
+          let col9 = tr.querySelector(".registro9");
+          let col10 = tr.querySelector(".registro10");
+          let col11 = tr.querySelector(".registro11");
+           let col12 = tr.querySelector(".registro12");
+
+          col0.textContent = registro[0];
+          col1.textContent = registro[3];
+          col2.textContent = registro[4];
+          col3.textContent = registro[5];
+          col301.textContent = registro[26];
+          col4.textContent = registro[6];
+          col5.textContent = registro[7];
+          col6.textContent = registro[8];
+          col7.textContent = registro[9];
+          col8.textContent = registro[10];
+          col9.textContent = registro[11]+"°C";
+          col10.textContent = registro[12];
+          col11.textContent = registro[14];
+          col12.textContent = registro[34];
+          
+          //texto.value = (col6.textContent = registro[8]);
+
+          tableBody.appendChild(tr)
+
+        })
+            spinnerDig.hidden=false;
+            spinnerLoadDig.hidden=true;
+      }else{
+        swal("Oops!", "El código ID que intenta buscar, no se encuentra registrado en la base de datos!", "error");
+            spinnerDig.hidden=false;
+            spinnerLoadDig.hidden=true;
+      }
+      
+    })
+    .buscarCamposRegistrosDig(codigoIDBuscado);
+    
+}
+
+
+
+function validarFormularioDig(){
+  const buttonDig = digitacion_page.querySelector("#ButtonModalGrabar");
+  const buttonDigLoading = digitacion_page.querySelector("#buttonDigLoading");
+  buttonDig.hidden = true;
+  buttonDigLoading.hidden = false;
+   
+   const formDig = digitacion_page.querySelector("#agregarModalDig");
+   const alertDig = digitacion_page.querySelector("#alertaModalDig");
+   const button1 = digitacion_page.querySelector("#guardarPersonalDigitacion").value;
+   const button2 = digitacion_page.querySelector("#guardarFechaDig").value;
+
+   const alertFch = digitacion_page.querySelector("#alertaModalFch");
+   const stepFecha1 = digitacion_page.querySelector("#stepFecha1").value;
+   const stepFecha2 = digitacion_page.querySelector("#stepFecha2").value;
+   const stepFecha3 = digitacion_page.querySelector("#stepFecha3").value;
+   const alertFch4 = digitacion_page.querySelector("#alertaModalFchActual");
+   const alertFch5 = digitacion_page.querySelector("#alertaModalCeldaOcupada");
+   
+    const hoy = new Date();
+    const mes = hoy.getMonth() + 1;
+    const mes2d = mes.toString().padStart(2, '0');
+    const dia = hoy.getDate().toString().padStart(2, '0');
+
+    const fecha = hoy.getFullYear() + '-' + mes2d + '-' + dia ;
+    const hora = hoy.getHours().toString().padStart(2, '0') + ':' + hoy.getMinutes().toString().padStart(2, '0');
+    const fechaYHora = fecha + 'T' + hora;
+    let respuestaCelda = []
+
+    google.script.run.withSuccessHandler(result =>{
+      respuestaCelda = result;
+      console.log(respuestaCelda);
+      console.log(fechaYHora);
+      console.log(button2);
+
+       if (respuestaCelda === "lleno") {
+    alertFch5.hidden = false;
+  } else {
+    // Aquí colocas todas las validaciones que no dependen de la respuesta de validarCeldasNoVacias
+    if (button1.length < 1 || button2.length < 1) {
+      alertDig.hidden = false;
+    } else if (button2 < stepFecha3 || button2 < stepFecha2 || button2 < stepFecha1) {
+      alertFch.hidden = false;
+    } else if (button2 > fechaYHora) {
+      alertFch4.hidden = false;
+    } else {
+      alertDig.hidden = true;
+      agregarDatosDig(formDig);
+        
+
+digitacion_page.querySelectorAll("#RegistrosTabla td").forEach(td => td.innerHTML = "");
+digitacion_page.querySelectorAll("#pruebaclic input").forEach(input => input.value = "");
+digitacion_page.querySelectorAll("#divOculto input").forEach(input => input.value = "");
+digitacion_page.querySelectorAll("#divInformativo input").forEach(input => input.value = "");
+digitacion_page.querySelectorAll("#divSteps input").forEach(input => input.value = "");
+digitacion_page.querySelectorAll("#divSteps span").forEach(span => span.textContent = "");
+
+
+
+         }
+       }
+       buttonDig.hidden = false;
+  buttonDigLoading.hidden = true;
+    })
+ .validarCeldasNoVacias(formDig);
+        } 
+      
+ 
+
+ function agregarDatosDig(formDig){
+google.script.run
+    .withSuccessHandler()
+    .agregarCRUDdig(formDig);  
+      formDig.reset();
+      const crearModal = bootstrap.Modal.getOrCreateInstance("#createModalDig");
+      crearModal.hide();
+         swal("¡Excelente! Los datos se han guardado con éxito.", "Si quieres asegurarte de que tus datos realmente se han guardado, espera unos 8 segundos y busca el código de nuevo. De lo contrario, puedes quedarte tranquilo/a y confiar en que tus datos ya están a salvo. ¡Te lo garantizo!", "success");
+ }
+
+   function grabarEditarDigitacion(){
+ const alert3 = digitacion_page.querySelector("#alertaModalEDIT");
+    const button1 = digitacion_page.querySelector("#enfermedadEDIT").value;
+    const button2 = digitacion_page.querySelector("#tipoMuestraEditDig").value;
+    const button3 = digitacion_page.querySelector("#origenMuestraEdit").value;
+    const button4 = digitacion_page.querySelector("#nroOficioEdit").value;
+    const button5 = digitacion_page.querySelector("#motivoMuestraEdit").value;
+    const button6 = digitacion_page.querySelector("#tipoEmpaqueEdit").value;
+    const button7 = digitacion_page.querySelector("#cantidadMuestrasEdit").value;
+    const button8 = digitacion_page.querySelector("#procedenciaEDIT").value;
+    const button9 = digitacion_page.querySelector("#labRefEDIT").value;
+    const button10 = digitacion_page.querySelector("#labDesEDIT").value;
+    const button11 = digitacion_page.querySelector("#cantidadMuestrasMXEdit").value;
+
+    const formEdit = digitacion_page.querySelector("#agregarEditar");
+   
+  if (button1.length < 1 || button2.length < 1 || button3.length < 1 || button4.length < 1 || button5.length < 1 || button6.length < 1 || button7.length < 1 || button8.length < 1 || button9.length < 1 || button10.length < 1 || button11.length < 1 ){
+     alert3.hidden = false;
+     ////console.log(button3.length);
+   } else {
+    alert3.hidden = true;
+    google.script.run
+    .withSuccessHandler()
+    .agregarCRUDEdit(formEdit);  
+      formEdit.reset();
+      const crearModal = bootstrap.Modal.getOrCreateInstance("#createModalDIGEDIT");
+      crearModal.hide();
+    swal("Bien hecho!", "Datos actualizados correctamente!", "success");
+      }
+   }
+
+function validarDivision() {
+  const buttonDiv = digitacion_page.querySelector("#ButtonModalGrabarDIV");
+  const buttonDivLoading = digitacion_page.querySelector("#buttonDivLoading");
+  buttonDiv.hidden = true;
+  buttonDivLoading.hidden = false;
+  const alertaCompleta = digitacion_page.querySelector("#alertaModalCompleta");
+  const alertaCantidad = digitacion_page.querySelector("#alertaModalCant");
+  const alertLleno = digitacion_page.querySelector("#alertLleno");
+  const formDiv = digitacion_page.querySelector("#agregarModalDivOf");
+
+  const cantidad = parseInt(digitacion_page.querySelector("#cantidadDivOf").value);
+  const partesInput = parseInt(digitacion_page.querySelector("#partesOf").value);
+  const valores = [];
+
+  for (let i = 1; i <= 6; i++) {
+    const valor = parseInt(document.getElementById(`parte${i}`).value);
+    if (!isNaN(valor)) {
+      valores.push(valor);
+    }
+  }
+
+let respuestaCelda = []
+
+    google.script.run.withSuccessHandler(result =>{
+      respuestaCelda = result;
+      console.log(respuestaCelda);
+   
+       if (respuestaCelda === "lleno") {
+    alertLleno.hidden = false;
+  } else {
+  if (valores.length !== partesInput) {
+    alertaCompleta.hidden = false;
+    alertaCantidad.hidden = true;
+  } else if (valores.reduce((a, b) => a + b, 0) !== cantidad) {
+    alertaCompleta.hidden = true;
+    alertaCantidad.hidden = false;
+  } else {
+    alertaCompleta.hidden = true;
+    alertaCantidad.hidden = true;
+
+    ejecutarDivision(formDiv);
+
+    swal("¡Bien hecho!", "¡Se dividió el documento correctamente!", "success");
+    }
+  }
+    buttonDiv.hidden = false;
+    buttonDivLoading.hidden = true;
+     })
+ .validarCeldasvaciasDivision(formDiv);
+}
+
+function ejecutarDivision(formDiv) {
+   google.script.run
+    .withSuccessHandler()
+    .agregarCRUDDivOf(formDiv);  
+          formDiv.reset();
+      const crearModal = bootstrap.Modal.getOrCreateInstance("#createModalDivOf");
+      crearModal.hide();
+}
+
+
+
+
+
+             function actualizarInfop3(datalist){
+              const dtlProcedenciav3 = digitacion_page.querySelector("#datalistOptionsPv3");
+               for (let i = 0; i < dtlProcedenciav3.options.length; i++){
+                 if (dtlProcedenciav3.options[i].value === datalist.value){
+                 digitacion_page.querySelector("#labRefEDIT").value = dtlProcedenciav3.options[i].getAttribute("data-referencia");
+                 break;
+                 }else{
+                   digitacion_page.querySelector("#labRefEDIT").value = "";
+                 }
+               }
+             }
+
+             const inputProcedenciav3 = digitacion_page.querySelector("#procedenciaEDIT"); 
+inputProcedenciav3.addEventListener("blur", validarProcedencia3);
+
+function validarProcedencia3(e){
+  const inputlabRef = digitacion_page.querySelector("#labRefEDIT").value;
+  const alertalabRef = digitacion_page.querySelector("#alertaValidacion");
+  const buttonGrabar = digitacion_page.querySelector("#ButtonModalGrabarEDIT");
+  if ( inputlabRef.length == 0){
+    alertalabRef.hidden = false;
+    buttonGrabar.disabled = true;
+
+  } else if (inputlabRef.length > 0){
+    alertalabRef.hidden = true;
+   buttonGrabar.disabled = false;
+  }
+}
+
+           
+
+                 function actualizarInfoEnfermedadv3(datalist){
+                  const dtlenfermedadv3 = digitacion_page.querySelector("#datalistOptionsEnfermedadv3");
+               for (let i = 0; i < dtlenfermedadv3.options.length; i++){
+                 if (dtlenfermedadv3.options[i].value === datalist.value){
+                 digitacion_page.querySelector("#labDesEDIT").value = dtlenfermedadv3.options[i].getAttribute("data-referencia");
+                 break;
+                 }else{
+                   digitacion_page.querySelector("#labDesEDIT").value = "";
+                 }
+               }
+             }
+ 
+const inputEnfermedadv3 = digitacion_page.querySelector("#enfermedadEDIT"); 
+inputEnfermedadv3.addEventListener("blur", validarEnfermedad3);
+
+function validarEnfermedad3(e){
+  const inputlabDes = digitacion_page.querySelector("#labDesEDIT").value;
+  const alertalabDes = digitacion_page.querySelector("#alertaValidacionlabDes");
+  const buttonGrabar = digitacion_page.querySelector("#ButtonModalGrabarEDIT");
+  if ( inputlabDes.length == 0){
+    alertalabDes.hidden = false;
+    buttonGrabar.disabled = true;
+
+  } else if (inputlabDes.length > 0){
+    alertalabDes.hidden = true;
+   buttonGrabar.disabled = false;
+  }
+}
+                
+const botonDiv = digitacion_page.querySelector("#botonDiv");
+const partesInput = document.getElementById('partesOf');
+const partes = document.getElementById('partes');
+const parte1 = document.getElementById('parte01');
+const parte2 = document.getElementById('parte02');
+const parte3 = document.getElementById('parte03');
+const parte4 = document.getElementById('parte04');
+const parte5 = document.getElementById('parte05');
+const parte6 = document.getElementById('parte06');
+const valor1 = document.getElementById('parte1');
+const valor2 = document.getElementById('parte2');
+const valor3 = document.getElementById('parte3');
+const valor4 = document.getElementById('parte4');
+const valor5 = document.getElementById('parte5');
+const valor6 = document.getElementById('parte6');
+
+botonDiv.addEventListener("click", dividirOficioCargarID);
+
+function dividirOficioCargarID(e){
+const alertaModalCompleta = digitacion_page.querySelector("#alertaModalCompleta");
+const alertaModalPartes = digitacion_page.querySelector("#alertaModalPartes");
+const alertaModalCant = digitacion_page.querySelector("#alertaModalCant");
+const alertLleno = digitacion_page.querySelector("#alertLleno");
+const cantidadBuscada = digitacion_page.querySelector("#cantidadBuscada").value;
+const cantidadDivOf = digitacion_page.querySelector("#cantidadDivOf");
+cantidadDivOf.value = cantidadBuscada;
+const codigoIDBuscado = digitacion_page.querySelector("#buscarCodigoId").value;
+const codigoIDDivOf = digitacion_page.querySelector("#mostrarCodigoIDDivOf");
+codigoIDDivOf.value = codigoIDBuscado;
+    partesInput.value = undefined;
+    valor1.value = undefined;
+    valor2.value = undefined;
+    valor3.value = undefined;
+    valor4.value = undefined;
+    valor5.value = undefined; 
+    valor6.value = undefined;
+    alertaModalCompleta.hidden = true;
+    alertaModalPartes.hidden = true;
+    alertaModalCant.hidden = true;
+    alertLleno.hidden = true;
+}
+
+
+
+partesInput.addEventListener('change', () => {
+  if (partesInput.value === '2') {
+    partes.hidden = false;
+    parte1.hidden = false;
+    parte2.hidden = false;
+    parte3.hidden = true;
+    parte4.hidden = true;
+    parte5.hidden = true;
+    parte6.hidden = true;
+    alertaModalPartes.hidden = true;
+    valor1.value = undefined;
+    valor2.value = undefined;
+    valor3.value = undefined;
+    valor4.value = undefined;
+    valor5.value = undefined; 
+    valor6.value = undefined;
+    } else if (partesInput.value === '3') {
+    partes.hidden = false;
+    parte1.hidden = false;
+    parte2.hidden = false;
+    parte3.hidden = false;
+    parte4.hidden = true;
+    parte5.hidden = true;
+    parte6.hidden = true;
+    alertaModalPartes.hidden = true;
+    valor1.value = undefined;
+    valor2.value = undefined;
+    valor3.value = undefined;
+    valor4.value = undefined;
+    valor5.value = undefined; 
+    valor6.value = undefined;
+  } else if (partesInput.value === '4') {
+    partes.hidden = false;
+    parte1.hidden = false;
+    parte2.hidden = false;
+    parte3.hidden = false;
+    parte4.hidden = false;
+    parte5.hidden = true;
+    parte6.hidden = true;
+    alertaModalPartes.hidden = true;
+    valor1.value = undefined;
+    valor2.value = undefined;
+    valor3.value = undefined;
+    valor4.value = undefined;
+    valor5.value = undefined; 
+    valor6.value = undefined;
+  } else if (partesInput.value === '5') {
+    partes.hidden = false;
+    parte1.hidden = false;
+    parte2.hidden = false;
+    parte3.hidden = false;
+    parte4.hidden = false;
+    parte5.hidden = false;
+    parte6.hidden = true;
+    alertaModalPartes.hidden = true;
+    valor1.value = undefined;
+    valor2.value = undefined;
+    valor3.value = undefined;
+    valor4.value = undefined;
+    valor5.value = undefined; 
+    valor6.value = undefined;
+  } else if (partesInput.value === '6') {
+    partes.hidden = false;
+    parte1.hidden = false;
+    parte2.hidden = false;
+    parte3.hidden = false;
+    parte4.hidden = false;
+    parte5.hidden = false;
+    parte6.hidden = false;
+    alertaModalPartes.hidden = true;
+    valor1.value = undefined;
+    valor2.value = undefined;
+    valor3.value = undefined;
+    valor4.value = undefined;
+    valor5.value = undefined; 
+    valor6.value = undefined;
+  } else if (partesInput.value < 2 || partesInput.value > 6) {
+    partes.hidden = true;
+    parte1.hidden = true;
+    parte2.hidden = true;
+    parte3.hidden = true;
+    parte4.hidden = true;
+    parte5.hidden = true;
+    parte6.hidden = true;
+    alertaModalPartes.hidden = false;
+     }
+});
+
+
+
+              const spinnerSUBv2 = digitacion_page.querySelector("#spinnerLoadSUB");
+              const spinnerDig = digitacion_page.querySelector("#buttonBuscarDig");
+              const spinnerLoadDig = digitacion_page.querySelector("#buttonBuscarDigLoading");
+
+              spinnerDig.addEventListener("click", cargarEnvio);
+
+              function cargarEnvio (e){
+                spinnerDig.hidden=true;
+                spinnerLoadDig.hidden=false;
+              }
+
+                // verificar clic tabla DIGITACION 
+                const tablaTitulos = digitacion_page.querySelector("#RegistrosTabla");
+    
+// metodo para recuperar los datos de la tabla e incrustralos en ls input del modal
+ tablaTitulos.addEventListener("click", verificarClic);
+
+function verificarClic(e) {
+  const campo1 = digitacion_page.querySelector("#guardarPersonalDigitacion");
+  const campo2 = digitacion_page.querySelector("#guardarFechaDig");
+  const alertFch = digitacion_page.querySelector("#alertaModalFch");
+  const alertFch2 = digitacion_page.querySelector("#alertaModalFchActual");
+  const alert = digitacion_page.querySelector("#alertaModalDig");
+  const alert3 = digitacion_page.querySelector("#alertaModalEDIT");
+  const alert5 = digitacion_page.querySelector("#alertaModalCeldaOcupada");
+  const alert6 = digitacion_page.querySelector("#alertLleno");  
+  const tIndex = e.target.parentNode.parentNode.rowIndex;
+  alertFch.hidden = true;
+  alertFch2.hidden = true;
+  alert.hidden = true;
+  alert5.hidden = true;
+  alert6.hidden = true;
+  alert3.hidden = true;
+  campo1.value = undefined;
+  campo2.value = undefined;
+
+  if (e.target && (e.target.id === "button1" || e.target.id === "button2")) {
+    const tableRow = e.target.parentNode.parentNode;
+    console.log("target: ", tableRow);
+    const codigoRecuperado = tableRow.cells[1].textContent;
+    console.log("codigoRecuperado tex: ", codigoRecuperado);
+    if (e.target.id === "button1") {
+                    const tableProcedencia = tableRow.cells[2].innerHTML;
+                    const tableLabRef = tableRow.cells[3].innerHTML;
+                    const tableEnfermedad = tableRow.cells[4].innerHTML;
+                    const tableLabDes = tableRow.cells[5].innerHTML;
+                    const tableTipoMuestra = tableRow.cells[6].innerHTML;
+                    const tableOrigen = tableRow.cells[7].innerHTML;
+                    const tableOficio = tableRow.cells[8].innerHTML;
+                    const tableMotivo = tableRow.cells[9].innerHTML;
+                    const tableTipoEmpaque = tableRow.cells[10].innerHTML;
+                    const tableTemperatura = parseFloat(tableRow.cells[11].innerHTML.replace("°C", ""));
+                    const tableCantidad = tableRow.cells[12].innerHTML;
+                    const tableComentario = tableRow.cells[14].innerHTML;
+                    const tableCantidadMX = tableRow.cells[13].innerHTML;
+
+                    digitacion_page.querySelector("#MostrarCodigoIDEdit").value = codigoRecuperado;
+                    digitacion_page.querySelector("#procedenciaEDIT").value = tableProcedencia;
+                    digitacion_page.querySelector("#labRefEDIT").value = tableLabRef;
+                    digitacion_page.querySelector("#enfermedadEDIT").value = tableEnfermedad;
+                    digitacion_page.querySelector("#labDesEDIT").value = tableLabDes;
+                    digitacion_page.querySelector("#tipoMuestraEditDig").value = tableTipoMuestra;
+                    digitacion_page.querySelector("#origenMuestraEdit").value = tableOrigen;
+                    digitacion_page.querySelector("#nroOficioEdit").value = tableOficio;
+                    digitacion_page.querySelector("#motivoMuestraEdit").value = tableMotivo;
+                    digitacion_page.querySelector("#tipoEmpaqueEdit").value = tableTipoEmpaque;
+                    digitacion_page.querySelector("#temperaturaEdit").value = tableTemperatura;
+                    digitacion_page.querySelector("#cantidadMuestrasEdit").value = tableCantidad;
+                    digitacion_page.querySelector("#cantidadMuestrasMXEdit").value = tableCantidadMX;
+                    digitacion_page.querySelector("#comentarioTextareaEdit").value = tableComentario;
+
+    } else if (e.target.id === "button2") {
+
+  const fechaActualUTC = new Date();   
+  const diferenciaHorasLocal = fechaActualUTC.getTimezoneOffset() / 60;
+  fechaActualUTC.setHours(fechaActualUTC.getHours() - diferenciaHorasLocal);
+  const formatoFechaHora = fechaActualUTC.toISOString().slice(0, 16);
+  digitacion_page.querySelector("#guardarFechaDig").value = formatoFechaHora;
+
+     digitacion_page.querySelector("#guardarPersonalDigitacion").value = userActual;
+     digitacion_page.querySelector("#mostrarCodigoID").value = codigoRecuperado;
+      
+      const buttonGrabar = digitacion_page.querySelector("#ButtonModalGrabar");
+      const inputFecha = digitacion_page.querySelector("#modalFechaD");
+      const inputPersonal = digitacion_page.querySelector("#modalPersonalD");
+      const tableBody = digitacion_page.querySelector("#RegistrosTabla");
+      const tableBodyCount = tableBody.rows.length;
+
+      if (tableBodyCount > 2) {
+        if (tIndex === 1) {
+          buttonGrabar.hidden = true;
+          inputFecha.hidden = true;
+          inputPersonal.hidden = true;
+        } else {
+          buttonGrabar.hidden = false;
+          inputFecha.hidden = false;
+          inputPersonal.hidden = false;
+        }
+      }
+    }
+  }
+}
+
+//metodo para cargar los valores de la base e incrustarlos en el step segun su codigoID
+tablaTitulos.addEventListener("click", verificarClicSub);
+
+                function verificarClicSub(e){
+                  spinnerSUBv2.hidden=false; 
+  
+                  const tRow = e.target.parentNode.rowIndex;
+                  const tRow2 = e.target.parentNode.parentNode.rowIndex;
+                  const tableRow = e.target.parentNode.parentNode;
+                  let codigoRecuperado;
+
+    if (e.target && (e.target.id === "button1" || e.target.id === "button2")) {
+    codigoRecuperado = tableRow.cells[1].textContent;
+   
+    } else {
+    codigoRecuperado = e.target.parentNode.cells[1].textContent;
+    }
+
+    if (tRow === 0 || tRow === 1 || tRow2 === 1  ){
+             spinnerSUBv2.hidden=true;   
+
+       } else {
+       
+    let dpersonalBuscado = digitacion_page.querySelector("#buscarPersonalDigitacion");
+    let dfechaBuscada = digitacion_page.querySelector("#buscarFechaDigitacion");
+    
+    let psedeBuscada = digitacion_page.querySelector("#buscar1raSede");
+    let ppersonalBuscado = digitacion_page.querySelector("#buscarPersonalRecepcion");
+    let pfechaBuscada = digitacion_page.querySelector("#buscarFecha");
+
+    let sSedeBuscada = digitacion_page.querySelector("#buscar2raSede");
+    let spersonalBuscado = digitacion_page.querySelector("#buscarPersonalRecepcion2");
+    let sfechaBuscada = digitacion_page.querySelector("#buscarFecha2");
+
+    let tsedeBuscada = digitacion_page.querySelector("#buscar3raSede");
+    let tpersonalBuscado = digitacion_page.querySelector("#buscarPersonalRecepcion3");
+    let tfechaBuscada = digitacion_page.querySelector("#buscarFecha3");
+
+    google.script.run
+    .withSuccessHandler( info =>{
+      if ( info.length > 0){
+
+        psedeBuscada.value = info[0][1];
+        ppersonalBuscado.value = info[0][2];
+        pfechaBuscada.value = info[0][13];
+
+        sSedeBuscada.value = info[0][16];
+        spersonalBuscado.value = info[0][17];
+        sfechaBuscada.value = info[0][18];
+
+        tsedeBuscada.value = info[0][19];
+        tpersonalBuscado.value = info[0][20];
+        tfechaBuscada.value = info[0][21];
+
+        dpersonalBuscado.value = info[0][22];
+        dfechaBuscada.value = info[0][23];
+
+        const estadoPageDig = digitacion_page.querySelector("#estadoPageDig");
+        const divEstadoDig = digitacion_page.querySelector("#divEstadoDig");
+        const totalRechazo = Number(info[0][29]) + Number(info[0][31]); 
+
+                    if (info[0][33] === "RECHAZO TOTAL"){
+                    estadoPageDig.innerHTML = info[0][33];
+                    divEstadoDig.hidden = false; 
+
+                    } else {     
+                    estadoPageDig.innerHTML = info[0][32] + " - Contiene (" + totalRechazo + ") Rechazo(s)" ;
+                    divEstadoDig.hidden = false;       
+                    }
+
+   
+        //step recepcion
+        const mostrarStepSede1 = digitacion_page.querySelector("#stepSede1");
+        const psedeBuscadaP = digitacion_page.querySelector("#buscar1raSede").value;
+        mostrarStepSede1.innerHTML = psedeBuscadaP; 
+    
+        const mostrarStepPersonal1 = digitacion_page.querySelector("#stepPersonal1");
+        const ppersonalBuscadoP = digitacion_page.querySelector("#buscarPersonalRecepcion").value;
+        mostrarStepPersonal1.innerHTML = ppersonalBuscadoP; 
+        
+        const mostrarStepFecha1 = digitacion_page.querySelector("#stepFecha1");
+        const pfechaBuscadaP = digitacion_page.querySelector("#buscarFecha").value;
+        digitacion_page.querySelector("#stepFecha1").value=pfechaBuscadaP;
+        mostrarStepFecha1.hidden = false;
+
+        //step recepcion 2
+        const mostrarStepSede2 = digitacion_page.querySelector("#stepSede2");
+        const psedeBuscada2P = digitacion_page.querySelector("#buscar2raSede").value;
+        mostrarStepSede2.innerHTML = psedeBuscada2P; 
+    
+        const mostrarStepPersonal2 = digitacion_page.querySelector("#stepPersonal2");
+        const ppersonalBuscado2P = digitacion_page.querySelector("#buscarPersonalRecepcion2").value;
+        mostrarStepPersonal2.innerHTML = ppersonalBuscado2P; 
+        
+        const mostrarStepFecha2 = digitacion_page.querySelector("#stepFecha2");
+        const pfechaBuscada2P = digitacion_page.querySelector("#buscarFecha2").value;
+        digitacion_page.querySelector("#stepFecha2").value=pfechaBuscada2P;
+        mostrarStepFecha2.hidden = false;
+
+        //step recepcion 3
+        const mostrarStepSede3 = digitacion_page.querySelector("#stepSede3");
+        const psedeBuscada3P = digitacion_page.querySelector("#buscar3raSede").value;
+        mostrarStepSede3.innerHTML = psedeBuscada3P; 
+    
+        const mostrarStepPersonal3 = digitacion_page.querySelector("#stepPersonal3");
+        const ppersonalBuscado3P = digitacion_page.querySelector("#buscarPersonalRecepcion3").value;
+        mostrarStepPersonal3.innerHTML = ppersonalBuscado3P; 
+        
+        const mostrarStepFecha3 = digitacion_page.querySelector("#stepFecha3");
+        const pfechaBuscada3P = digitacion_page.querySelector("#buscarFecha3").value;
+        digitacion_page.querySelector("#stepFecha3").value=pfechaBuscada3P;
+        mostrarStepFecha3.hidden = false;
+
+        //step Digitacion 
+        const mostrarStepPersonalD = digitacion_page.querySelector("#stepPersonalDigitacion");
+        const ppersonalBuscado3D = digitacion_page.querySelector("#buscarPersonalDigitacion").value;
+        mostrarStepPersonalD.innerHTML = ppersonalBuscado3D; 
+        
+        const mostrarStepFechaD = digitacion_page.querySelector("#stepFechaDigitacion");
+        const pfechaBuscadaD = digitacion_page.querySelector("#buscarFechaDigitacion").value;
+        digitacion_page.querySelector("#stepFechaDigitacion").value=pfechaBuscadaD;
+        mostrarStepFechaD.hidden = false;   
+
+        spinnerSUBv2.hidden=true; 
+
+           }                
+      })
+    .buscarCamposRegistrosDig(codigoRecuperado);
+    
+} 
+ }
+
+
+</script>

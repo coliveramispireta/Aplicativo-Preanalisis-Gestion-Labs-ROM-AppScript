@@ -1,0 +1,648 @@
+<h3 id="titulos">Datos de Digitación</h3>
+<div id="pruebaclic" style="margin-top:-2%; margin-left: 7% " class="row d-flex justify-content-center ">
+  <div style="zoom: 80%" class="col-md-2">
+    <div class="form-floating mb-5 ">
+      <input type="number" name="buscarCodigoId" id="buscarCodigoId" class="form-control" data-placeholder="" required>
+      <label for="buscarCodigoId">Código ID </label>
+      <div class="invalid-feedback">
+        *Campo obligatorio
+      </div>
+    </div>
+  </div>
+  <div class="col-md-2">
+    <button id="buttonBuscarDig" style="zoom: 90%" type="button" class="btn btn-primary btn-lg agregarNSubid"
+      onclick="buscarRegistrosDigitacion()">Buscar</button>
+    <button id="buttonBuscarDigLoading" style="zoom: 90%" class="btn btn-primary btn-lg" type="button" hidden disabled>
+      <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+      Cargando...
+    </button>
+  </div>
+</div>
+
+
+
+<div id="divOculto" hidden>
+  <div class="row d-flex justify-content-evenly mb-3">
+    <div style="zoom: 80%" class="col-md-3">
+      <div class="form-floating mb-5 ">
+        <input style="background-color: #EDEDED; border-color: #B0B0B0" type="text" name="buscar1raSede"
+          id="buscar1raSede" class="form-control" data-placeholder="" readonly>
+        <label for="buscar1raSede">1era Sede </label>
+      </div>
+    </div>
+    <div style="zoom: 80%" class="col-md-4">
+      <div class="form-floating mb-5 ">
+        <input style="background-color: #EDEDED; border-color: #B0B0B0" type="text" name="buscarPersonalRecepcion"
+          id="buscarPersonalRecepcion" class="form-control" data-placeholder="" readonly>
+        <label for="buscarPersonalRecepcion">1er Personal de Recepción </label>
+      </div>
+    </div>
+    <div style="zoom: 80%" class="col-md-3">
+      <div class="form-floating mb-5 ">
+        <input style="background-color: #EDEDED; border-color: #B0B0B0" type="datetime-local" name="buscarFecha"
+          id="buscarFecha" class="form-control" data-placeholder="" readonly>
+        <label for="buscarFecha">1ra Fecha de Recepción</label>
+      </div>
+    </div>
+
+  </div>
+  <div style="margin-top:-2%" class="row d-flex justify-content-evenly mb-3">
+    <div style="zoom: 80%" class="col-md-3">
+      <div class="form-floating mb-5 ">
+        <input style="background-color: #EDEDED; border-color: #B0B0B0" type="text" name="buscar2raSede"
+          id="buscar2raSede" class="form-control" data-placeholder="" readonly>
+        <label for="buscar2raSede">2da Sede </label>
+      </div>
+    </div>
+    <div style="zoom: 80%" class="col-md-4">
+      <div class="form-floating mb-5 ">
+        <input style="background-color: #EDEDED; border-color: #B0B0B0" type="text" name="buscarPersonalRecepcion2"
+          id="buscarPersonalRecepcion2" class="form-control" data-placeholder="" readonly>
+        <label for="buscarPersonalRecepcion2">2dar Personal de Recepción </label>
+      </div>
+    </div>
+    <div style="zoom: 80%" class="col-md-3">
+      <div class="form-floating mb-5 ">
+        <input style="background-color: #EDEDED; border-color: #B0B0B0" type="datetime-local" name="buscarFecha2"
+          id="buscarFecha2" class="form-control" data-placeholder="" readonly>
+        <label for="buscarFecha2">2da Fecha de Recepción</label>
+      </div>
+    </div>
+
+  </div>
+  <div style="margin-top: -2%" class="row d-flex justify-content-evenly mb-3">
+    <div style="zoom: 80%" class="col-md-3">
+      <div class="form-floating mb-5 ">
+        <input style="background-color: #EDEDED; border-color: #B0B0B0" type="text" name="buscar3raSede"
+          id="buscar3raSede" class="form-control" data-placeholder="" readonly>
+        <label for="buscar3raSede">3ra Sede </label>
+      </div>
+    </div>
+    <div style="zoom: 80%" class="col-md-4">
+      <div class="form-floating mb-5 ">
+        <input style="background-color: #EDEDED; border-color: #B0B0B0" type="text" name="buscarPersonalRecepcion3"
+          id="buscarPersonalRecepcion3" class="form-control" data-placeholder="" readonly>
+        <label for="buscarPersonalRecepcion3">3er Personal de Recepción </label>
+      </div>
+    </div>
+    <div style="zoom: 80%" class="col-md-3">
+      <div class="form-floating mb-5 ">
+        <input style="background-color: #EDEDED; border-color: #B0B0B0" type="datetime-local" name="buscarFecha3"
+          id="buscarFecha3" class="form-control" data-placeholder="" readonly>
+        <label for="buscarFecha3">3ra Fecha de Recepción</label>
+      </div>
+    </div>
+
+  </div>
+
+  <div style="zoom: 80%" class="col-md-3">
+    <div class="form-floating mb-5 ">
+      <input style="background-color: #EDEDED; border-color: #B0B0B0" type="number" name="cantidadBuscada"
+        id="cantidadBuscada" class="form-control" data-placeholder="" readonly>
+      <label for="cantidadBuscada">cant</label>
+    </div>
+  </div>
+</div>
+
+<div id="spinnerLoadSUB" class="spinner-border text-dark spinnerLoadSUB" role="status" hidden>
+  <span class="visually-hidden">Loading...</span>
+</div>
+
+<div id="divInformativo" style="margin-top:1%" class="row d-flex justify-content-evenly mb-3">
+
+  <div style="zoom: 80%" class="col-md-4">
+    <div class="form-floating mb-5 ">
+      <input style="background-color: #EDEDED; border-color: #B0B0B0" type="text" name="buscarPersonalDigitacion"
+        id="buscarPersonalDigitacion" class="form-control" data-placeholder="" readonly>
+      <label for="buscarPersonalDigitacion">Personal de Digitación </label>
+    </div>
+  </div>
+  <div style="zoom: 80%" class="col-md-3">
+    <div class="form-floating mb-5 ">
+      <input style="background-color: #EDEDED; border-color: #B0B0B0" type="datetime-local" name="buscarFechaDigitacion"
+        id="buscarFechaDigitacion" class="form-control" data-placeholder="" readonly>
+      <label for="buscarFechaDigitacion">Fecha de Digitación</label>
+    </div>
+  </div>
+
+</div>
+
+
+<div class="table-responsive">
+
+  <table style="width:120%; text-align:center; border: 1px solid #C1C1C1" id="RegistrosTabla"
+    class="table table-striped table-bordered">
+    <thead class="table-success">
+      <div id="cortarCodigo" style="margin-top: -2.1%; position: absolute; content:''" hidden> <button id="botonDiv"
+          style="opacity: 0.6" type="button" class="btn btn-light" data-bs-toggle="modal"
+          data-bs-target="#createModalDivOf">✂︎</button></div>
+      <tr style="color: #858585; vertical-align: middle">
+
+        <th><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+            class="bi bi-pencil-square" viewBox="0 0 16 16">
+            <path
+              d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+            <path fill-rule="evenodd"
+              d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
+          </svg></th>
+        <th>CODIGO ID</th>
+        <th>PROCEDENCIA</th>
+        <th>INSTITUCIÓN / DISA</th>
+        <th>ENFERMEDAD</th>
+        <th>LABORATORIO DE DESTINO</th>
+        <th>TIPO DE MUESTRA</th>
+        <th>ORIGEN</th>
+        <th>NÚMERO DE OFICIO</th>
+        <th>MOTIVO DE MUESTRA</th>
+        <th>TIPO DE EMPAQUE</th>
+        <th>TEMP.</th>
+        <th>CANT.</th>
+        <th>CANT MX.</th>
+        <th>COMENTARIOS</th>
+        <th>DIGITACIÓN</th>
+
+
+
+
+      </tr>
+    </thead>
+    <tbody id="RegistrosTablaBody">
+    </tbody>
+  </table>
+</div>
+
+
+<template id="registrosRow">
+  <tr>
+    <td style="vertical-align: middle"><button id="button1" type="button"
+        class="btn btn-outline-danger verifiClicEditar" data-bs-toggle="modal" data-bs-target="#createModalDIGEDIT"> ✎
+      </button></td>
+    <td style="vertical-align: middle" class="registro0"></td>
+    <td style="vertical-align: middle" class="registro1"></td>
+    <td style="vertical-align: middle" class="registro2"></td>
+    <td style="vertical-align: middle" class="registro3"></td>
+    <td style="vertical-align: middle" class="registro301"></td>
+    <td style="vertical-align: middle" class="registro4"></td>
+    <td style="vertical-align: middle" class="registro5"></td>
+    <td style="vertical-align: middle" class="registro6"></td>
+    <td style="vertical-align: middle" class="registro7"></td>
+    <td style="vertical-align: middle" class="registro8"></td>
+    <td style="vertical-align: middle" class="registro9"></td>
+    <td style="vertical-align: middle" class="registro10"></td>
+    <td style="vertical-align: middle" class="registro12"></td>
+    <td style="vertical-align: middle" class="registro11"></td>
+    <td style="vertical-align: middle"><button id="button2" type="button" class="btn btn-primary btn-sm agregarSubid"
+        data-bs-toggle="modal" data-bs-target="#createModalDig"> + Agregar</button></td>
+  </tr>
+</template>
+
+</br>
+
+<div id="divEstadoDig" style="text-align:center" class="step-name" hidden>
+  <span style="font-weight: bold; color: #858585; zoom: 150%">ESTADO: </span>
+  <span id="estadoPageDig" style="font-weight: 600; color: #858585; zoom: 150%"></span>
+</div>
+
+</br>
+<div id="divSteps" class="stepper-wrapper table-responsive">
+
+  <div class="stepper-item completed">
+    <div class="step-counter">1</div>
+    <div class="step-name">RECEPCIÓN</div>
+    <div style="text-align:center" class="step-name"><span id="stepSede1" style="color: #858585; zoom: 75%"></span>
+    </div>
+    <div style="text-align:center" class="step-name"><span id="stepPersonal1" style="color: #858585; zoom: 75%"> </span>
+    </div>
+    <div style="text-align:center" class="step-name"><input class="form-date__input" type="datetime-local"
+        id="stepFecha1" style="color: #858585; zoom: 75%" disabled hidden></input></div>
+    <img src="https://parkingshop.es/wp-content/uploads/2018/01/ambulancia-24118.jpg" jsaction="load:XAeZkd;"
+      jsname="HiaYvf" class="n3VNCb KAlRDb" alt=" " data-noaft="1"
+      style="filter: brightness(1.1); mix-blend-mode: multiply; width: 163px; height: 94px; margin: 0px;">
+    <div style="text-align:center" class="step-name"><span style="color: #858585; zoom: 65%">Registrado por:
+      </span></br><span id="stepRegistro1" style="color: #858585; zoom: 68%"> </span> </div>
+  </div>
+
+  <div class="stepper-item completed">
+    <div style="background-color: #9ABCA4; zoom:83%" class="step-counter">1.2</div>
+    <div class="step-name">2DA RECEPCIÓN</div>
+    <div style="text-align:center" class="step-name"><span id="stepSede2" style="color: #858585; zoom: 75%"></span>
+    </div>
+    <div style="text-align:center" class="step-name"><span id="stepPersonal2" style="color: #858585; zoom: 75%"></span>
+    </div>
+    <div style="text-align:center" class="step-name"><input class="form-date__input" type="datetime-local"
+        id="stepFecha2" style="color: #858585; zoom: 75%" disabled hidden></input></div>
+    <img
+      src="https://img.freepik.com/vector-premium/muestras-prueba-quimica-icono-doodle-vidrio-laboratorio_80590-15917.jpg"
+      jsaction="load:XAeZkd;" jsname="HiaYvf" class="n3VNCb KAlRDb"
+      alt="Muestras de prueba química en icono de doodle de vidrio de laboratorio |  Vector Premium" data-noaft="1"
+      style="filter: brightness(1.1); mix-blend-mode: multiply; width: 140px; height: 60px; margin: 30px 0px;">
+  </div>
+
+  <div class="stepper-item completed">
+    <div style="background-color: #9ABCA4; zoom:83%" class="step-counter">1.3</div>
+    <div class="step-name">3RA RECEPCIÓN</div>
+    <div style="text-align:center" class="step-name"><span id="stepSede3" style="color: #858585; zoom: 75%"></span>
+    </div>
+    <div style="text-align:center" class="step-name"><span id="stepPersonal3" style="color: #858585; zoom: 75%"></span>
+    </div>
+    <div style="text-align:center" class="step-name"><input class="form-date__input" type="datetime-local"
+        id="stepFecha3" style="color: #858585; zoom: 75%" disabled hidden></input></div>
+    <img
+      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS3YHdpYzW5eVQyNhKmM_Jv_RrKMt1WqexPfWbrHtNndxx8jgfreuspVQgyGG7syXi0xGk&amp;usqp=CAU"
+      jsaction="load:XAeZkd;" jsname="HiaYvf" class="n3VNCb"
+      alt="icono de color de prueba de laboratorio 3761849 Vector en Vecteezy" data-noaft="1"
+      style="filter: brightness(1.1); mix-blend-mode: multiply; width: 90px; height: 90px; margin: 13px 0px;">
+  </div>
+
+  <div class="stepper-item active">
+    <div class="step-counter">2</div>
+    <div class="step-name">DIGITACIÓN</div>
+    <div style="text-align:center" class="step-name"><span id="stepPersonalDigitacion"
+        style="color: #858585; zoom: 75%"></span> </div>
+    <div style="text-align:center" class="step-name"><input class="form-date__input" type="datetime-local"
+        id="stepFechaDigitacion" style="color: #858585; zoom: 75%" disabled hidden></input></div>
+    <img src="https://cdn-icons-png.flaticon.com/512/1476/1476638.png" jsaction="load:XAeZkd;" jsname="HiaYvf"
+      class="n3VNCb KAlRDb" alt="Mecanografía - Iconos gratis de computadora" data-noaft="1"
+      style="filter: brightness(1.1); mix-blend-mode: multiply; width: 90px; height: 90px; margin: 20px;">
+  </div>
+
+  <div class="stepper-item">
+    <div class="step-counter">3</div>
+    <div class="step-name">ENTREGA AL LAB.</div>
+    <img
+      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAAA6lBMVEX////w8e6JgohQLUtNKEhhvaeLhYpKJEVPK0p2Z3RuW2yGdYR+cXxoT2Te8PD2+PTQys1FG0BWOFJHHkH/6nW+s73543P49vhcQFjv9/fV0NJBETtEFz7o5+Y9ADd8bnp/aHyhkp+CeIG0qLLy7/JlSWE/CzlPIkbGvcRAFEhzXHDl4eS7sLro4+ddPVhhu6ZEG0nd19ytoapepphcl45VXWhvVmvMtGi1nGKbi5laiYRROlNahoN6YnaLeYili16vlmDBqGXVvWpYeHlUUmFWaW9TRVpOEkBdnZJlRU+hh118YFRyVFJVYmubuBSpAAAS10lEQVR4nO2dCXfaSBLHwd2mG9sMEgoLIwmbGxkwNjhxhiRmDufa2d3v/3W2q1o3Akl4QILn/3s7Mxsf0Y+q6qq+SoXCm970pje9ySer01GyfoZ9qlUxNM147mf9HHvTRGNESKudKuKEU0K4QGTN00RszAQgbdYEIxucJOLCFIA1q84AcXaKiBVK+MxS9Cl4KjvFWJxxwmt1XSByfpqxeCkGUkoQUTtNxLkpuCi1BGKPnaajghEJ52DFHj/F4aYHvuk4qrTiaSWN3hDxXET11KzYM6CYGUOm4Kx+grGIgFpb71FAlFakpzSiIqDaVgQXRKPjqORkYlECXhZ1FxGTxuJkYhEHGfWyWpSI6KgUrLg4kVi0LSgAbUTmOuqCoaM2sn7EnYXGcVxUChFVD9GELy6zftDd1FgxjXVCgD4rcoaxqIHLHqURJ1wMKVwjzHNRHyLGIncc9foYI3GC9YtctTA9C67HYlt8n3aENrxjWKBhJcqCgBJxyrGAs9rCS1k768dNr4kGi078As1IJtU1RL2Dy24cvo+yu6yfN7Wki9JyqYuWarbCiPOOShxx7fjWiHHZkLBy6ax0hW46awUBq1MA1FTkHx4f4B26qLDg2ZlA5BKxGgAU031udOqqaRqDedbPm1oT5gGeeVas+gCvxTeYHVERKPXj45MxyJkN6Fqx2fJZEDJIJ+sH3VV3PAjoc1Q3BsX/Hx5poWa7KKE+wJCjVqdD20WPU9JFg4Ceo4q8iIBH7KJ2DN4EAV0riryIacI4WkBZqrFyGNC14gBn9caRxyBfs6BnRaodfwwSGgnoWPH4Y3AjoIuoHa2L3o22AzqI9DnrJ91RE7o5BoOIRj3rZ91JcS7qDjecsFXWD7uL7mgSQKEazPizftodtC1NBAGFm5rTrB83vaSLJgBsUsj6WT9uetkxeJUIkNLjW5PBGT3h8YA1sCA5PkAZgyQZIK0dISBJaEF00SO0IM7oEwPyIwTERad4wNKxWlCui8bHYKnMjjoGu7EuWhpwwmfHB5jURcFJ+TEWa5MRnvhNAHhWqsDaxSLrJ04pueiUCPDs7IbBAtVxbYNKwE0x2O12r66uxD9dI4rvNo9qB0bGIIkEBDhPCFnq0iObVOCMPhowyCcZS90aTO6PaBPGjsEoQAfrplwu3ziIXTyfP876sZNLbr5EAdoGvKjU8IhCrVJG2hoeVzgeE96NtgNewAEFjscwOK1d2ICEHs0RvclGC55Jg1Hil7xCQo7oRHBMDJal9egIRJ0DNYTzozm/tiVNgI+WkW80+vDp/eP7T19H8kANUacLPJpwBIONLNVqmwBv0F705f5c6v7bCBC1ni5PIaq5L063uCj6KIQc/fx47uk9eCl9hiNCuHuf812Luy2AYMILNPD9uV+PEIJmDxDhkKJhZQ0RrfqAz5b9zWnCJoQsOHo8D+r9CDKFrigTsCI3cjmgtoeUU43hicnIGJROCsPM6Nt5WB8o3D9QFL16qQFs1jQRavvOoG2cLglCMQvko/s1wscR7BoKIxaLcMdSzd8O6bMHSGo3crKwyUnphzXA8/PvnNAnQdiq6kNhZnWSNVFIY807R8kvulfRiF2oZoSTfnGwPn345Pzny4jwgSIIi1U41p23EhwHeUFmFysXV9GIQCi+Y/TeAfxBfzj//WWEl0eVSbFYHAs/HeZqPO3D8EIvnHqMb0Ls2gPNT5vq24iMXrzRlBNJWFXAI0jWVH7pBgB2r+IQHRs6rvnzx+jHo9+GirRhdaXlbLY/gYufNXtWi4g0EtEeaVy7nT9+cROjiENawTgUamli3JlljeVTo4l1yo0PMdKKQNgUz/41Yiz9zLFuk4TVDhgxT5GoXBMPcYujij96Eh/GWklj58MO5kM0okg+9ClrLL/wMGG8Fe2hJiIhfoVdGTHQ6Pb50qWYZQxztaQBh7LjEW039fKFmxhHcKHCcVI4p6/l7mTUVPNbsbZhuAEnhqVt/jMA+BPiWBUmVNxT0CIn5ithFAorlsBRwYgDpP/kA/wCU2B1pctcIQnh7qihZw3lV08WptxJGhusaBMKR/3qDDeP30e4Uqr4TFgsTmjO3BSv1/E1R12zYvdqYC+z0dHnby9fXr59xrUoBjWp4rtTAm6ap5Qor5kP2EbEkphP4eUR2H4hGsMPg41GI/wvoqIFJ0UfIdw51HKzYSqvmT8Ve8MNiKWyqGWa3ZINuLhUfQumnLElAM4Dl4IUI0dJXwKOYXwwoxGFdTnnrFzBK71LXbeeuUap+DPKNHJp6WuAxSrMoXISiI4FixsR3dizDzlPdUW3Ou2nQW3w1F4gX8BF3UDMx0laHyAgrjsqaUJbHe75JYVpkqIjmGL/M3RxDcoaLSfrNQFAQDTCiJgbNWugClBGgRRnET6t88mhhpMcLLqFAO1cHUIUmVEpNJbEoOMJHqTVlsWJ7uBNIvjE77GEw5vZL9esAWIs8jCihmcs+hMwyRzXtXW439RqRcJJTcSvNjLf1seoCwIC4nXYinTm21GaGnDMOXwndk0t8UFlni4iAcMjKm5UBBbq23C7Xo8lZLAflRkbKsJFHUQamkwFSkxod6V14ozYEj+m9jKDA20ELFbrzFejluHbAovYwoh0EEs446EfO7Rwm4hFAuIVVwcRZvU8eIoEhkk2j/jJXBEuIAbZOBIQRhomy3C54xvaEuwP4fRTjBGz9tKegU++1gnBu6Rcl8MNTh3aoZ8W5lGncYTZjjQ4isI22Hq15V5SRlNGAhaeaPxQk222wEEGZ67NtU4I3iXlqcGjAaGznraMIcw048sJb0V2GgsgBi8p15lGmdFe/wXPwoaL7YSZVm0yTVSKdTWMGL6kPFlW2lGHYsV0yqzHEGZYec+xkqm0ZOsKwgb+TgjJLimrMJZud9IsZ08wn7UnvHVE9DohXJNEl5QVQ0yMw1PeMGF2M+A7zgkdu16JVnQsSJJdUgbzPMXVNGZmy4kTRryhXvrlUHFphwkAG+IzUmMGGrkSlc1Q2sArkC5i3aQcJgpVyA08UaOAjhhDhltmhvh7YTUxq3PtCzzU4yJaM7KoJo9BMVIxHp8NMQybe2fZIDh54bNiq1W1YzBRLwtoSs5pjAmLGAvZLSYiotHxdwRK3k/micHNkTgTwmrPATYQf/11wxeeNb+jpuonA5+OtoobSHF3rfYPokTrF6ENX3qW7TmqNqCRME0UGvCDkZPKoHQtPGveh379ZQuiLxaTpwn5yaxV6xEmFBmTGHssSvuWAuP0L9sQpaPiKJqwVCvIz4Wtz7jWhCcV9nfwS6ldm+b1YG4bcTtiJ0WaaCQFRBPuL933hrjDQA0rASLRsIl6ihiMd1E4MQQr//8klF8909nWM+MQMRYBMFkMjpMCylNf+2pvgod/GId1JB5vRdy8T1aqJY7BYlWBKNzXDncDFjq159YEWoaS6zjE1ZBRTUty8VO6aBLAYhFqguG+zmGAj7Jn+GsQMdaK1up5majySByD9gnavV26aDPCm/JvAheMj8WEShyDxSqc5eT7O6PwRAmzS6oqHE7nsY6aSIljUAjW8Mz9rQRDItIsu2q8VJPEYrzSxCDeRthnz2AYSnkA8R9w1DSAS3XfrbvhI+Sq5XfU1yKmcFEcZch+W+o2mpAJhw7i6x01calWdBfr9rwd00dEx4rFlZokaWxW8lLNWU/ef0fBPlxh9cWiicC7IiZPE8UqrqGbB2jV1q/Jks3nqMJtd0NM46J1vA7U3gtTSP1gLK52jsVUaaI+jN6n2ov6s4CjIuIuI2qaGEQXPRSgQCTUnzRW5k5JI00MWgi4z30KqzO+XHgLI/1Z0FHN9AVcqjRhXe/ZRfvjoUaZ6muAI2PRdBCXZtpYTBWDlrlnwEZFk/N631w2GIuImMpR08Sgpe07BqEYpA9aCJGsWTF+1u8qlYua+47Bghin6b8//v4QQgwmjSU8R0JHTeei+47BQuFOED58fPfu99vg4R6JGHDUZAVcqlLNOkCamItZ9cOf7/61jkiCsWgkjMVUaULbu4sKQUXP/gLEh2BlGEoa2A7ALeA2bduki8HDlGrP0NBP+ygQ/4h0VMND9Mdi9C9LF4PyVVb7Bizc4avqHj66juq3YsBR8UCi46jRvyxfacKRorqIf9yGHDVYwHWEV9mxGO2lqVx076WaDxE+TC4Rt8fiwq5uopWyVDtksa2rHmLYisECboHnS6IRd0gTh+u3o+DriaIRA7P+6sJ21AilTxPtQ/EV4BCIi/gbOqr36cpZv2dFyIvG+uHWxlPqUu2QgC4ipP7fbkOIwQIOW1atnbyYw+eQLg8euiXUNsRZoIBbYBp78q9rNpbw01puXdRG9GIREX2fcaiAs67hgpb6NLV3UJQlgamJOk4GqBykVItEpJ4VH4Kfcihp6DMgourQnI0rfGhizWDEneVyAA+3qraO6Dnqn7chxGDSaK1UJnfDqbw4yc2B+FprMpnP55PJljtbB08TIUQajMWAFQMrcFW9PVSp095RM2q9lnvjDm/d6dFnZKsWy86CIcQ/w44amPWDHafPmiqkabWlEsDbfHWyqhywVIuW7Ft560N097qCsQiPW622dLikjP+Sd14tq25ZlnsJNk8x6EgiPvwWZcXgto372JJPV6bL8YwKo5ps8Lys6+tXmO1RtL3xLz+MbERvuPFcKrRtY2si+ZZNxpzr2pwyVungPWbdD5hxDDqSvQ89K/o6bga3baTmyLdiGid+caqRRQCxqmRQqkVLIt56iM9eLDZDsVhEiMXMzR1MWNI2JVcreNu+5QfMR/fONUSfFYNJAwGVS2k/SpsX5Zubm/JFpSbfS0JJT7ebluTGRaXWHNXr2hQs4NBFxwjIauXuWalUgv+Vzq4q8iKpBp6qIyDNOE0E1cdGAbd/CMSPEjEyabTAgrgpQGs3pUBHyFJXdoswAXGeizQRVBtfTBGN6BVwYME29vy/OFvreFkqc2wbAW+At0b5iUFbbflSbB+id+LTjUVwwCVaMOKllGBGbKA7sF8FnysLOoQiFiUivIip4lkRCzi1Lgjx3cvuOzpsR3X8Vb50W1tNczXI2AJCnGncRiKCoxJjoevQVMd9OfNZuUJEuiDNst2GtnSDzs5zCAiErAONkbYhskUPTiw/2TjlmuyKxEVVdGFb8YJuug2ctQShOpXDpoeoDXyOij2RZ+CjdtjJ/OBUNE43Yb7pNnDWQkI7M9z+LhD/YjTQFR6/hCOJ7aNNdEjqtpKXbyeRRtznccNdJQkLDeSQiGjFtvsd0lEJqUl3xC5XlH59+fLygYwAsSYbmWFtk4NeOmHZhDaHZ0XfQikmDcIraCpoF+g2mrt/AURacY2YeR+WCDmENuIDIvJg69S+56QlsJTXfPX8PXbSQyNCxshXr04pl7DQwFZzt38LxL/FyHnt+6Y7WDjtOiZk/wv1s7TNC40Er3PVqxPlEXqI7/7DREHq+ybYICdnNgWngVbk32GZquTkxBy+HtZHWOgj4sN//8tCLeEV0xloIOykCe9/3rtGpFf4Rej/oebu1Rx+QtuK+L7bwAnXukp4E3OF2+T5/vNI9rOGzrny5bg41mTcLyhCAUKBaB+b0gKvSek5hDCaSDBhOruN7shLlWHb50IrRvz3fRrPQ0apNrwMJDaP0G22/v4HH31DY7o2lK+Ny90bxzpaaHSwVrNBJzQi9jwvdRvmv5AP966Xyjg8u2I5HGvqpqi74r7JJYTXF/Lvge7AkPSpM1OEBslmzuqa/nWC0cEjLFNfx3x0UtjOGDjzRPiymre3G8KFcRqTpz0vhcGEf/YlxA/gmN5bqrFIP8yDJxb0oaF0+z3AqUuIGYF+d9utf4CSpukCYl2efRvEkPAO0vWl0m9sUkHMf10MbJA4enm8P7+//yQnF1fekg283XCP17N31BNe9DXU2myTap6h5KoTH40+f/1OoezmzL86BUMR0bLv1hlUYyyvPfONIj5XLHXlC+M4lX8eAJSlebZdAiPV0TTqrUxEygu20lmFOr10OW2GXolUwjlx7orTQn85MA1T3SQWGE6EGSs1ymCxbXAT5HMmwvu6g/4q3c2t+iatWIAQ7Ni9Kd90u6UwYH4nwtvlZQsfZAQd/jlMhId5G2vi1Isg3KS8ToS3Kw2hnAgb+RtrtioVYU4nwtuVzoZnNI8T4e1KR5jPifB2yXWaxILidH8tL2LU6Iwr6QXFJqklF24J7/D3PL8+ei1NZTS9Yiq66DJvh7+HmoNXJtL5cJdnPaTYK0tamJ/u9NkeSPy1PQZhcZ5WyvkVxPswnmOzLDPVkHh4wSA8fE1XHhz0E+ftLPRG+Eb4Rpi9/hHC5FOEDPRaQgu3crNOCVuE2eI1GzsT6FQ9uMivYHXAfAWgvM2d56qNvLp/1J1B40rfjKW9dm1g3jRYnmW0X7292qivLvOr5XEtfbzpTW86Uf0faq2DO6bp/KgAAAAASUVORK5CYII="
+      jsaction="load:XAeZkd;" jsname="HiaYvf" class="n3VNCb"
+      alt="Icono Medicos, de laboratorio, pruebas de microscopio en Medicine Vol.9Icons" data-noaft="1"
+      style="filter: brightness(1.1); mix-blend-mode: multiply; width: 90px; height: 90px; margin: 0px;">
+  </div>
+
+</div>
+
+</main>
+<!-- Modal create -->
+<div class="modal fade" id="createModalDig" tabindex="-1" aria-labelledby="createModalLabelDig" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="createModalLabelDig">Agregar Datos de Digitación</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+        <form name="agregarModalDig" id="agregarModalDig" class="needs-validation" method="post" action="<?= pubUrl ?>">
+          <div style="zoom: 80%" class="col">
+            <div class="form-floating mb-5 ">
+              <input style="background-color: #EDEDED; border-color: #B0B0B0" type="text" name="mostrarCodigoID"
+                id="mostrarCodigoID" class="form-control" data-placeholder="" readonly>
+              <label for="mostrarCodigoID">Código ID </label>
+            </div>
+          </div>
+          <div id="textModalSUB" style="zoom: 80%" class="col">
+            <div class="form-floating mb-5 " id="modalPersonalD">
+              <input style="background-color: #EDEDED; border-color: #B0B0B0" type="text"
+                name="guardarPersonalDigitacion" id="guardarPersonalDigitacion" class="form-control" data-placeholder=""
+                readonly>
+              <!--   <select type="text" name="guardarPersonalDigitacion" id="guardarPersonalDigitacion" class="form-select" data-placeholder="" required>
+                    <?!= include("Lista-personal") ?> 
+                  </select> -->
+              <label for="guardarPersonalDigitacion">Personal de Digitación </label>
+
+            </div>
+          </div>
+          <div style="zoom: 80%" class="col">
+            <div class="form-floating mb-5 " id="modalFechaD">
+              <input type="datetime-local" name="guardarFechaDig" onkeydown="return false" id="guardarFechaDig"
+                class="form-control" data-placeholder="" required>
+              <label for="guardarFechaDig">Fecha de Digitación</label>
+              <div class="invalid-feedback">
+                *Campo obligatorio
+              </div>
+            </div>
+          </div>
+        </form>
+        <div id="alertaModalDig" class="alert alert-danger" role="alert" hidden>
+          *Completa todos los campos!
+        </div>
+        <div id="alertaModalFch" class="alert alert-danger" role="alert" hidden>
+          *La fecha de digitación no puede ser menor a la ultima fecha de recepción. Por favor revisa los datos!
+        </div>
+        <div id="alertaModalFchActual" class="alert alert-danger" role="alert" hidden>
+          *La fecha de digitación no puede ser mayor a la actual. Por favor revisa los datos!
+        </div>
+        <div id="alertaModalCeldaOcupada" class="alert alert-danger" role="alert" hidden>
+          Éste código ID ya ha sido registrado por otro usuario. Por favor, verifica los datos antes de continuar.
+        </div>
+
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        <button id="buttonDigLoading" class="btn btn-primary" type="button" hidden disabled>
+          <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+          Cargando...
+        </button>
+        <button id="ButtonModalGrabar" type="button" class="btn btn-primary"
+          onclick="validarFormularioDig()">Grabar</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal create 3 EDITAR -->
+<!-- Modal create 3 EDITAR -->
+<div class="modal fade" id="createModalDIGEDIT" tabindex="-1" aria-labelledby="createModalLabeldDIGEDIT"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="createModalLabeldDIGEDIT">Editar Registros</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+        <form name="agregarEditar" id="agregarEditar">
+
+          <div style="zoom: 80%" class="col-md-4">
+            <div class="form-floating mb-5 ">
+              <input style="background-color: #EDEDED; border-color: #B0B0B0" type="text" name="MostrarCodigoIDEdit"
+                id="MostrarCodigoIDEdit" class="form-control" data-placeholder="" readonly>
+              <label for="MostrarCodigoIDEdit">Código ID </label>
+            </div>
+          </div>
+
+          <div class="row">
+            <div style="zoom: 80%" class="col">
+              <div class="form-floating mb-3 ">
+                <input id="procedenciaEDIT" name="procedenciaEDIT" list="datalistOptionsPv3" class="form-control"
+                  data-placeholder="" onchange="actualizarInfop3(this)" required>
+                <datalist id="datalistOptionsPv3">
+                </datalist>
+                <label for="procedenciaEDIT">Procedencia </label>
+                <div class="invalid-feedback">
+                  *Campo obligatorio
+                </div>
+              </div>
+            </div>
+            <div style="zoom: 80%" class="col">
+              <div class="form-floating mb-3 ">
+                <input style="background-color: #EDEDED; border-color: #B0B0B0" type="text" name="labRefEDIT"
+                  id="labRefEDIT" class="form-control" data-placeholder="" readonly>
+                <label for="labRefEDIT">Institución / DISA</label>
+              </div>
+            </div>
+            <div style="zoom: 80%" class="col-md-12">
+              <div id="alertaValidacion" style="margin-top:-0.9%" class="alert alert-warning" role="alert" hidden>
+                Revisa el campo de procedencia e ingresa un dato válido!
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div style="zoom: 80%" class="col">
+              <div class="form-floating mb-3 ">
+                <input id="enfermedadEDIT" name="enfermedadEDIT" list="datalistOptionsEnfermedadv3" class="form-control"
+                  data-placeholder="" onchange="actualizarInfoEnfermedadv3(this)" required>
+                <datalist id="datalistOptionsEnfermedadv3">
+                </datalist>
+                <label for="enfermedadEDIT">Enfermedad </label>
+              </div>
+            </div>
+
+            <div style="zoom: 80%" class="col">
+              <div class="form-floating mb-3 ">
+                <input style="background-color: #EDEDED; border-color: #B0B0B0" type="text" name="labDesEDIT"
+                  id="labDesEDIT" class="form-control" data-placeholder="" readonly>
+                <label for="labDesEDIT">Laboratorio de Destino </label>
+              </div>
+            </div>
+            <div style="zoom: 80%" class="col-md-12">
+              <div id="alertaValidacionlabDes" style="margin-top: -0.9%" class="alert alert-warning" role="alert"
+                hidden>
+                Revisa el campo de enfermedad e ingresa un dato válido!
+              </div>
+            </div>
+
+          </div>
+          <div class="row">
+            <div style="zoom: 80%" class="col">
+              <div class="form-floating mb-3 ">
+                <select type="text" name="tipoMuestraEditDig" id="tipoMuestraEditDig" class="form-select"
+                  placeholder=" " required>
+                  <?!= include("Lista-tipomx") ?>
+                </select>
+                <label for="tipoMuestraEditDig">Tipo de Muestra </label>
+              </div>
+            </div>
+
+            <div style="zoom: 80%" class="col">
+              <div class="form-floating mb-3 ">
+                <select type="text" name="origenMuestraEdit" id="origenMuestraEdit" class="form-select" placeholder=" "
+                  required>
+                  <option selected></option>
+                  <option value="HUMANO">HUMANO</option>
+                  <option value="ANIMAL">ANIMAL</option>
+                  <option value="AMBIENTAL">AMBIENTAL</option>
+                  <option value="ORGANO">ORGANO</option>
+                  <option value="INSECTO">INSECTO</option>
+                </select>
+                <label for="origenMuestraEdit">Origen de Muestra </label>
+              </div>
+            </div>
+            <div style="zoom: 80%" class="col">
+              <div class="form-floating mb-3 ">
+                <input type="text" name="nroOficioEdit" id="nroOficioEdit" class="form-control" data-placeholder=""
+                  required>
+                <label for="nroOficioEdit">Número de Oficio </label>
+              </div>
+            </div>
+
+          </div>
+          <div class="row">
+            <div style="zoom: 80%" class="col">
+              <div class="form-floating mb-3 ">
+                <select type="text" name="motivoMuestraEdit" id="motivoMuestraEdit" class="form-select" placeholder=" "
+                  required>
+                  <option selected></option>
+                  <option value="DIAGNÓSTICO">DIAGNÓSTICO</option>
+                  <option value="INVESTIGACIÓN">INVESTIGACIÓN</option>
+                  <option value="CONTROL DE CALIDAD">CONTROL DE CALIDAD</option>
+                  <option value="VIGILANCIA">VIGILANCIA</option>
+                  <option value="CONFIRMACIÓN">CONFIRMACIÓN</option>
+                </select>
+                <label for="motivoMuestraEdit">Motivo de Muestra </label>
+              </div>
+            </div>
+
+            <div style="zoom: 80%" class="col">
+              <div class="form-floating mb-3 ">
+                <select type="text" name="tipoEmpaqueEdit" id="tipoEmpaqueEdit" class="form-select" placeholder=" "
+                  required>
+                  <option selected></option>
+                  <option value="TECNOPOR">TECNOPOR</option>
+                  <option value="BIOPACK">BIOPACK</option>
+                  <option value="COOLER">COOLER</option>
+                  <option value="TRIPLE EMPAQUE">TRIPLE EMPAQUE</option>
+                  <option value="OTROS">OTROS</option>
+                </select>
+                <label for="tipoEmpaqueEdit">Tipo de empaque </label>
+              </div>
+            </div>
+
+            <div style="zoom: 80%" class="col">
+              <div class="input-group input-group-sm mb-3">
+                <div class="form-floating mb-3 ">
+                  <input type="number" step="any" name="temperaturaEdit" id="temperaturaEdit" class="form-control"
+                    data-placeholder="" required>
+                  <label for="temperaturaEdit">Temperatura </label>
+                </div>
+                <div id="gradosC">
+                  <label class="input-group-text" for="inputGroupSelect02"> °C</label>
+                </div>
+              </div>
+            </div>
+
+            <div style="zoom: 80%" class="col">
+              <div class="form-floating mb-3 ">
+                <input type="number" name="cantidadMuestrasEdit" id="cantidadMuestrasEdit" class="form-control"
+                  data-placeholder="" readonly required>
+                <label for="cantidadMuestrasEdit">Cantidad </label>
+                <a style="color: #0F9D58">*Cantidad total de pacientes (Conformes y No Conformes)</a>
+              </div>
+            </div>
+
+            <div style="zoom: 80%" class="col">
+              <div class="form-floating mb-3 ">
+                <input type="number" name="cantidadMuestrasMXEdit" id="cantidadMuestrasMXEdit" class="form-control"
+                  data-placeholder="" readonly required>
+                <label for="cantidadMuestrasMXEdit">Cantidad </label>
+                <a style="color: #0F9D58">*Cantidad total de muestras </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div style="zoom: 80%" class="col">
+              <div class="form-floating">
+                <textarea class="form-control" placeholder="Leave a comment here" id="comentarioTextareaEdit"
+                  name="comentarioTextareaEdit" style="height: 100px"></textarea>
+                <label for="comentarioTextareaEdit">Comentarios</label>
+              </div>
+            </div>
+          </div>
+        </form>
+        <div id="alertaModalEDIT" class="alert alert-danger" role="alert" hidden>
+          *Completa los campos obligatorios!
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        <button id="ButtonModalGrabarEDIT" type="button" class="btn btn-primary"
+          onclick="grabarEditarDigitacion()">Grabar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal DIVIDIR OFICIO -->
+<div class="modal fade" id="createModalDivOf" tabindex="-1" aria-labelledby="createModalLabelDivOf" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="createModalLabelDivOf">Dividir documento</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+        <form name="agregarModalDivOf" id="agregarModalDivOf" class="needs-validation" method="post"
+          action="<?= pubUrl ?>">
+          <div style="zoom: 80%" class="col">
+            <div class="form-floating mb-5 ">
+              <input style="background-color: #EDEDED; border-color: #B0B0B0" type="text" name="mostrarCodigoIDDivOf"
+                id="mostrarCodigoIDDivOf" class="form-control" data-placeholder="" readonly>
+              <label for="mostrarCodigoIDDivOf">Código ID </label>
+            </div>
+          </div>
+          <div style="zoom: 80%" class="col">
+            <div class="form-floating mb-5 ">
+              <input style="background-color: #EDEDED; border-color: #B0B0B0" type="text" name="cantidadDivOf"
+                id="cantidadDivOf" class="form-control" data-placeholder="" readonly>
+              <label for="cantidadDivOf">Cantidad total de fichas</label>
+            </div>
+          </div>
+
+          <div id="textModalSUB" style="zoom: 80%" class="col">
+            <span>¿En cuántas partes quiere dividir el documento?</span>
+            <div class="form-floating mb-5 " id="modalPersonalD">
+              <input type="number" min="2" max="6" name="partesOf" id="partesOf" class="form-control"
+                data-placeholder="">
+              <label for="partesOf">2 - 6 </label>
+            </div>
+
+
+            <div id="partes" class="row" hidden>
+              <span>¿Qué tamaño debe tener cada parte?</span>
+
+              <div class="col">
+                <div id="parte01" class="form-floating mb-3" hidden>
+                  <input type="number" name="parte1" id="parte1" class="form-control" data-placeholder="">
+                  <label for="parte1">Cant.</label>
+                </div>
+              </div>
+              <div class="col">
+                <div id="parte02" class="form-floating mb-3" hidden>
+                  <input type="number" name="parte2" id="parte2" class="form-control" data-placeholder="">
+                  <label for="parte2">Cant.</label>
+                </div>
+              </div>
+              <div class="col">
+                <div id="parte03" class="form-floating mb-3" hidden>
+                  <input type="number" name="parte3" id="parte3" class="form-control" data-placeholder="">
+                  <label for="parte3">Cant.</label>
+                </div>
+              </div>
+              <div class="col">
+                <div id="parte04" class="form-floating mb-3" hidden>
+                  <input type="number" name="parte4" id="parte4" class="form-control" data-placeholder="">
+                  <label for="parte4">Cant.</label>
+                </div>
+              </div>
+              <div class="col">
+                <div id="parte05" class="form-floating mb-3" hidden>
+                  <input type="number" name="parte5" id="parte5" class="form-control" data-placeholder="">
+                  <label for="parte5">Cant.</label>
+                </div>
+              </div>
+              <div class="col">
+                <div id="parte06" class="form-floating mb-3" hidden>
+                  <input type="number" name="parte6" id="parte6" class="form-control" data-placeholder="">
+                  <label for="parte6">Cant.</label>
+                </div>
+              </div>
+            </div>
+        </form>
+        <div id="alertaModalCompleta" class="alert alert-danger" role="alert" hidden>
+          *Completa todos los campos requeridos!
+        </div>
+        <div id="alertaModalPartes" class="alert alert-danger" role="alert" hidden>
+          *El documento solo se puede dividir entre 2 a 6 partes. Ingrese un número de partes correcto.
+        </div>
+        <div id="alertaModalCant" class="alert alert-danger" role="alert" hidden>
+          *La suma de todas las partes no puede ser diferente a la cantidad total de fichas del oficio!
+        </div>
+        <div id="alertLleno" class="alert alert-danger" role="alert" hidden>
+          Éste código ID ya ha sido dividido o registrado por otro usuario. Por favor, verifica los datos antes de
+          continuar.
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button id="buttonDiv" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        <button id="buttonDivLoading" class="btn btn-primary" type="button" hidden disabled>
+          <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+          Cargando...
+        </button>
+        <button id="ButtonModalGrabarDIV" type="button" class="btn btn-primary"
+          onclick="validarDivision()">Grabar</button>
+      </div>
+    </div>
+  </div>
+</div>

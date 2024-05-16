@@ -1,0 +1,611 @@
+<!-- Modal create -->
+<div class="modal fade" id="createModalCARGARDENGUE" tabindex="-1" aria-labelledby="createModalLabelCARGARDENGUE"
+  aria-hidden="true">
+  <div class="modal-dialog  modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="createModalLabelCARGARDENGUE">REGISTRAR NUEVO LOTE</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+
+      <form id="myForm" class="needs-validation" method="post" action="<?= pubUrl ?>" novalidate>
+        <h3 id="titulos">Recepción y Obtención de Muestras</h3>
+
+        <div id="formularios">
+          <div class="row">
+
+            <div class="col-md-2">
+              <div class="form-floating mb-5 ">
+                <input type="number" min="2301000000" max="2403999999" name="codigoId" id="codigoId" class="form-control" data-placeholder="" required>
+                <label for="codigoId" >Código ID </label>
+                <div class="invalid-feedback">
+                  *Campo obligatorio
+                </div>
+              </div>
+            </div>
+
+            <img src="https://png.pngtree.com/png-vector/20191113/ourlarge/pngtree-barcode-scanner-isometric-icon-png-image_1976675.jpg" jsaction="load:XAeZkd;" jsname="HiaYvf" class="n3VNCb KAlRDb" alt="Icono Isométrico Del Escáner De Código De Barras PNG , Codigo De Barras,  Scanner, Icono PNG y Vector para Descargar Gratis | Pngtree" data-noaft="1" style="filter: brightness(1.1); mix-blend-mode: multiply; width: 250px; height: 180px; margin-left:-10px; margin-top: -4%; z-index:-1">
+          </div>
+
+          <div id="ocultarValidacionID" hidden>
+            <div class="row">
+
+              <div class="col-md-3">
+                <div class="form-floating mb-3 ">
+                  <select type="text" name="sede" id="sede" class="form-select" placeholder=" " required>
+                    <option selected></option>
+                    <option value="ROM JESÚS MARÍA">ROM JESÚS MARÍA</option>
+                    <option value="ROM CHORRILLOS">ROM CHORRILLOS</option>
+                    <option value="ROM COVID-19">ROM COVID-19</option>
+                </select>
+
+                  <label for="sede" >Sede </label>
+                  <div class="invalid-feedback">
+                    *Campo obligatorio
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-5">
+                <div class="form-floating mb-3 ">
+                  <input  id="personalRecepcion" name="personalRecepcion" list="datalistPersonalRecepcion" class="form-control" data-placeholder="" required>
+                  <datalist id="datalistPersonalRecepcion">
+                  </datalist>
+                  <label for="personalRecepcion" >Personal de Recepción </label>
+                  <div class="invalid-feedback">
+                    *Campo obligatorio
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                <div class="form-floating mb-3 ">
+                  <input style="background-color: #EDEDED; border-color: #B0B0B0" name="personalRegistro" id="personalRegistro" class="form-control" data-placeholder="" readonly>
+                  <label for="personalRegistro" >Personal que registra </label>
+                </div>
+              </div>
+
+              <div class="col-md-12">
+                <div id="alertaValidacionP" style="margin-top:-0.9%" class="alert alert-warning" role="alert" hidden>
+                  Revisa el campo de Personal de Recepcion e ingresa un dato válido!
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div id="alertaValidacionUser" style="margin-top:-0.9%" class="alert alert-warning" role="alert" hidden>
+                  No se ha identificado correctamente su usuario. Por favor actualiza la pagina!
+                </div>
+              </div>
+
+              <div class="col-md-3">
+                <div class="form-floating mb-3 ">
+                  <input type="date" name="fechaSolicitud" id="fechaSolicitud" class="form-control" onkeydown="return false" data-placeholder="" required>
+                  <label for="fechaSolicitud" >Fecha de Solicitud de Oficio </label>
+                  <div class="invalid-feedback">
+                    *Campo obligatorio
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-8">
+                <div id="alertaValidacionUser" style="margin-top:-0.9%" class="alert alert-warning" role="alert" hidden>
+                  //Este es un div Hidden para completar el espacio del row
+                  Este es un div Hidden para completar el espacio del row
+                </div>
+              </div>
+
+
+              <div class="col-md-8">
+                <div class="form-floating mb-3 ">
+                  <input  id="procedencia" name="procedencia"list="datalistOptionsPv1" class="form-control" data-placeholder="" onchange="actualizarInfop1(this)" required>
+                  <datalist id="datalistOptionsPv1">
+                  </datalist>
+                  <label for="procedencia" >Procedencia </label>
+                  <div class="invalid-feedback">
+                    *Campo obligatorio
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-floating mb-3 ">
+                  <input style="background-color: #EDEDED; border-color: #B0B0B0" type="text" name="labRef" id="labRef" class="form-control" data-placeholder="" readonly>
+                  <label for="labRef" >Institución / DISA</label>
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div id="alertaValidacion" style="margin-top:-0.9%" class="alert alert-warning" role="alert" hidden>
+                  Revisa el campo de procedencia e ingresa un dato válido!
+                </div>
+              </div>
+
+              <a>Marca la opción correspondiente, en caso la muestra se haya tomado en el INS</a>
+
+              <div style="margin-bottom: 1%" class="col-md-12">
+
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="flexRadioDefault" value="Null" id="flexRadioDefault1" checked>
+                  <label class="form-check-label" for="flexRadioDefault1">
+                        N/A
+                    </label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="flexRadioDefault" value="Particular" id="flexRadioDefault2">
+                  <label class="form-check-label" for="flexRadioDefault2">
+                        Particular
+                    </label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="flexRadioDefault" value="Exonerado" id="flexRadioDefault3">
+                  <label class="form-check-label" for="flexRadioDefault3">
+                        Exonerado
+                    </label>
+                </div>
+              </div>
+
+
+              <div class="col-md-6">
+                <div class="form-floating mb-3 ">
+                  <input  id="enfermedad" name="enfermedad" list="datalistOptionsEnfermedad" class="form-control" data-placeholder="" onchange="actualizarInfoEnfermedad(this)" required>
+                  <datalist id="datalistOptionsEnfermedad">
+                  </datalist>
+                  <label for="enfermedad" >Enfermedad </label>
+                  <div class="invalid-feedback">
+                    *Campo obligatorio
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-floating mb-3 ">
+                  <input style="background-color: #EDEDED; border-color: #B0B0B0" type="text" name="labDes" id="labDes" class="form-control" data-placeholder="" readonly>
+                  <label for="labDes" >Laboratorio de Destino</label>
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div id="alertaValidacionlabDes" style="margin-top: -0.9%" class="alert alert-warning" role="alert"
+                  hidden>
+                  Revisa el campo de enfermedad e ingresa un dato válido!
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-floating mb-3 ">
+                  <select type="text" name="tipoMuestra" id="tipoMuestra" class="form-select" placeholder=" " required>
+                        
+                 </select>
+                  <label for="tipoMuestra" >Tipo de Muestra </label>
+                  <div class="invalid-feedback">
+                    *Campo obligatorio
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-floating mb-3 ">
+                  <select type="text" name="origenMuestra" id="origenMuestra" class="form-select" placeholder=" " required>
+                    <option selected></option>
+                    <option value="HUMANO">HUMANO</option>
+                    <option value="ANIMAL">ANIMAL</option>
+                    <option value="AMBIENTAL">AMBIENTAL</option>
+                    <option value="VECTORES">VECTORES</option>
+                </select>
+                  <label for="origenMuestra" >Origen de Muestra </label>
+                  <div class="invalid-feedback">
+                    *Campo obligatorio
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-check form-switch">
+
+                <input class="form-check-input" type="checkbox" value="yes" id="checkSubEnfermedad" disabled>
+                <label class="form-check-label" for="checkSubEnfermedad" ><span style="color: #FFFFFF">...</span>Agregar varias enfermedades</label></br>
+              </div>
+              <a style="color: #0F9D58">*Solo para el caso de: TORCH, TORCHS, SF, SIH o SGB</a>
+              </br></br></br>
+              <div id="enfermedadesGrupales" style="display:none">
+                <div id="subCampos1" class="row">
+                  <div class="col-md-3">
+                    <div class="form-floating mb-3 ">
+                      <input  id="subEnfermedad1" name="subEnfermedad1" list="datalistOptionsEnfermedad1" class="form-control" data-placeholder="" onchange="actualizarInfoEnfermedad1(this)">
+                      <datalist id="datalistOptionsEnfermedad1">
+                      </datalist>
+                      <label for="subEnfermedad1" >1era Enfermedad </label>
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="form-floating mb-3 ">
+                      <select type="text" name="subTipomuestras1" id="subTipomuestras1" class="form-select" placeholder=" ">
+                            
+                                 </select>
+                      <label for="subTipomuestras1" >Tipo de muestras </label>
+                      <div class="invalid-feedback">
+                        *Campo obligatorio
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-1">
+                    <div class="form-floating mb-3 ">
+                      <input type="number" min="1" max="999" name="subCantidadMuestras1" id="subCantidadMuestras1" class="form-control" data-placeholder="">
+                      <label for="subCantidadMuestras1" >Cantidad </label>
+                      <div class="invalid-feedback">
+                        *Campo obligatorio
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="form-floating mb-3 ">
+                      <input style="background-color: #EDEDED; border-color: #B0B0B0" type="text" name="labDes1" id="labDes1" class="form-control" data-placeholder="" readonly>
+                      <label for="labDes1" >Laboratorio de Destino</label>
+                    </div>
+                  </div>
+                  <div class="col-md-2" hidden>
+                    <div class="form-floating mb-3 ">
+                      <input style="background-color: #EDEDED; border-color: #B0B0B0" type="text" name="subCodigoID1" id="subCodigoID1" class="form-control"  placeholder=" " readonly>
+                      <label for="subCodigoID1" >Sub código ID </label>
+                    </div>
+                  </div>
+                </div>
+                <div id="subCampos2" class="row">
+                  <div class="col-md-3">
+                    <div class="form-floating mb-3 ">
+                      <input  id="subEnfermedad2" name="subEnfermedad2" list="datalistOptionsEnfermedad2" class="form-control" data-placeholder="" onchange="actualizarInfoEnfermedad2(this)">
+                      <datalist id="datalistOptionsEnfermedad2">
+                      </datalist>
+                      <label for="subEnfermedad2" >2da Enfermedad </label>
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="form-floating mb-3 ">
+                      <select type="text" name="subTipomuestras2" id="subTipomuestras2" class="form-select" placeholder=" ">
+                         
+                                 </select>
+                      <label for="subTipomuestras2" >Tipo de muestras </label>
+                      <div class="invalid-feedback">
+                        *Campo obligatorio
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-1">
+                    <div class="form-floating mb-3 ">
+                      <input type="number" min="1" max="999" name="subCantidadMuestras2" id="subCantidadMuestras2" class="form-control" data-placeholder="">
+                      <label for="subCantidadMuestras2" >Cantidad </label>
+                      <div class="invalid-feedback">
+                        *Campo obligatorio
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="form-floating mb-3 ">
+                      <input style="background-color: #EDEDED; border-color: #B0B0B0" type="text" name="labDes2" id="labDes2" class="form-control" data-placeholder="" readonly>
+                      <label for="labDes2" >Laboratorio de Destino</label>
+                    </div>
+                  </div>
+                  <div class="col-md-2" hidden>
+                    <div class="form-floating mb-3 ">
+                      <input style="background-color: #EDEDED; border-color: #B0B0B0" type="text" name="subCodigoID2" id="subCodigoID2" class="form-control"  placeholder=" " readonly>
+                      <label for="subCodigoID2" >Sub código ID </label>
+                    </div>
+                  </div>
+                </div>
+                <div id="subCampos3" class="row">
+                  <div class="col-md-3">
+                    <div class="form-floating mb-3 ">
+                      <input  id="subEnfermedad3" name="subEnfermedad3" list="datalistOptionsEnfermedad3" class="form-control" data-placeholder="" onchange="actualizarInfoEnfermedad3(this)">
+                      <datalist id="datalistOptionsEnfermedad3">
+                      </datalist>
+                      <label for="subEnfermedad3" >3era Enfermedad </label>
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="form-floating mb-3 ">
+                      <select type="text" name="subTipomuestras3" id="subTipomuestras3" class="form-select" placeholder=" ">
+                        
+                                 </select>
+                      <label for="subTipomuestras3" >Tipo de muestras </label>
+                      <div class="invalid-feedback">
+                        *Campo obligatorio
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-1">
+                    <div class="form-floating mb-3 ">
+                      <input type="number" min="1" max="999" name="subCantidadMuestras3" id="subCantidadMuestras3" class="form-control" data-placeholder="">
+                      <label for="subCantidadMuestras3" >Cantidad </label>
+                      <div class="invalid-feedback">
+                        *Campo obligatorio
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="form-floating mb-3 ">
+                      <input style="background-color: #EDEDED; border-color: #B0B0B0" type="text" name="labDes3" id="labDes3" class="form-control" data-placeholder="" readonly>
+                      <label for="labDes3" >Laboratorio de Destino</label>
+                    </div>
+                  </div>
+                  <div class="col-md-2" hidden>
+                    <div class="form-floating mb-3 ">
+                      <input style="background-color: #EDEDED; border-color: #B0B0B0" type="text" name="subCodigoID3" id="subCodigoID3" class="form-control"  placeholder=" " readonly>
+                      <label for="subCodigoID3" >Sub código ID </label>
+                    </div>
+                  </div>
+                </div>
+                <div id="subCampos4" class="row">
+                  <div class="col-md-3">
+                    <div class="form-floating mb-3 ">
+                      <input  id="subEnfermedad4" name="subEnfermedad4" list="datalistOptionsEnfermedad4" class="form-control" data-placeholder="" onchange="actualizarInfoEnfermedad4(this)">
+                      <datalist id="datalistOptionsEnfermedad4">
+                      </datalist>
+                      <label for="subEnfermedad4" >4ta Enfermedad </label>
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="form-floating mb-3 ">
+                      <select type="text" name="subTipomuestras4" id="subTipomuestras4" class="form-select" placeholder=" ">
+                 
+                                 </select>
+                      <label for="subTipomuestras4" >Tipo de muestras </label>
+                      <div class="invalid-feedback">
+                        *Campo obligatorio
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-1">
+                    <div class="form-floating mb-3 ">
+                      <input type="number" min="1" max="999" name="subCantidadMuestras4" id="subCantidadMuestras4" class="form-control" data-placeholder="">
+                      <label for="subCantidadMuestras4" >Cantidad </label>
+                      <div class="invalid-feedback">
+                        *Campo obligatorio
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="form-floating mb-3 ">
+                      <input style="background-color: #EDEDED; border-color: #B0B0B0" type="text" name="labDes4" id="labDes4" class="form-control" data-placeholder="" readonly>
+                      <label for="labDes4" >Laboratorio de Destino</label>
+                    </div>
+                  </div>
+                  <div class="col-md-2" hidden>
+                    <div class="form-floating mb-3 ">
+                      <input style="background-color: #EDEDED; border-color: #B0B0B0" type="text" name="subCodigoID4" id="subCodigoID4" class="form-control"  placeholder=" " readonly>
+                      <label for="subCodigoID4" >Sub código ID </label>
+                    </div>
+                  </div>
+                </div>
+                <div id="subCampos5" class="row">
+                  <div class="col-md-3">
+                    <div class="form-floating mb-3 ">
+                      <input  id="subEnfermedad5" name="subEnfermedad5" list="datalistOptionsEnfermedad5" class="form-control" data-placeholder="" onchange="actualizarInfoEnfermedad5(this)">
+                      <datalist id="datalistOptionsEnfermedad5">
+                      </datalist>
+                      <label for="subEnfermedad5" >5ta Enfermedad </label>
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="form-floating mb-3 ">
+                      <select type="text" name="subTipomuestras5" id="subTipomuestras5" class="form-select" placeholder=" ">
+                   
+                                 </select>
+                      <label for="subTipomuestras5" >Tipo de muestras </label>
+                      <div class="invalid-feedback">
+                        *Campo obligatorio
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-1">
+                    <div class="form-floating mb-3 ">
+                      <input type="number" min="1" max="999" name="subCantidadMuestras5" id="subCantidadMuestras5" class="form-control" data-placeholder="">
+                      <label for="subCantidadMuestras5" >Cantidad </label>
+                      <div class="invalid-feedback">
+                        *Campo obligatorio
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="form-floating mb-3 ">
+                      <input style="background-color: #EDEDED; border-color: #B0B0B0" type="text" name="labDes5" id="labDes5" class="form-control" data-placeholder="" readonly>
+                      <label for="labDes5" >Laboratorio de Destino</label>
+                    </div>
+                  </div>
+                  <div class="col-md-2" hidden>
+                    <div class="form-floating mb-3 ">
+                      <input style="background-color: #EDEDED; border-color: #B0B0B0" type="text" name="subCodigoID5" id="subCodigoID5" class="form-control"  placeholder=" " readonly>
+                      <label for="subCodigoID5" >Sub código ID </label>
+                    </div>
+                  </div>
+                </div>
+                <div id="subCampos6" class="row">
+                  <div class="col-md-3">
+                    <div class="form-floating mb-3 ">
+                      <input  id="subEnfermedad6" name="subEnfermedad6" list="datalistOptionsEnfermedad6" class="form-control" data-placeholder="" onchange="actualizarInfoEnfermedad6(this)">
+                      <datalist id="datalistOptionsEnfermedad6">
+                      </datalist>
+                      <label for="subEnfermedad6" >6ta Enfermedad </label>
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="form-floating mb-3 ">
+                      <select type="text" name="subTipomuestras6" id="subTipomuestras6" class="form-select" placeholder=" ">
+                          
+                                 </select>
+                      <label for="subTipomuestras6" >Tipo de muestras </label>
+                      <div class="invalid-feedback">
+                        *Campo obligatorio
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-1">
+                    <div class="form-floating mb-3 ">
+                      <input type="number" min="1" max="999" name="subCantidadMuestras6" id="subCantidadMuestras6" class="form-control" data-placeholder="">
+                      <label for="subCantidadMuestras6" >Cantidad </label>
+                      <div class="invalid-feedback">
+                        *Campo obligatorio
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="form-floating mb-3 ">
+                      <input style="background-color: #EDEDED; border-color: #B0B0B0" type="text" name="labDes6" id="labDes6" class="form-control" data-placeholder="" readonly>
+                      <label for="labDes6" >Laboratorio de Destino</label>
+                    </div>
+                  </div>
+                  <div class="col-md-2" hidden>
+                    <div class="form-floating mb-3 ">
+                      <input style="background-color: #EDEDED; border-color: #B0B0B0" type="text" name="subCodigoID6" id="subCodigoID6" class="form-control"  placeholder=" " readonly>
+                      <label for="subCodigoID6" >Sub código ID </label>
+                    </div>
+                  </div>
+                </div>
+
+                </br></br>
+              </div>
+
+              <div class="col-md-3">
+                <div class="form-floating mb-3 ">
+                  <input type="text" name="nroOficio" id="nroOficio" class="form-control" data-placeholder="" required>
+                  <label for="nroOficio" >Número de Oficio </label>
+                  <div class="invalid-feedback">
+                    *Campo obligatorio
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-floating mb-3 ">
+                  <select type="text" name="motivoMuestra" id="motivoMuestra" class="form-select" placeholder=" " required>
+                    <option selected></option>
+                    <option value="DIAGNÓSTICO">DIAGNÓSTICO</option>
+                    <option value="INVESTIGACIÓN">INVESTIGACIÓN</option>
+                    <option value="CONTROL DE CALIDAD">CONTROL DE CALIDAD</option>
+                    <option value="VIGILANCIA">VIGILANCIA</option>
+                    <option value="CONFIRMACIÓN">CONFIRMACIÓN</option>
+                    <option value="PEED/PEEC">PEED/PEEC</option>
+               </select>
+                  <label for="motivoMuestra" >Motivo de Muestra </label>
+                  <div class="invalid-feedback">
+                    *Campo obligatorio
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-floating mb-3 ">
+                  <select type="text" name="tipoEmpaque" id="tipoEmpaque" class="form-select" placeholder=" " required>
+                    <option selected></option>
+                    <option value="TECNOPOR">TECNOPOR</option>
+                    <option value="BIOPACK">BIOPACK</option>
+                    <option value="COOLER">COOLER</option>
+                    <option value="TRIPLE EMPAQUE">TRIPLE EMPAQUE</option>
+                    <option value="INADECUADO">INADECUADO</option>
+                    <option value="OTROS">OTROS</option>
+               </select>
+                  <label for="tipoEmpaque" >Tipo de empaque </label>
+                  <div class="invalid-feedback">
+                    *Campo obligatorio
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="input-group input-group-sm mb-3">
+
+                  <div class="form-floating mb-3 ">
+
+                    <input type="number" step="any" min="-20" max="30" name="temperatura" id="temperatura" class="form-control" data-placeholder="" required>
+
+                    <label for="temperatura" >Temperatura </label>
+                    <div class="invalid-feedback">
+                      *Campo obligatorio
+                    </div>
+                  </div>
+                  <div id="gradosC">
+                    <label  class="input-group-text" for="inputGroupSelect02"> °C</label>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-2">
+                <div class="form-floating mb-3 ">
+                  <input type="number" min="1" max="999" name="cantidadMuestras" id="cantidadMuestras" class="form-control" data-placeholder="" required>
+                  <label for="cantidadMuestras" >Cant. de<span style="font-weight: 800"> PACIENTES (fichas)</span> </label>
+                  <div class="invalid-feedback">
+                    *Campo obligatorio
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-2">
+                <div class="form-floating mb-3 ">
+                  <input type="number" min="1" max="999" name="cantidadMuestrasMX" id="cantidadMuestrasMX" class="form-control" data-placeholder="" required>
+                  <label for="cantidadMuestrasMX" >Cant. de<span style="font-weight: 800"> MUESTRAS </span> </label>
+                  <div class="invalid-feedback">
+                    *Campo obligatorio
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-floating mb-3 ">
+                  <input type="datetime-local" name="fechaRecepcion" id="fechaRecepcion" class="form-control" onkeydown="return false" data-placeholder="" required>
+                  <label for="fechaRecepcion" >Fecha de Recepción </label>
+                  <div class="invalid-feedback">
+                    *Campo obligatorio
+                  </div>
+                </div>
+              </div>
+
+
+
+              <a style="color: #0F9D58">*La cantidad total de fichas y muestras incluye tanto las CONFORMES como las NO
+                CONFORMES</a>
+
+            </div>
+            </br>
+
+            <div class="col-md-2">
+              <div class="form-floating mb-3 ">
+                <input type="number" min="0" max="999999" name="cmp" id="cmp" class="form-control" data-placeholder="" required>
+                <label for="cmp" >CMP</label>
+                <div class="invalid-feedback">
+                  *Campo obligatorio
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-floating">
+                  <textarea class="form-control" data-placeholder="" id="comentarioTextarea" name="comentarioTextarea" style="height: 100px"></textarea>
+                  <label for="comentarioTextarea">Comentarios</label>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="row" hidden>
+              <div class="col-md-6" hidden>
+                <div class="form-floating" hidden>
+                  <input class="form-control" data-placeholder="" id="numeroUsuarioID" name="numeroUsuarioID" hidden>
+                  <label for="numeroUsuarioID">numeroUsuarioID</label>
+                </div>
+              </div>
+
+            </div>
+            </br>
+
+
+
+            </br>
+            </br>
+          </div>
+        </div>
+
+        <div id="ocultar2ValidacionID" hidden>
+
+
+          <img src="https://img.freepik.com/vector-premium/ilustracion…ba-experimento-tubo-ensayo-blanco_109722-1872.jpg" jsaction="load:XAeZkd;" jsname="HiaYvf" class="n3VNCb KAlRDb" alt="ROM" data-noaft="1" style="filter: brightness(1.1); mix-blend-mode: multiply; width: 310px; height: 300px; margin-top: -30%; margin-left: 60%; opacity: 0.9">
+        </div>
+
+      </form></br></br></br>
+
+
+
+      </div>
+      <div class="modal-footer">
+        <button  type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        <button id="buttonGrabarDengue" type="button" class="btn btn-primary" onclick="nuevaMuestra()" disabled>Grabar</button>
+      </div>
+    </div>
+  </div>
+</div>

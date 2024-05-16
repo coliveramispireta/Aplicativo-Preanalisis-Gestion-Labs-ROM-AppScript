@@ -1,0 +1,335 @@
+ <script>
+   const busquedaOficios_page = document.getElementById("busquedaOficios_page");
+
+// FUNCIONES BUSQUEDA MASIVA
+
+ function buscarRegistrosBusquedaM(){ 
+                     
+    const criterioDeBusqueda = busquedaOficios_page.querySelector("#criterioBusqueda").value;
+    const datoBuscar1 = busquedaOficios_page.querySelector("#enfermedadSelect").value;
+    const datoBuscar2 = busquedaOficios_page.querySelector("#digitadorSelect").value;
+    const datoBuscar3 = busquedaOficios_page.querySelector("#guardarLaboratoriosDestinoSelect").value;
+    const datoBuscar4 = busquedaOficios_page.querySelector("#mxINSselect").value;
+    const datoBuscar5 = busquedaOficios_page.querySelector("#estadoInput").value; 
+    const fechaInicio = busquedaOficios_page.querySelector("#fechaInicio").value;
+    const fechaFin = busquedaOficios_page.querySelector("#fechaFin").value;
+    const dimensionFecha = busquedaOficios_page.querySelector("#dimensionFecha").value;
+    const dato = [criterioDeBusqueda, datoBuscar1, datoBuscar2, datoBuscar3, datoBuscar4, datoBuscar5, fechaInicio, fechaFin, dimensionFecha];
+////console.log(dato);
+$("#RegistrosTablaEE").DataTable().destroy();
+
+    google.script.run
+    .withSuccessHandler( info =>{
+      let tableBody = busquedaOficios_page.querySelector("#RegistrosTablaBody");
+      tableBody.innerHTML = "";
+      if ( info.length > 0){
+
+        info.forEach(registro =>{
+          const template = busquedaOficios_page.querySelector("#registrosRow");
+          const templateRow = template.content; 
+
+          let tr = templateRow.cloneNode(true);
+          let col0 = tr.querySelector(".registro0");
+          let col1 = tr.querySelector(".registro1");
+          let col2 = tr.querySelector(".registro2");
+          let col3 = tr.querySelector(".registro3");
+          let col4 = tr.querySelector(".registro4");
+          let col5 = tr.querySelector(".registro5");
+          let col6 = tr.querySelector(".registro6");
+          let col7 = tr.querySelector(".registro7");
+          let col8 = tr.querySelector(".registro8");
+          let col9 = tr.querySelector(".registro9");
+          let col10 = tr.querySelector(".registro10");
+          let col105 = tr.querySelector(".registro105");
+          let col11 = tr.querySelector(".registro11");
+          let col12 = tr.querySelector(".registroFECHA");
+
+             
+          col0.textContent = registro[0];
+          col1.textContent = registro[3];
+          col2.textContent = registro[4];
+          col3.textContent = registro[5];
+          col4.textContent = registro[6];
+          col5.textContent = registro[7];
+          col6.textContent = registro[8];
+          col7.textContent = registro[9];
+          col8.textContent = registro[10];
+          col9.textContent = registro[11]+"°C";
+          col10.textContent = registro[12];
+          col105.textContent = registro[15];
+          col11.textContent = registro[14];
+          col12.textContent = registro[13];
+
+          tableBody.appendChild(tr)
+        })
+                       
+            spinnerBusq.hidden=false;
+            spinnerLoadBusq.hidden=true;
+            
+            $(document).ready(function() {
+    $('#RegistrosTablaEE').DataTable({
+        "paging": true, // habilita la paginación
+        "pageLength": 5, // número de filas por página
+        "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "Mostrar todo"]], // opciones de selección de filas por página
+        "order": [[0, "asc"]], // ordenar por la primera columna de forma ascendente
+        "language": {
+            "sProcessing": "Procesando...",
+            "sLengthMenu": "Mostrar _MENU_ registros",
+            "sZeroRecords": "No se encontraron resultados",
+            "sEmptyTable": "Ningún dato disponible en esta tabla",
+            "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+            "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+            "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+            "sInfoPostFix": "",
+            "sSearch": "Buscar:",
+            "sUrl": "",
+            "sInfoThousands": ",",
+            "sLoadingRecords": "Cargando...",
+            "oPaginate": {
+                "sFirst": "Primero",
+                "sLast": "Último",
+                "sNext": "Siguiente",
+                "sPrevious": "Anterior"
+            },
+            "oAria": {
+                "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+            }
+        }
+    });
+});
+
+
+
+
+
+      }else{
+        swal("Oops!", "No se encuentran registros en la base de datos!", "error");
+            spinnerBusq.hidden=false;
+            spinnerLoadBusq.hidden=true;
+      }
+    })
+    .buscarCamposRegistrosMasivos(dato);
+
+   
+ 
+}
+
+
+
+            
+
+                        
+                        const criterioDeBusqueda = busquedaOficios_page.querySelector("#criterioBusqueda");
+                        const inputEnfermedadv7 = busquedaOficios_page.querySelector("#enfermedadBM"); 
+                        const inputLabRef = busquedaOficios_page.querySelector("#labRef"); 
+                        const inputLabDes = busquedaOficios_page.querySelector("#guardarLaboratoriosDestino"); 
+                        const inputestado = busquedaOficios_page.querySelector("#estadoDiv"); 
+                        const inputmxINS = busquedaOficios_page.querySelector("#mxINS"); 
+                        const inputdigitador = busquedaOficios_page.querySelector("#digitador"); 
+                        criterioDeBusqueda.addEventListener("change", buscarPor);
+
+                        function buscarPor(e){                    
+                         const criterioElegido = e.target.value; 
+                         console.log(criterioElegido);
+                         if (criterioElegido === "TODO"){
+                              inputEnfermedadv7.hidden = true;
+                              inputLabDes.hidden = true;
+                              inputestado.hidden = true;
+                              inputmxINS.hidden = true;
+                              inputdigitador.hidden = true;
+                         } else if (criterioElegido === "ENFERMEDAD"){
+                              inputEnfermedadv7.hidden = false;
+                              inputLabDes.hidden = true;
+                              inputestado.hidden = true;
+                              inputmxINS.hidden = true;
+                              inputdigitador.hidden = true;
+                              } else if (criterioElegido === "DIGITADOR"){
+                              inputEnfermedadv7.hidden = true;
+                              inputLabDes.hidden = true;
+                              inputestado.hidden = true;
+                              inputmxINS.hidden = true;
+                              inputdigitador.hidden = false;
+                         } else if (criterioElegido === "LABORATORIO DE DESTINO (Muestras Entregadas)") {
+                              inputEnfermedadv7.hidden = true;
+                              inputLabDes.hidden = false;
+                              inputestado.hidden = true;
+                              inputmxINS.hidden = true;
+                              inputdigitador.hidden = true;
+                         } else if (criterioElegido === "MUESTRAS TOMADAS EN EL INS") {
+                              inputEnfermedadv7.hidden = true;
+                              inputLabDes.hidden = true;
+                              inputestado.hidden = true;
+                              inputmxINS.hidden = false;
+                              inputdigitador.hidden = true;
+                         } else if (criterioElegido === "ESTADO") {
+                              inputEnfermedadv7.hidden = true;
+                              inputLabDes.hidden = true;
+                              inputestado.hidden = false;
+                              inputmxINS.hidden = true;
+                              inputdigitador.hidden = true;
+                          }
+                        }
+
+                        const spinnerBusq = busquedaOficios_page.querySelector("#buttonBuscarConsulta");
+                        const spinnerLoadBusq = busquedaOficios_page.querySelector("#buttonBuscarLoadingC");
+
+                        spinnerBusq.addEventListener("click", cargarEnvio);
+
+                        function cargarEnvio (e){
+                          console.log(e);
+                          spinnerBusq.hidden=true;
+                          spinnerLoadBusq.hidden=false;
+                        }
+
+
+
+ // verificar clic tabla  
+                          const spinnerSUBv7 = busquedaOficios_page.querySelector("#spinnerLoadSUB");
+                          const tablaTitulosv7 = busquedaOficios_page.querySelector("#RegistrosTablaEE");
+                          tablaTitulosv7.addEventListener("click", verificarClicSub);
+                          
+
+                          
+   function verificarClicSub(e){
+   spinnerSUBv7.hidden=false; 
+                  const codigoIDBuscado = e.target.parentNode.cells[0].textContent;
+                  const tRow = e.target.parentNode.rowIndex;
+                
+        //console.log(e.target.parentNode.cells[0].textContent);
+
+                  if (tRow === 0 || tRow === undefined){
+                      //console.log(codigoIDBuscado);  
+                            spinnerSUBv7.hidden=true;                                
+                      } else {
+                        
+    let laboratorioBuscado = busquedaOficios_page.querySelector("#buscarLabEntrega");
+    let lfechaBuscada = busquedaOficios_page.querySelector("#buscarFechaEntregaLab");
+
+    let dpersonalBuscado = busquedaOficios_page.querySelector("#buscarPersonalDigitacion");
+    let dfechaBuscada = busquedaOficios_page.querySelector("#buscarFechaDigitacion");
+    
+    let psedeBuscada = busquedaOficios_page.querySelector("#buscar1raSede");
+    let ppersonalBuscado = busquedaOficios_page.querySelector("#buscarPersonalRecepcion");
+    let pfechaBuscada = busquedaOficios_page.querySelector("#buscarFecha");
+
+    let sSedeBuscada = busquedaOficios_page.querySelector("#buscar2raSede");
+    let spersonalBuscado = busquedaOficios_page.querySelector("#buscarPersonalRecepcion2");
+    let sfechaBuscada = busquedaOficios_page.querySelector("#buscarFecha2");
+
+    let tsedeBuscada = busquedaOficios_page.querySelector("#buscar3raSede");
+    let tpersonalBuscado = busquedaOficios_page.querySelector("#buscarPersonalRecepcion3");
+    let tfechaBuscada = busquedaOficios_page.querySelector("#buscarFecha3");     
+
+    google.script.run
+    .withSuccessHandler( info =>{
+        if ( info.length > 0){
+
+        psedeBuscada.value = info[0][1];
+
+        ppersonalBuscado.value = info[0][2];
+        pfechaBuscada.value = info[0][13];
+
+        sSedeBuscada.value = info[0][16];
+        spersonalBuscado.value = info[0][17];
+        sfechaBuscada.value = info[0][18];
+
+        tsedeBuscada.value = info[0][19];
+        tpersonalBuscado.value = info[0][20];
+        tfechaBuscada.value = info[0][21];
+
+        dpersonalBuscado.value = info[0][22];
+        dfechaBuscada.value = info[0][23];
+
+        laboratorioBuscado.value = info[0][26];
+        lfechaBuscada.value = info[0][27];
+
+         const estadoPageEntrega = busquedaOficios_page.querySelector("#estadoPageEntrega");
+        const divEstadoEntrega = busquedaOficios_page.querySelector("#divEstadoEntrega");
+        const totalRechazo = Number(info[0][29]) + Number(info[0][31]);
+        if (info[0][33] === "RECHAZO TOTAL"){
+        estadoPageEntrega.innerHTML = info[0][33];
+        divEstadoEntrega.hidden = false; 
+        } else {     
+        estadoPageEntrega.innerHTML = info[0][32] + " - Contiene (" + totalRechazo + ") Rechazo(s)" ;
+        divEstadoEntrega.hidden = false;       
+        }
+
+        //step recepcion
+        const mostrarStepSede1 = busquedaOficios_page.querySelector("#stepSede1");
+        const psedeBuscadaP = busquedaOficios_page.querySelector("#buscar1raSede").value;
+        mostrarStepSede1.innerHTML = psedeBuscadaP; 
+    
+        const mostrarStepPersonal1 = busquedaOficios_page.querySelector("#stepPersonal1");
+        const ppersonalBuscadoP = busquedaOficios_page.querySelector("#buscarPersonalRecepcion").value;
+        mostrarStepPersonal1.innerHTML = ppersonalBuscadoP; 
+        
+        const mostrarStepFecha1 = busquedaOficios_page.querySelector("#stepFecha1");
+        const pfechaBuscadaP = busquedaOficios_page.querySelector("#buscarFecha").value;
+        //mostrarStepFecha1.innerHTML = pfechaBuscadaP;
+        busquedaOficios_page.querySelector("#stepFecha1").value=pfechaBuscadaP;
+        mostrarStepFecha1.hidden = false;
+
+        //step recepcion 2
+        const mostrarStepSede2 = busquedaOficios_page.querySelector("#stepSede2");
+        const psedeBuscada2P = busquedaOficios_page.querySelector("#buscar2raSede").value;
+        mostrarStepSede2.innerHTML = psedeBuscada2P; 
+    
+        const mostrarStepPersonal2 = busquedaOficios_page.querySelector("#stepPersonal2");
+        const ppersonalBuscado2P = busquedaOficios_page.querySelector("#buscarPersonalRecepcion2").value;
+        mostrarStepPersonal2.innerHTML = ppersonalBuscado2P; 
+        
+        const mostrarStepFecha2 = busquedaOficios_page.querySelector("#stepFecha2");
+        const pfechaBuscada2P = busquedaOficios_page.querySelector("#buscarFecha2").value;
+        //mostrarStepFecha2.innerHTML = pfechaBuscada2P;
+        busquedaOficios_page.querySelector("#stepFecha2").value=pfechaBuscada2P;
+        mostrarStepFecha2.hidden = false;
+
+        //step recepcion 3
+        const mostrarStepSede3 = busquedaOficios_page.querySelector("#stepSede3");
+        const psedeBuscada3P = busquedaOficios_page.querySelector("#buscar3raSede").value;
+        mostrarStepSede3.innerHTML = psedeBuscada3P; 
+    
+        const mostrarStepPersonal3 = busquedaOficios_page.querySelector("#stepPersonal3");
+        const ppersonalBuscado3P = busquedaOficios_page.querySelector("#buscarPersonalRecepcion3").value;
+        mostrarStepPersonal3.innerHTML = ppersonalBuscado3P; 
+        
+        const mostrarStepFecha3 = busquedaOficios_page.querySelector("#stepFecha3");
+        const pfechaBuscada3P = busquedaOficios_page.querySelector("#buscarFecha3").value;
+        //mostrarStepFecha3.innerHTML = pfechaBuscada3P;
+        busquedaOficios_page.querySelector("#stepFecha3").value=pfechaBuscada3P;
+        mostrarStepFecha3.hidden = false;
+
+        //step Digitacion 
+        const mostrarStepPersonalD = busquedaOficios_page.querySelector("#stepPersonalDigitacion");
+        const ppersonalBuscado3D = busquedaOficios_page.querySelector("#buscarPersonalDigitacion").value;
+        mostrarStepPersonalD.innerHTML = ppersonalBuscado3D; 
+        
+        const mostrarStepFechaD = busquedaOficios_page.querySelector("#stepFechaDigitacion");
+        const pfechaBuscadaD = busquedaOficios_page.querySelector("#buscarFechaDigitacion").value;
+        //mostrarStepFechaD.innerHTML = pfechaBuscadaD;
+        busquedaOficios_page.querySelector("#stepFechaDigitacion").value=pfechaBuscadaD;
+        mostrarStepFechaD.hidden = false;
+
+         //step Entrega 
+        const mostrarStepLaboratorioD = busquedaOficios_page.querySelector("#stepLaboratorioDestino");
+        const pLaboratorioD = busquedaOficios_page.querySelector("#buscarLabEntrega").value;
+        mostrarStepLaboratorioD.innerHTML = pLaboratorioD; 
+        
+        const mostrarStepFechaE = busquedaOficios_page.querySelector("#stepFechaEntrega");
+        const pfechaBuscadaE = busquedaOficios_page.querySelector("#buscarFechaEntregaLab").value;
+
+        busquedaOficios_page.querySelector("#stepFechaEntrega").value=pfechaBuscadaE;
+        mostrarStepFechaE.hidden = false;
+        
+        spinnerSUBv7.hidden=true; 
+     }                
+      })
+    .buscarCamposRegistros(codigoIDBuscado);
+    
+}
+ }
+
+
+
+ </script>

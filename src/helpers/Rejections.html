@@ -1,0 +1,271 @@
+ <script>
+   const rechazos_page = document.getElementById("rechazos_page");
+ 
+// FUNCIONES RECHAZOS
+
+ function buscarRegistrosRechazos(){ 
+    const codigoIDBuscado = rechazos_page.querySelector("#buscarCodigoId").value;
+
+    let motivoRechazoBuscado = rechazos_page.querySelector("#buscarMotivoRechazo");
+    let cantidadRechazosBuscados = rechazos_page.querySelector("#buscarCantidadRechazo");
+
+    let motivoRechazoBuscado2 = rechazos_page.querySelector("#buscarMotivoRechazo2");
+    let cantidadRechazosBuscados2 = rechazos_page.querySelector("#buscarCantidadRechazo2");  
+
+
+   google.script.run
+    .withSuccessHandler( info =>{
+      let tableBody = rechazos_page.querySelector("#RegistrosTablaBody");
+      tableBody.innerHTML = "";
+      if ( info.length > 0){
+        
+        motivoRechazoBuscado.value = info[0][28];
+        cantidadRechazosBuscados.value = info[0][29];
+
+        motivoRechazoBuscado2.value = info[0][30];
+        cantidadRechazosBuscados2.value = info[0][31];
+
+              
+        info.forEach(registro =>{
+          const template = rechazos_page.querySelector("#registrosRow");
+          const templateRow = template.content; 
+
+          let tr = templateRow.cloneNode(true);
+          let col1 = tr.querySelector(".registro1");
+          let col2 = tr.querySelector(".registro2");
+          let col3 = tr.querySelector(".registro3");
+          let col4 = tr.querySelector(".registro4");
+          let col5 = tr.querySelector(".registro5");
+          let col6 = tr.querySelector(".registro6");
+          let col7 = tr.querySelector(".registro7");
+          let col8 = tr.querySelector(".registro8");
+          let col9 = tr.querySelector(".registro9");
+          let col10 = tr.querySelector(".registro10");
+          let col11 = tr.querySelector(".registro11");
+
+          col1.textContent = registro[3];
+          col2.textContent = registro[4];
+          col3.textContent = registro[5];
+          col4.textContent = registro[6];
+          col5.textContent = registro[7];
+          col6.textContent = registro[8];
+          col7.textContent = registro[9];
+          col8.textContent = registro[10];
+          col9.textContent = registro[11]+"°C";
+          col10.textContent = registro[12];
+          col11.textContent = registro[14];       
+
+          tableBody.appendChild(tr)
+
+    let totalRechazo1 = rechazos_page.querySelector("#buscarCantidadRechazo").value;
+    let totalRechazo2 = rechazos_page.querySelector("#buscarCantidadRechazo2").value;
+    let totalRechazos = (Number(totalRechazo1)) + (Number(totalRechazo2));
+    let totalRechazoInput = rechazos_page.querySelector("#totalesRechazosInput");
+    totalRechazoInput.innerHTML = totalRechazos;
+
+    let totalConforme = (Number(registro[12])) - (Number(totalRechazos));
+    let totalConformeInput = rechazos_page.querySelector("#totalesConformesInput");
+    totalConformeInput.innerHTML = totalConforme;
+
+
+        })
+            spinnerRch.hidden=false;
+            spinnerLoadRch.hidden=true;
+      }else{
+        swal("Oops!", "El código ID que intenta buscar, no se encuentra registrado en la base de datos!", "error");
+            spinnerRch.hidden=false;
+            spinnerLoadRch.hidden=true;
+      }
+    })
+    .buscarCamposRegistros(codigoIDBuscado);
+}
+
+
+function validarFormularioRech(){
+   const formRch = rechazos_page.querySelector("#agregarModalRch");
+   const alertRch = rechazos_page.querySelector("#alertaModalRch1");
+   const button1 = rechazos_page.querySelector("#guardarMotivoRechazo").value;
+   const button2 = rechazos_page.querySelector("#guardarCantidadRechazo").value;
+   
+    if (button1.length < 1 || button2.length < 1 ){
+     alertRch.hidden = false;
+   } else {
+    alertRch.hidden = true;
+    google.script.run
+    .withSuccessHandler()
+    .agregarCRUDRz(formRch);  
+          formRch.reset();
+      const crearModal = bootstrap.Modal.getOrCreateInstance("#createModalRch");
+      crearModal.hide();
+
+    swal("Bien hecho!", "Datos guardados correctamente!", "success");
+    }
+ }
+
+ function validarFormularioRech2(){
+   const formRch2 = rechazos_page.querySelector("#agregarModalRch2");
+   const alertRch2 = rechazos_page.querySelector("#alertaModalRch2");
+   const button1 = rechazos_page.querySelector("#guardarMotivoRechazo2").value;
+   const button2 = rechazos_page.querySelector("#guardarCantidadRechazo2").value;
+   
+    if (button1.length < 1 || button2.length < 1 ){
+     alertRch2.hidden = false;
+   } else {
+    alertRch2.hidden = true;
+    google.script.run
+    .withSuccessHandler()
+    .agregarCRUDRz2(formRch2);  
+          formRch2.reset();
+      const crearModal = bootstrap.Modal.getOrCreateInstance("#createModalRch2");
+      crearModal.hide();
+
+    swal("Bien hecho!", "Datos guardados correctamente!", "success");
+    }
+}
+
+
+
+                
+              const spinnerSUBv5 = rechazos_page.querySelector("#spinnerLoadSUB");
+               const spinnerRch = rechazos_page.querySelector("#buttonBuscarRch");
+              const spinnerLoadRch = rechazos_page.querySelector("#buttonBuscarRchLoading");
+
+              spinnerRch.addEventListener("click", cargarEnvio);
+
+              function cargarEnvio (e){
+          
+          //console.log(e);
+                spinnerRch.hidden=true;
+                spinnerLoadRch.hidden=false;
+              }
+              
+              const tablaTitulosv5 = rechazos_page.querySelector("#RegistrosTablaRZ");
+                tablaTitulosv5.addEventListener("click", verificarClicRZ);
+                tablaTitulosv5.addEventListener("click", verificarClicSub);
+
+                  function verificarClicRZ(e){
+                    const formRC1 = rechazos_page.querySelector("#agregarModalRch");
+                    const formRC2 = rechazos_page.querySelector("#agregarModalRch2");
+                    const alertRC1 = rechazos_page.querySelector("#alertaModalRch1");
+                    const alertRC2 = rechazos_page.querySelector("#alertaModalRch2");
+                  alertRC1.hidden = true;
+                  alertRC2.hidden = true;
+                  formRC1.reset();
+                  formRC2.reset();
+                  if(e.target.matches(".agregarSubidRZ")){
+              
+              //console.log(e.target.parentNode);
+              
+              //console.log(e.target.parentNode.parentNode.rowIndex);
+                    const tIndex = e.target.parentNode.parentNode.rowIndex; 
+                    const codigoIDBuscado = rechazos_page.querySelector("#buscarCodigoId").value;
+                    const texto = rechazos_page.querySelector("#mostrarCodigoID");
+                    const texto2 = rechazos_page.querySelector("#mostrarCodigoID2");
+                    const buttonGrabar = rechazos_page.querySelector("#ButtonModalGrabarRz");
+                    const inputFecha = rechazos_page.querySelector("#modalMotivoR");
+                    const inputPersonal = rechazos_page.querySelector("#modalCantR");
+                  
+                    const buttonGrabar2 = rechazos_page.querySelector("#ButtonModalGrabarRz2");
+                    const inputFecha2 = rechazos_page.querySelector("#modalMotivoR2");
+                    const inputPersonal2 = rechazos_page.querySelector("#modalCantR2");
+              
+                    const tableBody = rechazos_page.querySelector("#RegistrosTablaRZ");
+                    const tableBodyCount = tableBody.rows.length;
+                    
+                    if(tableBodyCount > 2){
+                      //si index es 0 entonces no agregar SUB sino lo siguiente:
+                      if (tIndex === 1){
+                        texto.value = codigoIDBuscado;
+                        texto2.value = codigoIDBuscado;
+                        buttonGrabar.hidden = true;
+                        inputFecha.hidden = true;
+                        inputPersonal.hidden = true;   
+
+                        buttonGrabar2.hidden = true;
+                        inputFecha2.hidden = true;
+                        inputPersonal2.hidden = true;   
+     
+                        
+                      } else {
+                        texto.value = codigoIDBuscado + "-SUB0" + (tIndex -1);
+                        texto2.value = codigoIDBuscado + "-SUB0" + (tIndex -1);
+                        buttonGrabar.hidden = false;
+                        inputFecha.hidden = false;
+                        inputPersonal.hidden = false;
+
+                        buttonGrabar2.hidden = false;
+                        inputFecha2.hidden = false;
+                        inputPersonal2.hidden = false;
+       
+                      
+                      }
+                      
+                    } else {
+                      rechazos_page.querySelector("#mostrarCodigoID").value=codigoIDBuscado;
+                      rechazos_page.querySelector("#mostrarCodigoID2").value=codigoIDBuscado;
+                    }
+                  }
+                }
+
+
+
+
+                function verificarClicSub(e){
+                  spinnerSUBv5.hidden=false; 
+                  const codigoIDBuscado = rechazos_page.querySelector("#buscarCodigoId").value;
+                  const tRow = e.target.parentNode.rowIndex;
+                  const subCodigo = codigoIDBuscado + "-SUB0" + (tRow -1);
+
+                  if (tRow === 0 || tRow === 1 || tRow === undefined){
+                      
+                      //console.log(codigoIDBuscado);  
+                            spinnerSUBv5.hidden=true;                                
+                      } else {
+                        
+    const codigoIDBuscado = subCodigo; 
+    //console.log(codigoIDBuscado);  
+
+     let motivoRechazoBuscado = rechazos_page.querySelector("#buscarMotivoRechazo");
+    let cantidadRechazosBuscados = rechazos_page.querySelector("#buscarCantidadRechazo");
+
+    let motivoRechazoBuscado2 = rechazos_page.querySelector("#buscarMotivoRechazo2");
+    let cantidadRechazosBuscados2 = rechazos_page.querySelector("#buscarCantidadRechazo2");  
+
+
+   google.script.run
+    .withSuccessHandler( info =>{
+        if ( info.length > 0){
+        
+        motivoRechazoBuscado.value = info[0][28];
+        cantidadRechazosBuscados.value = info[0][29];
+
+        motivoRechazoBuscado2.value = info[0][30];
+        cantidadRechazosBuscados2.value = info[0][31];
+
+         info.forEach(registro =>{
+         const registroTabla = registro[12];
+
+      
+
+
+    let totalRechazo1 = rechazos_page.querySelector("#buscarCantidadRechazo").value;
+    let totalRechazo2 = rechazos_page.querySelector("#buscarCantidadRechazo2").value;
+    let totalRechazos = (Number(totalRechazo1)) + (Number(totalRechazo2));
+    let totalRechazoInput = rechazos_page.querySelector("#totalesRechazosInput");
+    totalRechazoInput.innerHTML = totalRechazos;
+
+    let totalConforme = (Number(registroTabla)) - (Number(totalRechazos));
+    let totalConformeInput = rechazos_page.querySelector("#totalesConformesInput");
+    totalConformeInput.innerHTML = totalConforme;
+        
+    spinnerSUBv5.hidden=true; 
+                   
+             })
+          }
+      })
+    .buscarCamposRegistros(codigoIDBuscado);  
+      }
+    }
+
+
+ </script>

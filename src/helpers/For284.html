@@ -1,0 +1,64 @@
+
+<script>
+// FUNCIONES BUSQUEDA FOR284
+const for284_page = document.getElementById("for284_page");
+
+ function buscarRegistrosBusquedaFOR284(){ 
+
+    const sede = for284_page.querySelector("#sede").value;                 
+    const fechaInicio = for284_page.querySelector("#fechaInicio").value;
+    const dato = [fechaInicio, sede];
+
+    google.script.run
+    .withSuccessHandler( info =>{
+      let tableBody = for284_page.querySelector("#RegistrosTablaBody");
+      tableBody.innerHTML = "";
+      if ( info.length > 0){
+
+        info.forEach(registro =>{
+          const template = for284_page.querySelector("#registrosRow");
+          const templateRow = template.content; 
+
+          let tr = templateRow.cloneNode(true);
+          let col1 = tr.querySelector(".registro1");
+          let col2 = tr.querySelector(".registro2");
+          let col3 = tr.querySelector(".registro3");
+          let col4 = tr.querySelector(".registro4");
+          let col41 = tr.querySelector(".registro4-1");
+          let col5 = tr.querySelector(".registro5");
+          let col6 = tr.querySelector(".registro6");
+          let col7 = tr.querySelector(".registro7");
+          let col8 = tr.querySelector(".registro8");
+          
+         
+             
+          col1.textContent = registro[3]+ " / OF: " + registro[8];
+          col2.textContent = registro[10];
+          col3.textContent = registro[34];
+          col4.textContent = registro[6];
+          col41.textContent = registro[12];
+          col5.textContent = registro[11]+"°C";
+          col6.textContent = registro[5];
+          col7.textContent = registro[13];
+          col8.textContent = "COD. ID: " + registro[0] + " - " + registro[14];
+          
+    
+
+          tableBody.appendChild(tr)
+        })
+                       
+            spinnerBusq.hidden=false;
+            spinnerLoadBusq.hidden=true;
+            
+      }else{
+        swal("Oops!", "No se encuentran registros en la base de datos!", "error");
+            spinnerBusq.hidden=false;
+            spinnerLoadBusq.hidden=true;
+      }
+    })
+    .buscarCamposRegistrosFOR284(dato);
+
+   
+ 
+}
+</script>

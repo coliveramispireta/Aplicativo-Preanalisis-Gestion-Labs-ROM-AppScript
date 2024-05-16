@@ -1,0 +1,645 @@
+
+ <script>
+  const recepcionInterna_page = document.getElementById("recepcionInterna_page");
+
+// FUNCIONES AGREGAR RECEPCION
+
+    function buscarRegistros(){ 
+    const codigoIDBuscado = recepcionInterna_page.querySelector("#buscarCodigoId").value;
+
+    let psedeBuscada = recepcionInterna_page.querySelector("#buscar1raSede");
+    let ppersonalBuscado = recepcionInterna_page.querySelector("#buscarPersonalRecepcion");
+    let pfechaBuscada = recepcionInterna_page.querySelector("#buscarFecha");
+
+    let sSedeBuscada = recepcionInterna_page.querySelector("#buscar2raSede");
+    let spersonalBuscado = recepcionInterna_page.querySelector("#buscarPersonalRecepcion2");
+    let sfechaBuscada = recepcionInterna_page.querySelector("#buscarFecha2");
+
+    let tsedeBuscada = recepcionInterna_page.querySelector("#buscar3raSede");
+    let tpersonalBuscado = recepcionInterna_page.querySelector("#buscarPersonalRecepcion3");
+    let tfechaBuscada = recepcionInterna_page.querySelector("#buscarFecha3");
+
+    const texto = recepcionInterna_page.querySelector("#buscarCodigoId").value;
+    recepcionInterna_page.querySelector("#mostrarCodigoID").value=texto;
+    recepcionInterna_page.querySelector("#mMostrarCodigoID").value=texto;
+  
+
+    google.script.run
+    .withSuccessHandler( info =>{
+      let tableBody = recepcionInterna_page.querySelector("#RegistrosTablaBody");
+      tableBody.innerHTML = "";
+      if ( info.length > 0){
+        psedeBuscada.value = info[0][1];
+        ppersonalBuscado.value = info[0][2];
+        pfechaBuscada.value = info[0][13];
+
+        sSedeBuscada.value = info[0][16];
+        spersonalBuscado.value = info[0][17];
+        sfechaBuscada.value = info[0][18];
+
+        tsedeBuscada.value = info[0][19];
+        tpersonalBuscado.value = info[0][20];
+        tfechaBuscada.value = info[0][21];
+
+        //step recepcion
+        const mostrarStepSede1 = recepcionInterna_page.querySelector("#stepSede1");
+        const psedeBuscadaP = recepcionInterna_page.querySelector("#buscar1raSede").value;
+        mostrarStepSede1.innerHTML = psedeBuscadaP; 
+    
+        const mostrarStepPersonal1 = recepcionInterna_page.querySelector("#stepPersonal1");
+        const ppersonalBuscadoP = recepcionInterna_page.querySelector("#buscarPersonalRecepcion").value;
+        mostrarStepPersonal1.innerHTML = ppersonalBuscadoP; 
+
+        const mostrarStepRegistro1 = recepcionInterna_page.querySelector("#stepRegistro1");
+        const registroBuscadoP = info[0][38];
+        mostrarStepRegistro1.innerHTML = registroBuscadoP; 
+
+        
+        
+        const mostrarStepFecha1 = recepcionInterna_page.querySelector("#stepFecha1");
+        const pfechaBuscadaP = recepcionInterna_page.querySelector("#buscarFecha").value;
+        //mostrarStepFecha1.innerHTML = pfechaBuscadaP;
+        recepcionInterna_page.querySelector("#stepFecha1").value=pfechaBuscadaP;
+        mostrarStepFecha1.hidden = false;
+
+        //step recepcion 2
+        const mostrarStepSede2 = recepcionInterna_page.querySelector("#stepSede2");
+        const psedeBuscada2P = recepcionInterna_page.querySelector("#buscar2raSede").value;
+        mostrarStepSede2.innerHTML = psedeBuscada2P; 
+    
+        const mostrarStepPersonal2 = recepcionInterna_page.querySelector("#stepPersonal2");
+        const ppersonalBuscado2P = recepcionInterna_page.querySelector("#buscarPersonalRecepcion2").value;
+        mostrarStepPersonal2.innerHTML = ppersonalBuscado2P; 
+        
+        const mostrarStepFecha2 = recepcionInterna_page.querySelector("#stepFecha2");
+        const pfechaBuscada2P = recepcionInterna_page.querySelector("#buscarFecha2").value;
+        //mostrarStepFecha2.innerHTML = pfechaBuscada2P;
+        recepcionInterna_page.querySelector("#stepFecha2").value=pfechaBuscada2P;
+        mostrarStepFecha2.hidden = false;
+
+        //step recepcion 3
+        const mostrarStepSede3 = recepcionInterna_page.querySelector("#stepSede3");
+        const psedeBuscada3P = recepcionInterna_page.querySelector("#buscar3raSede").value;
+        mostrarStepSede3.innerHTML = psedeBuscada3P; 
+    
+        const mostrarStepPersonal3 = recepcionInterna_page.querySelector("#stepPersonal3");
+        const ppersonalBuscado3P = recepcionInterna_page.querySelector("#buscarPersonalRecepcion3").value;
+        mostrarStepPersonal3.innerHTML = ppersonalBuscado3P; 
+        
+        const mostrarStepFecha3 = recepcionInterna_page.querySelector("#stepFecha3");
+        const pfechaBuscada3P = recepcionInterna_page.querySelector("#buscarFecha3").value;
+        //mostrarStepFecha3.innerHTML = pfechaBuscada3P;
+        recepcionInterna_page.querySelector("#stepFecha3").value=pfechaBuscada3P;
+        mostrarStepFecha3.hidden = false;
+
+
+        info.forEach(registro =>{
+          const template = recepcionInterna_page.querySelector("#registrosRow");
+          const templateRow = template.content; 
+
+          let tr = templateRow.cloneNode(true);
+          let col0 = tr.querySelector(".registro0");
+          let col1 = tr.querySelector(".registro1");
+          let col2 = tr.querySelector(".registro2");
+          let col3 = tr.querySelector(".registro3");
+          let col301 = tr.querySelector(".registro301");
+          let col4 = tr.querySelector(".registro4");
+          let col5 = tr.querySelector(".registro5");
+          let col6 = tr.querySelector(".registro6");
+          let col7 = tr.querySelector(".registro7");
+          let col8 = tr.querySelector(".registro8");
+          let col9 = tr.querySelector(".registro9");
+          let col10 = tr.querySelector(".registro10");
+          let col11 = tr.querySelector(".registro11");
+          let col12 = tr.querySelector(".registro12");
+
+          col0.textContent = registro[0];
+          col1.textContent = registro[3];
+          col2.textContent = registro[4];
+          col3.textContent = registro[5];
+          col301.textContent = registro[26];
+          col4.textContent = registro[6];
+          col5.textContent = registro[7];
+          col6.textContent = registro[8];
+          col7.textContent = registro[9];
+          col8.textContent = registro[10];
+          col9.textContent = registro[11]+"°C";
+          col10.textContent = registro[12];
+          col11.textContent = registro[14];
+          col12.textContent = registro[34];
+          
+
+          tableBody.appendChild(tr)
+
+        })
+            spinnerRec.hidden=false;
+            spinnerLoadRec.hidden=true;
+      }else{
+        swal("Oops!", "El código ID que intenta buscar, no se encuentra registrado en la base de datos!", "error");
+            spinnerRec.hidden=false;
+            spinnerLoadRec.hidden=true;
+      }
+    })
+    .buscarCamposRegistros(codigoIDBuscado);
+}
+
+ function validarFormulario(){
+   const form = recepcionInterna_page.querySelector("#agregar2daRec");
+   const alert = recepcionInterna_page.querySelector("#alertaModal");
+   const button1 = recepcionInterna_page.querySelector("#guardar2raSede").value;
+   const button2 = recepcionInterna_page.querySelector("#guardar2doPersonalRecepcion").value;
+   const button3 = recepcionInterna_page.querySelector("#guardar2daFecha").value;
+
+   const alertFch = recepcionInterna_page.querySelector("#alertaModalFch");
+   const stepFecha1 = recepcionInterna_page.querySelector("#stepFecha1").value;
+   const alertFch4 = recepcionInterna_page.querySelector("#alertaModalFchActual");
+   
+    //const today = new Date();
+    //const hoy = today.toLocaleString();
+
+const hoy = new Date();
+    const mes = hoy.getMonth() + 1;
+    const mes2d = mes.toString().padStart(2, '0');
+    const dia = hoy.getDate().toString().padStart(2, '0');
+
+    const fecha = hoy.getFullYear() + '-' + mes2d + '-' + dia ;
+    const hora = hoy.getHours().toString().padStart(2, '0') + ':' + hoy.getMinutes().toString().padStart(2, '0');
+    const fechaYHora = fecha + 'T' + hora;
+
+
+
+console.log(fechaYHora);
+//console.log(hoy);
+console.log(stepFecha1);
+
+   if (button1.length < 1 || button2.length < 1 || button3.length < 1){
+     alert.hidden = false;
+      } else if (button3 < stepFecha1){
+     alertFch.hidden = false;
+      } else if (button3 > fechaYHora){
+     alertFch4.hidden = false;
+   } else {
+      alert.hidden = true;
+  
+     google.script.run
+    .withSuccessHandler()
+    .agregarCRUD(form);  
+          form.reset();
+      const crearModal = bootstrap.Modal.getOrCreateInstance("#createModal2R");
+      crearModal.hide();
+
+    swal("Bien hecho!", "Datos guardados correctamente!", "success");
+recepcionInterna_page.querySelectorAll("#RegistrosTablaRR td").forEach(td => td.innerHTML = "");
+recepcionInterna_page.querySelectorAll("#inputsBuscar input").forEach(input => input.value = "");
+recepcionInterna_page.querySelectorAll("#divInformativo input").forEach(input => input.value = "");
+recepcionInterna_page.querySelectorAll("#divSteps input").forEach(input => input.value = "");
+recepcionInterna_page.querySelectorAll("#divSteps span").forEach(span => span.textContent = "");
+
+
+      }
+    }
+
+
+ function validar3Formulario(){
+   const alert2 = recepcionInterna_page.querySelector("#alertaModal2");
+   const button1 = recepcionInterna_page.querySelector("#guardar3raSede").value;
+   const button2 = recepcionInterna_page.querySelector("#guardar3PersonalRecepcion").value;
+   const button3 = recepcionInterna_page.querySelector("#guardar3Fecha").value;
+   const form2 = recepcionInterna_page.querySelector("#agregar3raRec");
+
+   const alertFch = recepcionInterna_page.querySelector("#alertaModalFch2");
+   const stepFecha1 = recepcionInterna_page.querySelector("#stepFecha1").value;
+   const stepFecha2 = recepcionInterna_page.querySelector("#stepFecha2").value;
+   const alertFch4 = recepcionInterna_page.querySelector("#alertaModalFchActual2");
+
+    const hoy = new Date();
+    const mes = hoy.getMonth() + 1;
+    const mes2d = mes.toString().padStart(2, '0');
+    const dia = hoy.getDate().toString().padStart(2, '0');
+
+    const fecha = hoy.getFullYear() + '-' + mes2d + '-' + dia ;
+    const hora = hoy.getHours().toString().padStart(2, '0') + ':' + hoy.getMinutes().toString().padStart(2, '0');
+    const fechaYHora = fecha + 'T' + hora;
+   
+  if (button1.length < 1 || button2.length < 1 || button3.length < 1){
+     alert2.hidden = false;
+        } else if (button3 < stepFecha2 || button3 < stepFecha1){
+     alertFch.hidden = false;
+      } else if (button3 > fechaYHora){
+     alertFch4.hidden = false;
+   } else {
+    alert2.hidden = true;
+    google.script.run
+    .withSuccessHandler()
+    .agregar2CRUD(form2);  
+
+          form2.reset();
+      const crearModal = bootstrap.Modal.getOrCreateInstance("#createModal3R");
+      crearModal.hide();
+    swal("Bien hecho!", "Datos guardados correctamente!", "success");
+
+recepcionInterna_page.querySelectorAll("#RegistrosTablaRR td").forEach(td => td.innerHTML = "");
+recepcionInterna_page.querySelectorAll("#inputsBuscar input").forEach(input => input.value = "");
+recepcionInterna_page.querySelectorAll("#divInformativo input").forEach(input => input.value = "");
+recepcionInterna_page.querySelectorAll("#divSteps input").forEach(input => input.value = "");
+recepcionInterna_page.querySelectorAll("#divSteps span").forEach(span => span.textContent = "");
+
+      }
+   }
+
+
+function grabarEditarRecepcion(){
+ const alert3 = recepcionInterna_page.querySelector("#alertaModalEDIT");
+    const button1 = recepcionInterna_page.querySelector("#enfermedadEDIT").value;
+    const button2 = recepcionInterna_page.querySelector("#tipoMuestraEdit").value;
+    const button3 = recepcionInterna_page.querySelector("#origenMuestraEdit").value;
+    const button4 = recepcionInterna_page.querySelector("#nroOficioEdit").value;
+    const button5 = recepcionInterna_page.querySelector("#motivoMuestraEdit").value;
+    const button6 = recepcionInterna_page.querySelector("#tipoEmpaqueEdit").value;
+    const button7 = recepcionInterna_page.querySelector("#cantidadMuestrasEdit").value;
+    const button8 = recepcionInterna_page.querySelector("#procedenciaEDIT").value;
+    const button9 = recepcionInterna_page.querySelector("#labRefEDIT").value;
+    const button10 = recepcionInterna_page.querySelector("#labDesEDIT").value;
+    const button11 = recepcionInterna_page.querySelector("#cantidadMuestrasMXEdit").value;
+
+    const formEdit = recepcionInterna_page.querySelector("#agregarEditar");
+   
+  if (button1.length < 1 || button2.length < 1 || button3.length < 1 || button4.length < 1 || button5.length < 1 || button6.length < 1 || button7.length < 1 || button8.length < 1 || button9.length < 1 || button10.length < 1 || button11.length < 1 ){
+     alert3.hidden = false;
+     ////console.log(button3.length);
+   } else {
+    alert3.hidden = true;
+    google.script.run
+    .withSuccessHandler()
+    .agregarCRUDEdit(formEdit); 
+      formEdit.reset();
+      const crearModal = bootstrap.Modal.getOrCreateInstance("#createModalEDIT");
+      crearModal.hide();
+    swal("Bien hecho!", "Datos actualizados correctamente!", "success");
+      }
+   }
+
+
+
+
+//DATA LIST PERSONAL 2DA
+
+
+                const inputPersonalRecv2 = recepcionInterna_page.querySelector("#guardar2doPersonalRecepcion"); 
+                inputPersonalRecv2.addEventListener("blur", validarPersonalRec);
+
+                function validarPersonalRec(e){
+                  const inputPersonalValue = recepcionInterna_page.querySelector("#guardar2doPersonalRecepcion").value;                        
+                  const alertaValidacionP = recepcionInterna_page.querySelector("#alertaValidacionP");
+                  const buttonGrabar = recepcionInterna_page.querySelector("#ButtonModalGrabar");
+                  const found = dataPersonal.some(personal => personal[0] === inputPersonalValue);
+                 //   console.log(found);              
+                  if (found){
+                   // console.log("!esta!");
+                    alertaValidacionP.hidden = true;
+                    buttonGrabar.disabled = false;
+                  } else {
+                    //console.log("no esta!");
+                    alertaValidacionP.hidden = false;
+                    buttonGrabar.disabled = true;
+                   
+                  }
+                }
+
+                //DATA LIST PERSONAL 3RA
+
+
+                 const inputPersonalRec3RA = recepcionInterna_page.querySelector("#guardar3PersonalRecepcion"); 
+                inputPersonalRec3RA.addEventListener("blur", validarPersonalRec3RA);
+
+                function validarPersonalRec3RA(e){
+                  const inputPersonalValue = recepcionInterna_page.querySelector("#guardar3PersonalRecepcion").value;                        
+                  const alertaValidacionP = recepcionInterna_page.querySelector("#alertaValidacionP3");
+                  const buttonGrabar = recepcionInterna_page.querySelector("#ButtonModalGrabar2");
+                  const found = dataPersonal.some(personal => personal[0] === inputPersonalValue);
+                  //  console.log(found);              
+                  if (found){
+                //    console.log("!esta!");
+                    alertaValidacionP.hidden = true;
+                    buttonGrabar.disabled = false;
+                  } else {
+                  //  console.log("no esta!");
+                    alertaValidacionP.hidden = false;
+                    buttonGrabar.disabled = true;
+                   
+                  }
+                }
+
+
+
+
+//DATA LIST LABREF
+                                   
+
+             function actualizarInfop2(datalist){
+                const dtlProcedencia2 = recepcionInterna_page.querySelector("#datalistOptionsPv2");
+               for (let i = 0; i < dtlProcedencia2.options.length; i++){
+                 if (dtlProcedencia2.options[i].value === datalist.value){
+                 recepcionInterna_page.querySelector("#labRefEDIT").value = dtlProcedencia2.options[i].getAttribute("data-referencia");
+                 break;
+                 }else{
+                   recepcionInterna_page.querySelector("#labRefEDIT").value = "";
+                 }
+               }
+             }
+
+             const inputProcedencia2 = recepcionInterna_page.querySelector("#procedenciaEDIT"); 
+inputProcedencia2.addEventListener("blur", validarProcedencia2);
+
+function validarProcedencia2(e){
+  const inputlabRef = recepcionInterna_page.querySelector("#labRefEDIT").value;
+  const alertalabRef = recepcionInterna_page.querySelector("#alertaValidacion");
+  const buttonGrabar = recepcionInterna_page.querySelector("#ButtonModalGrabarEDIT");
+  if ( inputlabRef.length == 0){
+    alertalabRef.hidden = false;
+    buttonGrabar.disabled = true;
+
+  } else if (inputlabRef.length > 0){
+    alertalabRef.hidden = true;
+   buttonGrabar.disabled = false;
+  }
+}
+
+
+                 function actualizarInfoEnfermedadv2(datalist){
+                  const dtlenfermedadv2 = recepcionInterna_page.querySelector("#datalistOptionsEnfermedadv2");
+               for (let i = 0; i < dtlenfermedadv2.options.length; i++){
+                 if (dtlenfermedadv2.options[i].value === datalist.value){
+                 recepcionInterna_page.querySelector("#labDesEDIT").value = dtlenfermedadv2.options[i].getAttribute("data-referencia");
+                 break;
+                 }else{
+                   recepcionInterna_page.querySelector("#labDesEDIT").value = "";
+                 }
+               }
+             }
+ 
+const inputEnfermedad2 = recepcionInterna_page.querySelector("#enfermedadEDIT"); 
+inputEnfermedad2.addEventListener("blur", validarEnfermedad2);
+
+function validarEnfermedad2(e){
+  const inputlabDes = recepcionInterna_page.querySelector("#labDesEDIT").value;
+  const alertalabDes = recepcionInterna_page.querySelector("#alertaValidacionlabDes");
+  const buttonGrabar = recepcionInterna_page.querySelector("#ButtonModalGrabarEDIT");
+  if ( inputlabDes.length == 0){
+    alertalabDes.hidden = false;
+    buttonGrabar.disabled = true;
+
+  } else if (inputlabDes.length > 0){
+    alertalabDes.hidden = true;
+   buttonGrabar.disabled = false;
+  }
+}
+              
+
+              const spinnerSUB = recepcionInterna_page.querySelector("#spinnerLoadSUB");
+              const spinnerRec = recepcionInterna_page.querySelector("#buttonBuscarRec");
+              const spinnerLoadRec = recepcionInterna_page.querySelector("#buttonBuscarRecLoading");
+
+              spinnerRec.addEventListener("click", cargarEnvio);
+
+              function cargarEnvio (e){
+                //console.log(e);
+                spinnerRec.hidden=true;
+                spinnerLoadRec.hidden=false;
+              }
+                          
+
+              const tablaTitulosRR = recepcionInterna_page.querySelector("#RegistrosTablaRR");
+           
+                tablaTitulosRR.addEventListener("click", verificarClicSub);
+                tablaTitulosRR.addEventListener("click", verificarClicRR);
+
+                function verificarClicRR(e){
+                    const campo1 = recepcionInterna_page.querySelector("#guardar2raSede");
+                    const campo2 = recepcionInterna_page.querySelector("#guardar2doPersonalRecepcion");
+                    const campo3 = recepcionInterna_page.querySelector("#guardar2daFecha");
+                    const campo4 = recepcionInterna_page.querySelector("#guardar3raSede");
+                    const campo5 = recepcionInterna_page.querySelector("#guardar3PersonalRecepcion");
+                    const campo6 = recepcionInterna_page.querySelector("#guardar3Fecha");
+                  
+                    const alert = recepcionInterna_page.querySelector("#alertaModal");
+                    const alert2 = recepcionInterna_page.querySelector("#alertaModal2");
+                    const alert3 = recepcionInterna_page.querySelector("#alertaModalEDIT");
+
+                    const alertFch = recepcionInterna_page.querySelector("#alertaModalFch");
+                    const alertFch2 = recepcionInterna_page.querySelector("#alertaModalFchActual");   
+                    const alertFch3 = recepcionInterna_page.querySelector("#alertaModalFch2");
+                    const alertFch4 = recepcionInterna_page.querySelector("#alertaModalFchActual2");      
+                  alertFch.hidden = true;
+                  alertFch2.hidden = true;
+                  alertFch3.hidden = true;
+                  alertFch4.hidden = true;
+
+                  alertaValidacionP.hidden = true;
+                  alertaValidacionP3.hidden = true;
+
+                  alert.hidden = true;
+                  alert2.hidden = true;
+                  alert3.hidden = true;     
+                  campo1.value = undefined;
+                  campo2.value = "";
+                  campo3.value = undefined;
+                  campo4.value = undefined;
+                  campo5.value = "";
+                  campo6.value = undefined;
+
+                  if (e.target && (e.target.id === "button1" || e.target.id === "button2" || e.target.id === "button3")) {
+    const tIndex = e.target.parentNode.parentNode.rowIndex;                
+    const tableRow = e.target.parentNode.parentNode;
+    const codigoRecuperado = tableRow.cells[1].textContent;
+
+    if (e.target.id === "button1") {
+              const tableProcedencia = tableRow.cells[2].innerHTML;
+              const tableLabRef = tableRow.cells[3].innerHTML;
+              const tableEnfermedad = tableRow.cells[4].innerHTML;
+              const tableLabDes = tableRow.cells[5].innerHTML;
+              const tableTipoMuestra = tableRow.cells[6].innerHTML;
+              const tableOrigen = tableRow.cells[7].innerHTML;
+              const tableOficio = tableRow.cells[8].innerHTML;
+              const tableMotivo = tableRow.cells[9].innerHTML;
+              const tableTipoEmpaque = tableRow.cells[10].innerHTML;
+              const tableTemperatura = parseFloat(tableRow.cells[11].innerHTML.replace("°C", ""));
+              const tableCantidad = tableRow.cells[12].innerHTML;
+              const tableComentario = tableRow.cells[14].innerHTML;
+              const tableCantidadMX = tableRow.cells[13].innerHTML;
+
+              recepcionInterna_page.querySelector("#MostrarCodigoIDEdit").value = codigoRecuperado;
+              recepcionInterna_page.querySelector("#procedenciaEDIT").value = tableProcedencia;
+              recepcionInterna_page.querySelector("#labRefEDIT").value = tableLabRef;
+              recepcionInterna_page.querySelector("#enfermedadEDIT").value = tableEnfermedad;
+              recepcionInterna_page.querySelector("#labDesEDIT").value = tableLabDes;
+              recepcionInterna_page.querySelector("#tipoMuestraEdit").value = tableTipoMuestra;
+              recepcionInterna_page.querySelector("#origenMuestraEdit").value = tableOrigen;
+              recepcionInterna_page.querySelector("#nroOficioEdit").value = tableOficio;
+              recepcionInterna_page.querySelector("#motivoMuestraEdit").value = tableMotivo;
+              recepcionInterna_page.querySelector("#tipoEmpaqueEdit").value = tableTipoEmpaque;
+              recepcionInterna_page.querySelector("#temperaturaEdit").value = tableTemperatura;
+              recepcionInterna_page.querySelector("#cantidadMuestrasEdit").value = tableCantidad;
+              recepcionInterna_page.querySelector("#cantidadMuestrasMXEdit").value = tableCantidadMX;
+              recepcionInterna_page.querySelector("#comentarioTextareaEdit").value = tableComentario;
+
+    } else if (e.target.id === "button2") {
+
+      recepcionInterna_page.querySelector("#mostrarCodigoID").value = codigoRecuperado;
+
+    const buttonGrabar = recepcionInterna_page.querySelector("#ButtonModalGrabar");
+    const inputFecha = recepcionInterna_page.querySelector("#modalFechaR");
+    const inputPersonal = recepcionInterna_page.querySelector("#modalPersonalR");
+    const inputSede = recepcionInterna_page.querySelector("#modalSedeR");
+    const tableBody = recepcionInterna_page.querySelector("#RegistrosTablaRR");
+    const tableBodyCount = tableBody.rows.length;
+
+      if (tableBodyCount > 2) {
+        if (tIndex === 1) {
+          buttonGrabar.hidden = true;
+          inputFecha.hidden = true;
+          inputPersonal.hidden = true;   
+          inputSede.hidden = true; 
+        } else {
+          buttonGrabar.hidden = false;
+          inputFecha.hidden = false;
+          inputPersonal.hidden = false;
+          inputSede.hidden = false;
+        }
+      }
+
+    } else if (e.target.id === "button3") {
+
+recepcionInterna_page.querySelector("#mMostrarCodigoID").value = codigoRecuperado;
+
+      const buttonGrabar2 = recepcionInterna_page.querySelector("#ButtonModalGrabar2");
+      const inputFecha2 = recepcionInterna_page.querySelector("#modalFechaR2");
+      const inputPersonal2 = recepcionInterna_page.querySelector("#modalPersonalR2");
+      const inputSede2 = recepcionInterna_page.querySelector("#modalSedeR2");
+      const tableBody = recepcionInterna_page.querySelector("#RegistrosTablaRR");
+      const tableBodyCount = tableBody.rows.length;
+
+       if (tableBodyCount > 2) {
+        if (tIndex === 1) {
+          buttonGrabar2.hidden = true;
+          inputFecha2.hidden = true;
+          inputPersonal2.hidden = true;   
+          inputSede2.hidden = true;
+        } else {
+          buttonGrabar2.hidden = false;
+          inputFecha2.hidden = false;
+          inputPersonal2.hidden = false;
+          inputSede2.hidden = false; 
+        }
+      }
+
+    }
+  }
+}
+
+
+
+      function verificarClicSub(e){
+        spinnerSUB.hidden=false;
+
+                  const tRow = e.target.parentNode.rowIndex;
+                  const tRow2 = e.target.parentNode.parentNode.rowIndex;
+                  const tableRow = e.target.parentNode.parentNode;
+                  let codigoRecuperado;
+                                    
+                if (e.target && (e.target.id === "button1" || e.target.id === "button2" || e.target.id === "button3")) {
+                    codigoRecuperado = tableRow.cells[1].textContent;
+   
+                } else {
+                codigoRecuperado = e.target.parentNode.cells[1].textContent;
+                }
+
+                if (tRow === 0 || tRow === 1 || tRow2 === 1  ){
+                        spinnerSUB.hidden=true;   
+
+                  } else {
+
+    let psedeBuscada = recepcionInterna_page.querySelector("#buscar1raSede");
+    let ppersonalBuscado = recepcionInterna_page.querySelector("#buscarPersonalRecepcion");
+    let pfechaBuscada = recepcionInterna_page.querySelector("#buscarFecha");
+
+    let sSedeBuscada = recepcionInterna_page.querySelector("#buscar2raSede");
+    let spersonalBuscado = recepcionInterna_page.querySelector("#buscarPersonalRecepcion2");
+    let sfechaBuscada = recepcionInterna_page.querySelector("#buscarFecha2");
+
+    let tsedeBuscada = recepcionInterna_page.querySelector("#buscar3raSede");
+    let tpersonalBuscado = recepcionInterna_page.querySelector("#buscarPersonalRecepcion3");
+    let tfechaBuscada = recepcionInterna_page.querySelector("#buscarFecha3");
+  
+    google.script.run
+    .withSuccessHandler( info =>{
+      if ( info.length > 0){
+
+        psedeBuscada.value = info[0][1];
+        ppersonalBuscado.value = info[0][2];
+        pfechaBuscada.value = info[0][13];
+
+        sSedeBuscada.value = info[0][16];
+        spersonalBuscado.value = info[0][17];
+        sfechaBuscada.value = info[0][18];
+
+        tsedeBuscada.value = info[0][19];
+        tpersonalBuscado.value = info[0][20];
+        tfechaBuscada.value = info[0][21];
+
+        //step recepcion
+        const mostrarStepSede1 = recepcionInterna_page.querySelector("#stepSede1");
+        const psedeBuscadaP = recepcionInterna_page.querySelector("#buscar1raSede").value;
+        mostrarStepSede1.innerHTML = psedeBuscadaP; 
+    
+        const mostrarStepPersonal1 = recepcionInterna_page.querySelector("#stepPersonal1");
+        const ppersonalBuscadoP = recepcionInterna_page.querySelector("#buscarPersonalRecepcion").value;
+        mostrarStepPersonal1.innerHTML = ppersonalBuscadoP; 
+        
+        const mostrarStepFecha1 = recepcionInterna_page.querySelector("#stepFecha1");
+        const pfechaBuscadaP = recepcionInterna_page.querySelector("#buscarFecha").value;
+        //mostrarStepFecha1.innerHTML = pfechaBuscadaP;
+        recepcionInterna_page.querySelector("#stepFecha1").value=pfechaBuscadaP;
+        mostrarStepFecha1.hidden = false;
+
+        //step recepcion 2
+        const mostrarStepSede2 = recepcionInterna_page.querySelector("#stepSede2");
+        const psedeBuscada2P = recepcionInterna_page.querySelector("#buscar2raSede").value;
+        mostrarStepSede2.innerHTML = psedeBuscada2P; 
+    
+        const mostrarStepPersonal2 = recepcionInterna_page.querySelector("#stepPersonal2");
+        const ppersonalBuscado2P = recepcionInterna_page.querySelector("#buscarPersonalRecepcion2").value;
+        mostrarStepPersonal2.innerHTML = ppersonalBuscado2P; 
+        
+        const mostrarStepFecha2 = recepcionInterna_page.querySelector("#stepFecha2");
+        const pfechaBuscada2P = recepcionInterna_page.querySelector("#buscarFecha2").value;
+        //mostrarStepFecha2.innerHTML = pfechaBuscada2P;
+        recepcionInterna_page.querySelector("#stepFecha2").value=pfechaBuscada2P;
+        mostrarStepFecha2.hidden = false;
+
+        //step recepcion 3
+        const mostrarStepSede3 = recepcionInterna_page.querySelector("#stepSede3");
+        const psedeBuscada3P = recepcionInterna_page.querySelector("#buscar3raSede").value;
+        mostrarStepSede3.innerHTML = psedeBuscada3P; 
+    
+        const mostrarStepPersonal3 = recepcionInterna_page.querySelector("#stepPersonal3");
+        const ppersonalBuscado3P = recepcionInterna_page.querySelector("#buscarPersonalRecepcion3").value;
+        mostrarStepPersonal3.innerHTML = ppersonalBuscado3P; 
+        
+        const mostrarStepFecha3 = recepcionInterna_page.querySelector("#stepFecha3");
+        const pfechaBuscada3P = recepcionInterna_page.querySelector("#buscarFecha3").value;
+        //mostrarStepFecha3.innerHTML = pfechaBuscada3P;
+        recepcionInterna_page.querySelector("#stepFecha3").value=pfechaBuscada3P;
+        mostrarStepFecha3.hidden = false;
+
+        spinnerSUB.hidden=true;  
+           }                
+       })
+    .buscarCamposRegistros(codigoRecuperado);
+          } 
+       }
+ 
+
+
+
+</script>

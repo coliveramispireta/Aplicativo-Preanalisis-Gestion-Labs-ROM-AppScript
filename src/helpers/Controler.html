@@ -1,0 +1,174 @@
+<script>
+    const arregloUser = [
+                          "A2bC5D1", "E7fG8H2", "I3jK9L4", "M5nO6P0", "Q1rS2Tb", "U3vW4Xc", "Y5zA6Bd", "C7eD8Ff", "G9hI0Jg", "K1jL2Mh", "N3mOp4Qj", "R5sTu6Vp", "W7xY8Zr", "a9AbB0Cc", "D1eEfF2g", "H3iI4Jk", "L5lM6Nj", "O7oP8Qk", "R9rS0Tl", "U1uV2Wm", "X3yY4Zn", "A5aB6bCd", "E7cF8dGf", "I9gJ0hKi", "L1jM2kNl", "O3mP4nQo", "R5pS6qTr", "U7rV8sWu", "X9vY0wZx", "a1A2yBzC", "D3eE4fFg", "H5iI6jJk", "K7lM8mNn", "O9pP0qQr", "S1rT2sUo", "V3uW4vXw", "a5G1dHxS", "Z8s5waXhjA", "dB6246GfI9", 
+                          ];
+
+window.addEventListener("load", obtenerURLuser);
+
+function obtenerURLuser() {
+  google.script.url.getLocation(function(location) {
+    const usernumberValue = location.parameters.u;
+    const pageValue = location.parameters.p;
+     if (!usernumberValue) {
+      document.getElementById("overlay").style.display = "none";
+      const crearModaluser = bootstrap.Modal.getOrCreateInstance("#staticBackdropNOUSER");
+      crearModaluser.show();
+      window.location.href = URL_APP_MANAGER;
+      return;
+      } else{
+        const usernumberValueU = location.parameters.u[0];
+        if (!arregloUser.includes(usernumberValueU)){
+          document.getElementById("overlay").style.display = "none";
+          const crearModaluser = bootstrap.Modal.getOrCreateInstance("#staticBackdropNOUSER");
+      crearModaluser.show();
+      window.location.href = URL_APP_MANAGER;
+      return;
+          } else {
+            obtenerDatosUser(usernumberValueU);
+          }
+        }
+
+  });
+}
+
+let userActual = "";  
+
+function obtenerDatosUser(usernumberValueU) {
+    google.script.run
+    .withSuccessHandler( arreglo =>{
+      document.getElementById("overlay").style.display = "none";
+      document.getElementById("nav2").hidden = false; 
+      document.getElementById("uActual").textContent = arreglo[0][0];
+      document.getElementById("sede_rol").textContent = arreglo[0][7] + " - " +  arreglo[0][6];
+      document.getElementById("personalRegistro").value = arreglo[0][0];
+      userActual = arreglo[0][0];
+      document.getElementById("nav2").classList.remove("inactive-link");
+})
+.obtenerUsuario(usernumberValueU);
+}
+
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    // Obtener todos los enlaces de las páginas
+    var enlacesPaginas = [
+        "recepcionInterna_page",
+        "digitacion_page",
+        "bandejaSalida_page",
+        "entrega_page",
+        "rechazos_page",
+        "consultaDatos_page",
+        "busquedaOficios_page",
+        "for284_page",
+        "for027_page",
+        "miPerfil_page"
+    ];
+
+    // Manejar el clic en cada enlace
+    enlacesPaginas.forEach(function (pagina) {
+        var enlace = document.getElementById(pagina + "Link");
+        enlace.addEventListener("click", function (event) {
+            // Ocultar todas las páginas
+            enlacesPaginas.forEach(function (pagina) {
+                document.getElementById(pagina).hidden = true;
+                blanquearModulo(pagina);
+            });
+
+            // Mostrar la página correspondiente al enlace clicado
+            document.getElementById(pagina).hidden = false;
+            event.preventDefault();
+        });
+    });
+});
+
+
+function blanquearModulo(pagina){
+const page = document.getElementById(pagina);
+page.querySelectorAll("#divInformativo input").forEach(input => input.value = "");
+page.querySelectorAll("#divSteps input").forEach(input => input.value = "");
+page.querySelectorAll("#divSteps span").forEach(span => span.textContent = ""); 
+page.querySelectorAll("#RegistrosTablaRR td").forEach(td => td.innerHTML = "");
+page.querySelectorAll("#inputsBuscar input").forEach(input => input.value = "");
+page.querySelectorAll("#RegistrosTabla td").forEach(td => td.innerHTML = "");
+page.querySelectorAll("#pruebaclic input").forEach(input => input.value = "");
+page.querySelectorAll("#divOculto input").forEach(input => input.value = "");
+page.querySelectorAll("#RegistrosTablaEE td").forEach(td => td.innerHTML = "");
+page.querySelectorAll("#contenedorPrueba input").forEach(input => input.value = "");
+page.querySelectorAll("#divOculto input").forEach(input => input.value = "");
+
+}
+
+function agregarOpciones() {
+const opciones = [
+  "", "AGUA", "ALÍCUOTA", "ASPIRADO BRONQUIAL", "ASPIRADO TRAQUEAL", "ASPIRADO DE BUBÓN", "ASPIRADO DE GANGLIO CERVICAL", "ASPIRADO GÁSTRICO", "ASPIRADO NASOFARÍNGEO", "ABSCESO INGUINAL", "BIOPSIA", "CEPA", "CEPA PARA CONTROL DE CALIDAD", "CEREBRO", "DRENAJE DE NEFROSTOMIA", "ESPUTO", "FROTIS", "HISOPADO", "HISOPADO CÉRVIX", "HISOPADO DE COSTRA", "HISOPADO DÉRMICO", "HISOPADO NASAL Y FARÍNGEO", "HISOPADO NASOFARÍNGEO", "HISOPADO OROFARÍNGEO", "HISOPADO RECTAL", "HISOPADO URETRAL", "HISOPADO VAGINAL", "LÁMINA", "LAVADO ALVEOLAR", "LINFA", "LÍQUIDO CEFALORRAQUÍDEO (LCR)", "LÍQUIDO PLEURAL", "LÍQUIDO ASCÍTICO", "ORINA", "ORGANO", "HIGADO", "INSECTO", "BAZO", "RIÑON", "PANEL", "PLASMA", "RASPADO DE PIEL", "RASPADO DE UÑA", "RASPADO DE CUERO CABELLUDO", "CULTIVO", "TEJIDO", "LARVA", "ORGANO / SUERO", "SALIVA", "SANGRE TOTAL", "SANGRE SECA EN PAPEL FILTRO", "SANGRE /PLASMA", "SANGRE TOTAL / SANGRE PAPEL FILTRO", "SEMEN", "SECRECION DE HERIDA", "SUERO", "SUERO / PLASMA", "SUERO / HNF", "SUERO / HECES", "SUERO / SANGRE", "SUERO / SANGRE / PLASMA", "SUERO / ORINA", "SUERO / LÁMINA", "SUERO / ST / HNF / LCR / HECES / ORINA", "SUERO / FROTIS", "SUERO / FROTIS / CULTIVO / TEJIDO", "HECES", "HECES / ORINA", "HECES / LCR", "HNF / LCR", "HLD / PEC / HNF", "HLD / HNF", "HLD / PEC", "HNF / LCR / HECES / ORINA", 
+  ];
+  
+    // Obtener los select por sus ID
+  const selectIDs = [
+    "tipoMuestra",
+    "subTipomuestras1",
+    "subTipomuestras2",
+    "subTipomuestras3",
+    "subTipomuestras4",
+    "subTipomuestras5",
+    "subTipomuestras6",
+    "tipoMuestraEdit",
+    "tipoMuestraEditDig",
+    "tipoMuestraEditEnt"
+  ];
+
+  // Función para agregar opciones a un select
+  function agregarOpcionesASelect(selectID, opciones) {
+    const select = document.getElementById(selectID);
+    opciones.forEach(opcion => {
+      const option = document.createElement("option");
+      option.value = opcion;
+      option.textContent = opcion;
+      select.appendChild(option);
+    });
+  }
+
+  // Agregar opciones a los select
+  selectIDs.forEach(selectID => agregarOpcionesASelect(selectID, opciones));
+}
+
+// Llamar a la función para agregar las opciones
+agregarOpciones();
+
+
+
+
+function agregarOpcionesRechazo() {
+const opciones = [
+  "", "MUESTRA DERRAMADA", "MUESTRA INSUFICIENTE PARA ANÁLISIS", "MUESTRA FUERA DEL RANGO DE TEMPERATURA DE CONSERVACIÓN", "MUESTRA EN CONTENEDOR PRIMARIO CON FECHA CADUCADA", "MUESTRA SIN RÓTULO DE IDENTIFICACIÓN", "MUESTRA SIN OFICIO", "MUESTRA SIN FICHA, SIN SOLICITUD DE ANÁLISIS", "MUESTRA HIDROLIZADA", "MUESTRA LIPEMICA", "MUESTRA HEMOLIZADA", "MUESTRA NO CUMPLE CON CRITERIOS DE LA CARTERA DE SERVICIOS", "MUESTRA NO CUMPLE CON CRITERIOS DEL PRT-001", "ENVASE PRIMARIO SIN MUESTRA", "ENVASE PRIMARIO ROTO", "NO LLEGÓ MUESTRA", "TRANSPORTE NO CUMPLE CON TRIPLE EMPAQUE", "CONTENEDOR PRIMARIO NO ES EL ADECUADO PARA LA MUESTRA", "MEDIO DE TRASPORTE NO ES EL ADECUADO", "RÓTULO DE MUESTRA NO LEGIBLE", "RÓTULO DE MUESTRA NO COINCIDE CON DATOS DE LA FICHA", "SOLICITUD DE ANÁLISIS SIN CONSIGNAR: DNI, NOMBRES, APELLIDOS, FECHA DE NACIMIENTO Y/O SEXO", "SOLICITUD DE ANÁLISIS SIN CONSIGNAR FECHA Y HORA DE TOMA DE MUESTRA (CD4, CV, otros)", "SOLICITUD DE ANÁLISIS NO COINCIDE CON EL EXAMEN SOLICITADO", "OFICIO SIN SELLO Y FIRMA DEL FUNCIONARIO ENCARGADO DE LA ENTIDAD SOLICITANTE", "FICHA O SOLICITUD DE ANÁLISIS SIN SELLO Y/O FIRMA DEL SOLICITANTE", "FICHA O SOLICITUD DE ANÁLISIS SIN IDENTIFICAR LA ETIOLOGÍA A DIAGNOSTICAR", "EXAMEN SOLICITADO NO SE ENCUENTRA EN LA CARTERA DE SERVICIOS", "EXAMEN SOLICITADO NO SE REALIZA CON MUESTRA DE SUERO", "EXAMEN SOLICITADO NO SE REALIZA CON MUESTRA DE PLASMA", "EXAMEN SOLICITADO NO SE REALIZA CON MUESTRA DE SANGRE", "EXAMEN SOLICITADO NO SE REALIZA CON MUESTRA DE HISOPADO", "EXCESO EN EL TIEMPO DE TRANSPORTE, SEGÚN CATÁLOGO", "MUESTRA DUPLICADA PARA EL EXAMEN (menor a 6 meses)", "GENERACIÓN DE CÓDIGO DE ESTABLECIMIENTO ERRÓNEO",
+  ];
+  
+    // Obtener los select por sus ID
+  const selectIDs = [
+    "guardarMotivoRechazo",
+    "guardarMotivoRechazo2",
+  ];
+
+  // Función para agregar opciones a un select
+  function agregarOpcionesASelect(selectID, opciones) {
+    const select = document.getElementById(selectID);
+    opciones.forEach(opcion => {
+      const option = document.createElement("option");
+      option.value = opcion;
+      option.textContent = opcion;
+      select.appendChild(option);
+    });
+  }
+
+  // Agregar opciones a los select
+  selectIDs.forEach(selectID => agregarOpcionesASelect(selectID, opciones));
+}
+
+// Llamar a la función para agregar las opciones
+agregarOpcionesRechazo();
+
+  </script>
+
+
+
+ 

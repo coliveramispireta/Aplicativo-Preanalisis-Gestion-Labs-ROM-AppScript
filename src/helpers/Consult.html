@@ -1,0 +1,615 @@
+ <script>
+   const consultaDatos_page = document.getElementById("consultaDatos_page");
+
+// FUNCIONES CONSULTAS
+function buscarRegistrosConsultas(){ 
+
+     const oficioBuscado = consultaDatos_page.querySelector("#buscarOficio").value;
+     const codigoIDBuscado = consultaDatos_page.querySelector("#buscarCodigoId").value;
+
+    let laboratorioBuscado = consultaDatos_page.querySelector("#buscarLabEntrega");
+    let lfechaBuscada = consultaDatos_page.querySelector("#buscarFechaEntregaLab");
+
+    let dpersonalBuscado = consultaDatos_page.querySelector("#buscarPersonalDigitacion");
+    let dfechaBuscada = consultaDatos_page.querySelector("#buscarFechaDigitacion");
+    
+    let psedeBuscada = consultaDatos_page.querySelector("#buscar1raSede");
+    let ppersonalBuscado = consultaDatos_page.querySelector("#buscarPersonalRecepcion");
+    let pfechaBuscada = consultaDatos_page.querySelector("#buscarFecha");
+
+    let sSedeBuscada = consultaDatos_page.querySelector("#buscar2raSede");
+    let spersonalBuscado = consultaDatos_page.querySelector("#buscarPersonalRecepcion2");
+    let sfechaBuscada = consultaDatos_page.querySelector("#buscarFecha2");
+
+    let tsedeBuscada = consultaDatos_page.querySelector("#buscar3raSede");
+    let tpersonalBuscado = consultaDatos_page.querySelector("#buscarPersonalRecepcion3");
+    let tfechaBuscada = consultaDatos_page.querySelector("#buscarFecha3");
+    $("#RegistrosTablaEE").DataTable().destroy();
+   
+   if (codigoIDBuscado.length > 0) {
+
+    google.script.run
+    .withSuccessHandler( info =>{
+      let tableBody = consultaDatos_page.querySelector("#RegistrosTablaBody");
+      tableBody.innerHTML = "";
+      if ( info.length > 0){
+        psedeBuscada.value = info[0][1];
+
+        ppersonalBuscado.value = info[0][2];
+        pfechaBuscada.value = info[0][13];
+
+        sSedeBuscada.value = info[0][16];
+        spersonalBuscado.value = info[0][17];
+        sfechaBuscada.value = info[0][18];
+
+        tsedeBuscada.value = info[0][19];
+        tpersonalBuscado.value = info[0][20];
+        tfechaBuscada.value = info[0][21];
+
+        dpersonalBuscado.value = info[0][22];
+        dfechaBuscada.value = info[0][23];
+
+        laboratorioBuscado.value = info[0][26];
+        lfechaBuscada.value = info[0][27];
+
+         const estadoPageEntrega = consultaDatos_page.querySelector("#estadoPageEntrega");
+        const divEstadoEntrega = consultaDatos_page.querySelector("#divEstadoEntrega");
+        const totalRechazo = Number(info[0][29]) + Number(info[0][31]);
+        if (info[0][33] === "RECHAZO TOTAL"){
+        estadoPageEntrega.innerHTML = info[0][33];
+        divEstadoEntrega.hidden = false; 
+        } else {     
+        estadoPageEntrega.innerHTML = info[0][32] + " - Contiene (" + totalRechazo + ") Rechazo(s)" ;
+        divEstadoEntrega.hidden = false;       
+        }
+
+        //step recepcion
+        const mostrarStepSede1 = consultaDatos_page.querySelector("#stepSede1");
+        const psedeBuscadaP = consultaDatos_page.querySelector("#buscar1raSede").value;
+        mostrarStepSede1.innerHTML = psedeBuscadaP; 
+    
+        const mostrarStepPersonal1 = consultaDatos_page.querySelector("#stepPersonal1");
+        const ppersonalBuscadoP = consultaDatos_page.querySelector("#buscarPersonalRecepcion").value;
+        mostrarStepPersonal1.innerHTML = ppersonalBuscadoP; 
+        
+        const mostrarStepFecha1 = consultaDatos_page.querySelector("#stepFecha1");
+        const pfechaBuscadaP = consultaDatos_page.querySelector("#buscarFecha").value;
+        //mostrarStepFecha1.innerHTML = pfechaBuscadaP;
+        consultaDatos_page.querySelector("#stepFecha1").value=pfechaBuscadaP;
+        mostrarStepFecha1.hidden = false;
+
+        //step recepcion 2
+        const mostrarStepSede2 = consultaDatos_page.querySelector("#stepSede2");
+        const psedeBuscada2P = consultaDatos_page.querySelector("#buscar2raSede").value;
+        mostrarStepSede2.innerHTML = psedeBuscada2P; 
+    
+        const mostrarStepPersonal2 = consultaDatos_page.querySelector("#stepPersonal2");
+        const ppersonalBuscado2P = consultaDatos_page.querySelector("#buscarPersonalRecepcion2").value;
+        mostrarStepPersonal2.innerHTML = ppersonalBuscado2P; 
+        
+        const mostrarStepFecha2 = consultaDatos_page.querySelector("#stepFecha2");
+        const pfechaBuscada2P = consultaDatos_page.querySelector("#buscarFecha2").value;
+        //mostrarStepFecha2.innerHTML = pfechaBuscada2P;
+        consultaDatos_page.querySelector("#stepFecha2").value=pfechaBuscada2P;
+        mostrarStepFecha2.hidden = false;
+
+        //step recepcion 3
+        const mostrarStepSede3 = consultaDatos_page.querySelector("#stepSede3");
+        const psedeBuscada3P = consultaDatos_page.querySelector("#buscar3raSede").value;
+        mostrarStepSede3.innerHTML = psedeBuscada3P; 
+    
+        const mostrarStepPersonal3 = consultaDatos_page.querySelector("#stepPersonal3");
+        const ppersonalBuscado3P = consultaDatos_page.querySelector("#buscarPersonalRecepcion3").value;
+        mostrarStepPersonal3.innerHTML = ppersonalBuscado3P; 
+        
+        const mostrarStepFecha3 = consultaDatos_page.querySelector("#stepFecha3");
+        const pfechaBuscada3P = consultaDatos_page.querySelector("#buscarFecha3").value;
+        //mostrarStepFecha3.innerHTML = pfechaBuscada3P;
+        consultaDatos_page.querySelector("#stepFecha3").value=pfechaBuscada3P;
+        mostrarStepFecha3.hidden = false;
+
+        //step Digitacion 
+        const mostrarStepPersonalD = consultaDatos_page.querySelector("#stepPersonalDigitacion");
+        const ppersonalBuscado3D = consultaDatos_page.querySelector("#buscarPersonalDigitacion").value;
+        mostrarStepPersonalD.innerHTML = ppersonalBuscado3D; 
+        
+        const mostrarStepFechaD = consultaDatos_page.querySelector("#stepFechaDigitacion");
+        const pfechaBuscadaD = consultaDatos_page.querySelector("#buscarFechaDigitacion").value;
+        //mostrarStepFechaD.innerHTML = pfechaBuscadaD;
+        consultaDatos_page.querySelector("#stepFechaDigitacion").value=pfechaBuscadaD;
+        mostrarStepFechaD.hidden = false;
+
+         //step Entrega 
+        const mostrarStepLaboratorioD = consultaDatos_page.querySelector("#stepLaboratorioDestino");
+        const pLaboratorioD = consultaDatos_page.querySelector("#buscarLabEntrega").value;
+        mostrarStepLaboratorioD.innerHTML = pLaboratorioD; 
+        
+        const mostrarStepFechaE = consultaDatos_page.querySelector("#stepFechaEntrega");
+        const pfechaBuscadaE = consultaDatos_page.querySelector("#buscarFechaEntregaLab").value;
+        //mostrarStepFechaE.innerHTML = pfechaBuscadaE;
+
+        consultaDatos_page.querySelector("#stepFechaEntrega").value=pfechaBuscadaE;
+        mostrarStepFechaE.hidden = false;
+
+
+        info.forEach(registro =>{
+          const template = consultaDatos_page.querySelector("#registrosRow");
+          const templateRow = template.content; 
+
+          let tr = templateRow.cloneNode(true);
+          let col0 = tr.querySelector(".registro0");
+          let col1 = tr.querySelector(".registro1");
+          let col2 = tr.querySelector(".registro2");
+          let col3 = tr.querySelector(".registro3");
+          let col4 = tr.querySelector(".registro4");
+          let col5 = tr.querySelector(".registro5");
+          let col6 = tr.querySelector(".registro6");
+          let col7 = tr.querySelector(".registro7");
+          let col8 = tr.querySelector(".registro8");
+          let col9 = tr.querySelector(".registro9");
+          let col10 = tr.querySelector(".registro10");
+          let col11 = tr.querySelector(".registro11");
+
+          col0.textContent = registro[0];
+          col1.textContent = registro[3];
+          col2.textContent = registro[4];
+          col3.textContent = registro[5];
+          col4.textContent = registro[6];
+          col5.textContent = registro[7];
+          col6.textContent = registro[8];
+          col7.textContent = registro[9];
+          col8.textContent = registro[10];
+          col9.textContent = registro[11]+"°C";
+          col10.textContent = registro[12];
+          col11.textContent = registro[14];
+          
+
+          tableBody.appendChild(tr)
+
+        })
+            spinnerConsulta.hidden=false;
+            spinnerLoadC.hidden=true;
+
+            $(document).ready(function() {
+    $('#RegistrosTablaEE').DataTable({
+        "paging": true, // habilita la paginación
+        "pageLength": 5, // número de filas por página
+        "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "Mostrar todo"]], // opciones de selección de filas por página
+        "order": [[0, "asc"]], // ordenar por la primera columna de forma ascendente
+        "language": {
+            "sProcessing": "Procesando...",
+            "sLengthMenu": "Mostrar _MENU_ registros",
+            "sZeroRecords": "No se encontraron resultados",
+            "sEmptyTable": "Ningún dato disponible en esta tabla",
+            "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+            "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+            "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+            "sInfoPostFix": "",
+            "sSearch": "Buscar:",
+            "sUrl": "",
+            "sInfoThousands": ",",
+            "sLoadingRecords": "Cargando...",
+            "oPaginate": {
+                "sFirst": "Primero",
+                "sLast": "Último",
+                "sNext": "Siguiente",
+                "sPrevious": "Anterior"
+            },
+            "oAria": {
+                "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+            }
+        }
+    });
+});
+
+      }else{
+        swal("Oops!", "El código ID que intenta buscar, no se encuentra registrado en la base de datos!", "error");
+            spinnerConsulta.hidden=false;
+            spinnerLoadC.hidden=true;
+      }
+    })
+    .buscarCamposRegistrosTools(codigoIDBuscado);
+  
+} else if (oficioBuscado.length > 0){
+
+ google.script.run
+    .withSuccessHandler( info =>{
+      let tableBody = consultaDatos_page.querySelector("#RegistrosTablaBody");
+      tableBody.innerHTML = "";
+      if ( info.length > 0){
+        psedeBuscada.value = info[0][1];
+
+        ppersonalBuscado.value = info[0][2];
+        pfechaBuscada.value = info[0][13];
+
+        sSedeBuscada.value = info[0][16];
+        spersonalBuscado.value = info[0][17];
+        sfechaBuscada.value = info[0][18];
+
+        tsedeBuscada.value = info[0][19];
+        tpersonalBuscado.value = info[0][20];
+        tfechaBuscada.value = info[0][21];
+
+        dpersonalBuscado.value = info[0][22];
+        dfechaBuscada.value = info[0][23];
+
+        laboratorioBuscado.value = info[0][26];
+        lfechaBuscada.value = info[0][27];
+
+         const estadoPageEntrega = consultaDatos_page.querySelector("#estadoPageEntrega");
+        const divEstadoEntrega = consultaDatos_page.querySelector("#divEstadoEntrega");
+        const totalRechazo = Number(info[0][29]) + Number(info[0][31]);
+        if (info[0][33] === "RECHAZO TOTAL"){
+        estadoPageEntrega.innerHTML = info[0][33];
+        divEstadoEntrega.hidden = false; 
+        } else {     
+        estadoPageEntrega.innerHTML = info[0][32] + " - Contiene (" + totalRechazo + ") Rechazo(s)" ;
+        divEstadoEntrega.hidden = false;       
+        }
+
+        //step recepcion
+        const mostrarStepSede1 = consultaDatos_page.querySelector("#stepSede1");
+        const psedeBuscadaP = consultaDatos_page.querySelector("#buscar1raSede").value;
+        mostrarStepSede1.innerHTML = psedeBuscadaP; 
+    
+        const mostrarStepPersonal1 = consultaDatos_page.querySelector("#stepPersonal1");
+        const ppersonalBuscadoP = consultaDatos_page.querySelector("#buscarPersonalRecepcion").value;
+        mostrarStepPersonal1.innerHTML = ppersonalBuscadoP; 
+        
+        const mostrarStepFecha1 = consultaDatos_page.querySelector("#stepFecha1");
+        const pfechaBuscadaP = consultaDatos_page.querySelector("#buscarFecha").value;
+        //mostrarStepFecha1.innerHTML = pfechaBuscadaP;
+        consultaDatos_page.querySelector("#stepFecha1").value=pfechaBuscadaP;
+        mostrarStepFecha1.hidden = false;
+
+        //step recepcion 2
+        const mostrarStepSede2 = consultaDatos_page.querySelector("#stepSede2");
+        const psedeBuscada2P = consultaDatos_page.querySelector("#buscar2raSede").value;
+        mostrarStepSede2.innerHTML = psedeBuscada2P; 
+    
+        const mostrarStepPersonal2 = consultaDatos_page.querySelector("#stepPersonal2");
+        const ppersonalBuscado2P = consultaDatos_page.querySelector("#buscarPersonalRecepcion2").value;
+        mostrarStepPersonal2.innerHTML = ppersonalBuscado2P; 
+        
+        const mostrarStepFecha2 = consultaDatos_page.querySelector("#stepFecha2");
+        const pfechaBuscada2P = consultaDatos_page.querySelector("#buscarFecha2").value;
+        //mostrarStepFecha2.innerHTML = pfechaBuscada2P;
+        consultaDatos_page.querySelector("#stepFecha2").value=pfechaBuscada2P;
+        mostrarStepFecha2.hidden = false;
+
+        //step recepcion 3
+        const mostrarStepSede3 = consultaDatos_page.querySelector("#stepSede3");
+        const psedeBuscada3P = consultaDatos_page.querySelector("#buscar3raSede").value;
+        mostrarStepSede3.innerHTML = psedeBuscada3P; 
+    
+        const mostrarStepPersonal3 = consultaDatos_page.querySelector("#stepPersonal3");
+        const ppersonalBuscado3P = consultaDatos_page.querySelector("#buscarPersonalRecepcion3").value;
+        mostrarStepPersonal3.innerHTML = ppersonalBuscado3P; 
+        
+        const mostrarStepFecha3 = consultaDatos_page.querySelector("#stepFecha3");
+        const pfechaBuscada3P = consultaDatos_page.querySelector("#buscarFecha3").value;
+        //mostrarStepFecha3.innerHTML = pfechaBuscada3P;
+        consultaDatos_page.querySelector("#stepFecha3").value=pfechaBuscada3P;
+        mostrarStepFecha3.hidden = false;
+
+        //step Digitacion 
+        const mostrarStepPersonalD = consultaDatos_page.querySelector("#stepPersonalDigitacion");
+        const ppersonalBuscado3D = consultaDatos_page.querySelector("#buscarPersonalDigitacion").value;
+        mostrarStepPersonalD.innerHTML = ppersonalBuscado3D; 
+        
+        const mostrarStepFechaD = consultaDatos_page.querySelector("#stepFechaDigitacion");
+        const pfechaBuscadaD = consultaDatos_page.querySelector("#buscarFechaDigitacion").value;
+        //mostrarStepFechaD.innerHTML = pfechaBuscadaD;
+        consultaDatos_page.querySelector("#stepFechaDigitacion").value=pfechaBuscadaD;
+        mostrarStepFechaD.hidden = false;
+
+         //step Entrega 
+        const mostrarStepLaboratorioD = consultaDatos_page.querySelector("#stepLaboratorioDestino");
+        const pLaboratorioD = consultaDatos_page.querySelector("#buscarLabEntrega").value;
+        mostrarStepLaboratorioD.innerHTML = pLaboratorioD; 
+        
+        const mostrarStepFechaE = consultaDatos_page.querySelector("#stepFechaEntrega");
+        const pfechaBuscadaE = consultaDatos_page.querySelector("#buscarFechaEntregaLab").value;
+        //mostrarStepFechaE.innerHTML = pfechaBuscadaE;
+
+        consultaDatos_page.querySelector("#stepFechaEntrega").value=pfechaBuscadaE;
+        mostrarStepFechaE.hidden = false;
+
+
+        info.forEach(registro =>{
+          const template = consultaDatos_page.querySelector("#registrosRow");
+          const templateRow = template.content; 
+
+          let tr = templateRow.cloneNode(true);
+          let col0 = tr.querySelector(".registro0");
+          let col1 = tr.querySelector(".registro1");
+          let col2 = tr.querySelector(".registro2");
+          let col3 = tr.querySelector(".registro3");
+          let col4 = tr.querySelector(".registro4");
+          let col5 = tr.querySelector(".registro5");
+          let col6 = tr.querySelector(".registro6");
+          let col7 = tr.querySelector(".registro7");
+          let col8 = tr.querySelector(".registro8");
+          let col9 = tr.querySelector(".registro9");
+          let col10 = tr.querySelector(".registro10");
+          let col11 = tr.querySelector(".registro11");
+
+          col0.textContent = registro[0];
+          col1.textContent = registro[3];
+          col2.textContent = registro[4];
+          col3.textContent = registro[5];
+          col4.textContent = registro[6];
+          col5.textContent = registro[7];
+          col6.textContent = registro[8];
+          col7.textContent = registro[9];
+          col8.textContent = registro[10];
+          col9.textContent = registro[11]+"°C";
+          col10.textContent = registro[12];
+          col11.textContent = registro[14];
+          
+
+          tableBody.appendChild(tr)
+
+        })
+            spinnerConsulta.hidden=false;
+            spinnerLoadC.hidden=true;
+
+$(document).ready(function() {
+    $('#RegistrosTablaEE').DataTable({
+        "paging": true, // habilita la paginación
+        "pageLength": 5, // número de filas por página
+        "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "Mostrar todo"]], // opciones de selección de filas por página
+        "order": [[0, "asc"]], // ordenar por la primera columna de forma ascendente
+        "language": {
+            "sProcessing": "Procesando...",
+            "sLengthMenu": "Mostrar _MENU_ registros",
+            "sZeroRecords": "No se encontraron resultados",
+            "sEmptyTable": "Ningún dato disponible en esta tabla",
+            "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+            "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+            "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+            "sInfoPostFix": "",
+            "sSearch": "Buscar:",
+            "sUrl": "",
+            "sInfoThousands": ",",
+            "sLoadingRecords": "Cargando...",
+            "oPaginate": {
+                "sFirst": "Primero",
+                "sLast": "Último",
+                "sNext": "Siguiente",
+                "sPrevious": "Anterior"
+            },
+            "oAria": {
+                "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+            }
+        }
+    });
+});
+
+      }else{
+        swal("Oops!", "El número de oficio que intenta buscar, no se encuentra registrado en la base de datos!", "error");
+            spinnerConsulta.hidden=false;
+            spinnerLoadC.hidden=true;
+      }
+    })
+    .buscarCamposRegistrosOficio(oficioBuscado);
+  } else{
+     
+   swal("Oops!", "No ha ingresado ningún dato para iniciar la busqueda. Por favor, revise sus datos e intente nuevamente.", "error");
+            spinnerConsulta.hidden=false;
+            spinnerLoadC.hidden=true;
+}
+}
+
+
+
+
+
+
+      
+
+                        const buttonBuscarOficio = consultaDatos_page.querySelector("#buscarOficio");
+                        const buttonBuscarID = consultaDatos_page.querySelector("#buscarCodigoId");              
+
+                        buttonBuscarID.addEventListener("focus", deshabilitarOficio);
+                        function deshabilitarOficio(e){
+                        buttonBuscarOficio.disabled = true;
+                           }
+                        buttonBuscarID.addEventListener("blur", habilitarOficio);
+                        function habilitarOficio(e){
+                         const codigoIDBuscado = e.target.value; 
+                          if (codigoIDBuscado.length < 1){
+                            buttonBuscarOficio.disabled = false;
+                             } else {
+                               buttonBuscarOficio.disabled = true;
+                             }
+                         }
+
+                        buttonBuscarOficio.addEventListener("focus", deshabilitarID);
+                        function deshabilitarID(e){
+                        buttonBuscarID.disabled = true;
+                           }
+                        buttonBuscarOficio.addEventListener("blur", habilitarID);
+                        function habilitarID(e){
+                         const oficioBuscado = e.target.value; 
+                          if (oficioBuscado.length < 1){
+                            buttonBuscarID.disabled = false;
+                             } else {
+                               buttonBuscarID.disabled = true;
+                             }
+                         }
+
+
+
+                        const spinnerSUBv6 = consultaDatos_page.querySelector("#spinnerLoadSUB");
+                        const spinnerConsulta = consultaDatos_page.querySelector("#buttonBuscarConsulta");
+                        const spinnerLoadC = consultaDatos_page.querySelector("#buttonBuscarLoadingC");
+                        
+
+                        spinnerConsulta.addEventListener("click", cargarEnvio);
+
+                        function cargarEnvio (e){
+                          const oficioBuscado = consultaDatos_page.querySelector("#buscarOficio").value;
+                        const codigoIDBuscado = consultaDatos_page.querySelector("#buscarCodigoId").value;
+                    //console.log(codigoIDBuscado);
+                    //console.log(oficioBuscado);
+                          if ( codigoIDBuscado.length == 0 && oficioBuscado.length == 0){
+                          
+                          spinnerConsulta.hidden=false;
+                          spinnerLoadC.hidden=true;
+                          } else {
+                          spinnerConsulta.hidden=true;
+                          spinnerLoadC.hidden=false;
+                           }
+                        }
+
+                          // verificar clic tabla  
+                          const tablaTitulosv6 = consultaDatos_page.querySelector("#RegistrosTablaEE");
+                          tablaTitulosv6.addEventListener("click", verificarClicSub);
+                          
+
+                          
+   function verificarClicSub(e){
+   spinnerSUBv6.hidden=false; 
+                  const codigoIDBuscado = e.target.parentNode.cells[0].textContent;
+                  const tRow = e.target.parentNode.rowIndex;
+                
+        //console.log(e.target.parentNode.cells[0].textContent);
+
+                  if (tRow === 0 || tRow === undefined){
+                      //console.log(codigoIDBuscado);  
+                            spinnerSUBv6.hidden=true;                                
+                      } else {
+                        
+    let laboratorioBuscado = consultaDatos_page.querySelector("#buscarLabEntrega");
+    let lfechaBuscada = consultaDatos_page.querySelector("#buscarFechaEntregaLab");
+
+    let dpersonalBuscado = consultaDatos_page.querySelector("#buscarPersonalDigitacion");
+    let dfechaBuscada = consultaDatos_page.querySelector("#buscarFechaDigitacion");
+    
+    let psedeBuscada = consultaDatos_page.querySelector("#buscar1raSede");
+    let ppersonalBuscado = consultaDatos_page.querySelector("#buscarPersonalRecepcion");
+    let pfechaBuscada = consultaDatos_page.querySelector("#buscarFecha");
+
+    let sSedeBuscada = consultaDatos_page.querySelector("#buscar2raSede");
+    let spersonalBuscado = consultaDatos_page.querySelector("#buscarPersonalRecepcion2");
+    let sfechaBuscada = consultaDatos_page.querySelector("#buscarFecha2");
+
+    let tsedeBuscada = consultaDatos_page.querySelector("#buscar3raSede");
+    let tpersonalBuscado = consultaDatos_page.querySelector("#buscarPersonalRecepcion3");
+    let tfechaBuscada = consultaDatos_page.querySelector("#buscarFecha3");     
+
+    google.script.run
+    .withSuccessHandler( info =>{
+        if ( info.length > 0){
+
+        psedeBuscada.value = info[0][1];
+
+        ppersonalBuscado.value = info[0][2];
+        pfechaBuscada.value = info[0][13];
+
+        sSedeBuscada.value = info[0][16];
+        spersonalBuscado.value = info[0][17];
+        sfechaBuscada.value = info[0][18];
+
+        tsedeBuscada.value = info[0][19];
+        tpersonalBuscado.value = info[0][20];
+        tfechaBuscada.value = info[0][21];
+
+        dpersonalBuscado.value = info[0][22];
+        dfechaBuscada.value = info[0][23];
+
+        laboratorioBuscado.value = info[0][26];
+        lfechaBuscada.value = info[0][27];
+
+         const estadoPageEntrega = consultaDatos_page.querySelector("#estadoPageEntrega");
+        const divEstadoEntrega = consultaDatos_page.querySelector("#divEstadoEntrega");
+        const totalRechazo = Number(info[0][29]) + Number(info[0][31]);
+        if (info[0][33] === "RECHAZO TOTAL"){
+        estadoPageEntrega.innerHTML = info[0][33];
+        divEstadoEntrega.hidden = false; 
+        } else {     
+        estadoPageEntrega.innerHTML = info[0][32] + " - Contiene (" + totalRechazo + ") Rechazo(s)" ;
+        divEstadoEntrega.hidden = false;       
+        }
+
+        //step recepcion
+        const mostrarStepSede1 = consultaDatos_page.querySelector("#stepSede1");
+        const psedeBuscadaP = consultaDatos_page.querySelector("#buscar1raSede").value;
+        mostrarStepSede1.innerHTML = psedeBuscadaP; 
+    
+        const mostrarStepPersonal1 = consultaDatos_page.querySelector("#stepPersonal1");
+        const ppersonalBuscadoP = consultaDatos_page.querySelector("#buscarPersonalRecepcion").value;
+        mostrarStepPersonal1.innerHTML = ppersonalBuscadoP; 
+        
+        const mostrarStepFecha1 = consultaDatos_page.querySelector("#stepFecha1");
+        const pfechaBuscadaP = consultaDatos_page.querySelector("#buscarFecha").value;
+        //mostrarStepFecha1.innerHTML = pfechaBuscadaP;
+        consultaDatos_page.querySelector("#stepFecha1").value=pfechaBuscadaP;
+        mostrarStepFecha1.hidden = false;
+
+        //step recepcion 2
+        const mostrarStepSede2 = consultaDatos_page.querySelector("#stepSede2");
+        const psedeBuscada2P = consultaDatos_page.querySelector("#buscar2raSede").value;
+        mostrarStepSede2.innerHTML = psedeBuscada2P; 
+    
+        const mostrarStepPersonal2 = consultaDatos_page.querySelector("#stepPersonal2");
+        const ppersonalBuscado2P = consultaDatos_page.querySelector("#buscarPersonalRecepcion2").value;
+        mostrarStepPersonal2.innerHTML = ppersonalBuscado2P; 
+        
+        const mostrarStepFecha2 = consultaDatos_page.querySelector("#stepFecha2");
+        const pfechaBuscada2P = consultaDatos_page.querySelector("#buscarFecha2").value;
+        //mostrarStepFecha2.innerHTML = pfechaBuscada2P;
+        consultaDatos_page.querySelector("#stepFecha2").value=pfechaBuscada2P;
+        mostrarStepFecha2.hidden = false;
+
+        //step recepcion 3
+        const mostrarStepSede3 = consultaDatos_page.querySelector("#stepSede3");
+        const psedeBuscada3P = consultaDatos_page.querySelector("#buscar3raSede").value;
+        mostrarStepSede3.innerHTML = psedeBuscada3P; 
+    
+        const mostrarStepPersonal3 = consultaDatos_page.querySelector("#stepPersonal3");
+        const ppersonalBuscado3P = consultaDatos_page.querySelector("#buscarPersonalRecepcion3").value;
+        mostrarStepPersonal3.innerHTML = ppersonalBuscado3P; 
+        
+        const mostrarStepFecha3 = consultaDatos_page.querySelector("#stepFecha3");
+        const pfechaBuscada3P = consultaDatos_page.querySelector("#buscarFecha3").value;
+        //mostrarStepFecha3.innerHTML = pfechaBuscada3P;
+        consultaDatos_page.querySelector("#stepFecha3").value=pfechaBuscada3P;
+        mostrarStepFecha3.hidden = false;
+
+        //step Digitacion 
+        const mostrarStepPersonalD = consultaDatos_page.querySelector("#stepPersonalDigitacion");
+        const ppersonalBuscado3D = consultaDatos_page.querySelector("#buscarPersonalDigitacion").value;
+        mostrarStepPersonalD.innerHTML = ppersonalBuscado3D; 
+        
+        const mostrarStepFechaD = consultaDatos_page.querySelector("#stepFechaDigitacion");
+        const pfechaBuscadaD = consultaDatos_page.querySelector("#buscarFechaDigitacion").value;
+        //mostrarStepFechaD.innerHTML = pfechaBuscadaD;
+        consultaDatos_page.querySelector("#stepFechaDigitacion").value=pfechaBuscadaD;
+        mostrarStepFechaD.hidden = false;
+
+         //step Entrega 
+        const mostrarStepLaboratorioD = consultaDatos_page.querySelector("#stepLaboratorioDestino");
+        const pLaboratorioD = consultaDatos_page.querySelector("#buscarLabEntrega").value;
+        mostrarStepLaboratorioD.innerHTML = pLaboratorioD; 
+        
+        const mostrarStepFechaE = consultaDatos_page.querySelector("#stepFechaEntrega");
+        const pfechaBuscadaE = consultaDatos_page.querySelector("#buscarFechaEntregaLab").value;
+
+        consultaDatos_page.querySelector("#stepFechaEntrega").value=pfechaBuscadaE;
+        mostrarStepFechaE.hidden = false;
+        
+        spinnerSUBv6.hidden=true; 
+     }                
+      })
+    .buscarCamposRegistrosTools(codigoIDBuscado);
+    
+}
+ }
+
+
+
+ </script>
