@@ -31,7 +31,7 @@ El flujo de trabajo del sistema contempla las siguientes etapas:
 
 Este repositorio contiene medidas de validaciones de credenciales y autenticación de datos del usuario para su usu, las cuares leera las variables obtenidas de los parametros y las comparara con las credenciales del usuario, si no son validadas no permitira acceder, para esto en otro proyecto de "login, muestro como enviar las variables por parametro".
 
-![login](https://github.com/coliveramispireta/assets-images/blob/main/login.PNG)
+![login](https://github.com/coliveramispireta/assets-images/blob/main/myhome.PNG)
 
 ## Configuración del Proyecto
 
@@ -70,8 +70,7 @@ X	FECHA Y HORA DE DIGITACIÓN
 Y	"LABORATORIO DESTINO (Bandeja de Salida)"
 Z	"FECHA Y HORA Bandeja de Salida"
 AA	LABORATORIO DESTINO
-AB	"FECHA Y HORA
-DE ENTREGA LAB"
+AB	"FECHA Y HORA DE ENTREGA LAB"
 AC	MOTIVO DE RECHAZO 1
 AD	RECHAZO 1
 AE	MOTIVO DE RECHAZO 2
@@ -82,8 +81,7 @@ AI	CANT. MX
 AJ	COD. INICIO
 AK	COD. FIN
 AL	FIRMA LAB
-AM	"USUARIO QUE REGISTRA
-1RA RECEPCION"
+AM	"USUARIO QUE REGISTRA 1RA RECEPCION"
 AN	"USUARIO QUE REGISTRA 2DA RECEPCION"
 AO	"USUARIO QUE REGISTRA 3RA RECEPCION"
 AP	"USUARIO QUE REGISTRA ENTREGA"
@@ -94,16 +92,17 @@ AS	CMP
 
       - 1 libro (con 4 hojas)
  ```bash
-  
-COLUMNA	|  HOJA 1	|  HOJA 2	           | HOJA 3	                  | HOJA 4
-A	      |nombre	   |  PROCEDENCIA         | ENFERMEDAD	               | LABORATORIO DE DESTINO
-B	      |Usuario	   |  INSTITUCION / DISA  | LABORATORIO DE DESTINO 	| ID
-C	      |Contraseña	|  INSTITUCION	        | SEDE DE PROCESO	         | QR
-D	      |Correo	   |  DISA		
-E	      |Parametro	|		
-F	      |Cargo		|	
-G	      |Sede			|
-H	      |ROL			|
+| COLUMNA | HOJA 1     | HOJA 2              | HOJA 3                 | HOJA 4               |
+| ------- | ---------- | --------------------| -----------------------| --------------------- |
+| A       | nombre     | PROCEDENCIA         | ENFERMEDAD             | LABORATORIO DE DESTINO|
+| B       | Usuario    | INSTITUCION / DISA  | LABORATORIO DE DESTINO | ID                    |
+| C       | Contraseña | INSTITUCION         | SEDE DE PROCESO        | QR                    |
+| D       | Correo     | DISA                |                         |                       |
+| E       | Parametro  |                     |                         |                       |
+| F       | Cargo      |                     |                         |                       |
+| G       | Sede       |                     |                         |                       |
+| H       | ROL        |                     |                         |                       |
+
 
     ```  
 
