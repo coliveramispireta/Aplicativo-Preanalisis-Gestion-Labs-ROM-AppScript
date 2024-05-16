@@ -91,7 +91,7 @@ AR	Fecha de Solicitud
 AS	CMP
 
       - 1 libro (con 4 hojas)
-        
+ ```bash        
 **COLUMNA	|  HOJA 1	|  HOJA 2	         |  HOJA 3	               |  HOJA 4**
 A	      |nombre	   |PROCEDENCIA         |	ENFERMEDAD	            |LABORATORIO DE DESTINO
 B	      |   Usuario	|INSTITUCION / DISA  |	LABORATORIO DE DESTINO	|   ID
@@ -101,7 +101,7 @@ E	      |Parametro	|
 F	      |Cargo		|	
 G	      |Sede			|
 H	      |ROL			|
-     
+    ```  
 
 2. **Configuración del Proyecto:**
 
