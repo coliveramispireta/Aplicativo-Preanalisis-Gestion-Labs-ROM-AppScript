@@ -194,6 +194,9 @@ npx clasp login
 npx clasp create
 ```
 
+**SI YA TIENES UN PROYECTO CREADO DEBES CREAR UN ARCHIVO .clasp.json EN LA RAIZ DEL PROYECTO CON EL SIGUIENTE CONTENIDO:
+{"scriptId":"PROYECT_ID","rootDir":"C:\\RUTA_PROYECT"}
+
 **Nota: no olvides pushear cada vez que hagas un cambio**
 ```bash
 npx clasp push
