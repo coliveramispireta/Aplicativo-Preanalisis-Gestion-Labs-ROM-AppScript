@@ -1,0 +1,121 @@
+<!-- Modal create -->
+<div class="modal fade" id="registerBiopacks" tabindex="-1" aria-labelledby="registerBiopacks" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="registerBiopacks">REGISTRAR EMPAQUE</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form name="registerBiopacksForm" id="registerBiopacksForm" class="needs-validation" method="post"
+                    action="<?= pubUrl ?>">
+                    <h3 id="titulos">Registrar un nuevo empaque en custodia</h3>
+
+                    <div class="row">
+                        <div style="zoom: 80%" class="col-md-2">
+                            <div class="form-floating mb-5 ">
+                                <input 
+                                    type="text"
+                                    name="codigoEmpaque" 
+                                    id="codigoEmpaque" 
+                                    class="form-control" 
+                                    data-placeholder=""
+                                    onchange="validarCamporVacios()"
+                                    >
+                                <label for="codigoEmpaque">Código de empaque </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div style="zoom: 80%" class="col-md-6">
+                            <div class="form-floating mb-3 ">
+                                <select 
+                                onchange="validarCamporVacios()"
+                                type="text" name="tipoEmpaque" id="tipoEmpaque" class="form-select"
+                                    placeholder=" " required>
+                                    <option selected></option>
+                                    <option value="TECNOPOR">TECNOPOR</option>
+                                    <option value="BIOPACK">BIOPACK</option>
+                                    <option value="COOLER">COOLER</option>
+                                    <option value="OTROS">OTROS</option>
+                                </select>
+                                <label for="tipoEmpaque">Tipo de empaque </label>
+                                <div class="invalid-feedback">
+                                    *Campo obligatorio
+                                </div>
+                            </div>
+                        </div>
+                        <div style="zoom: 80%" class="col-md-3">
+                            <div class="form-floating mb-3 ">
+                                <input 
+                                onchange="validarCamporVacios()"
+                                type="number" name="nroOficio" id="nroOficio" class="form-control"
+                                    data-placeholder="" required>
+                                <label for="nroOficio">Cantidad de Refrigerantes</label>
+                                <div class="invalid-feedback">
+                                    *Campo obligatorio
+                                </div>
+                            </div>
+                        </div>
+                        <div style="zoom: 80%" class="col-md-3">
+                            <div class="form-floating mb-5 " >
+                                <input type="datetime-local" 
+                                onchange="validarCamporVacios()"
+                                name="BioFechaRec" id="BioFechaRec"
+                                    onkeydown="return false" class="form-control" data-placeholder="" required>
+                                <label for="BioFechaRec">Fecha de Recepción</label>
+                                <div class="invalid-feedback">
+                                    *Campo obligatorio
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div style="zoom: 80%" class="col-md-8">
+                            <div class="form-floating mb-3 ">
+                                <input id="procedenciaBIOPACK" name="procedenciaBIOPACK" 
+                                list="datalistOptionsBiopack"
+                                    class="form-control" data-placeholder="" onchange="actualizarProcedenciaBiopack(this)" required>
+                                <datalist id="datalistOptionsBiopack">
+                                </datalist>
+                                <label for="procedenciaBIOPACK">Procedencia </label>
+                                <div class="invalid-feedback">
+                                    *Campo obligatorio
+                                </div>
+                            </div>
+                        </div>
+                        <div style="zoom: 80%" class="col-md-4">
+                            <div class="form-floating mb-3 ">
+                                <input 
+                                onchange="validarCamporVacios()"
+                                style="background-color: #EDEDED; border-color: #B0B0B0" type="text"
+                                    name="labRefBiopack" id="labRefBiopack" class="form-control" data-placeholder="" readonly>
+                                <label for="labRefBiopack">Institución / DISA</label>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div id="alertaValidacionProcedenciaBio" style="margin-top:-0.9%" class="alert alert-warning" role="alert"
+                                hidden>
+                                Revisa el campo de procedencia e ingresa un dato válido!
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-floating">
+                                <textarea class="form-control" data-placeholder="" id="comentarioTextarea"
+                                    name="comentarioTextarea" style="height: 100px"></textarea>
+                                <label for="comentarioTextarea">Comentarios</label>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button id="ButtonGrabarBiopack" type="button" class="btn btn-primary" onclick="grabarRegistroBiopack()" disabled>Grabar</button>
+            </div>
+        </div>
+    </div>
+</div>

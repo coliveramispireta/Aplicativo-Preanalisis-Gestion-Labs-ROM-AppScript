@@ -1,0 +1,206 @@
+<script>
+function buscarRegistrosBiopack(){
+    const biopacks_page = document.getElementById("biopacks_page");  
+    const estadoBiopack = biopacks_page.querySelector("#estadoBiopack").value;
+    const buttonBuscar = biopacks_page.querySelector("#buttonBuscarDig");
+    const buttonBuscarLoading = biopacks_page.querySelector("#buttonBuscarDigLoading");
+    buttonBuscar.hidden=true;
+    buttonBuscarLoading.hidden=false;
+    let tableBody = biopacks_page.querySelector("#bodyTableBiopacks");
+    tableBody.innerHTML = "";
+    $("#tableBiopacks").DataTable().clear();
+    $("#tableBiopacks").DataTable().destroy();
+
+    google.script.run
+    .withSuccessHandler( info =>{
+      tableBody.innerHTML = "";
+      if ( info.length > 0){
+          info.forEach(registro =>{
+          const template = biopacks_page.querySelector("#templateTableBiopacks");
+          const templateRow = template.content; 
+          let tr = templateRow.cloneNode(true);
+          let col0 = tr.querySelector(".registro0");
+          let col1 = tr.querySelector(".registro1");
+          let col2 = tr.querySelector(".registro2");
+          let col3 = tr.querySelector(".registro3");
+          let col4 = tr.querySelector(".registro4");
+          let col5 = tr.querySelector(".registro5");
+          let col6 = tr.querySelector(".registro6");
+          let col7 = tr.querySelector(".registro7");
+          let col8 = tr.querySelector(".registro8");
+          let col9 = tr.querySelector(".registro9");
+        const buttonEntregar = `<button id="buttonEntregar" type="button" class="btn btn-warning btn-sm"
+        onclick="entregarRegistroBiopack(${registro[0]})">Entregar</button>`;
+        const textoEstadoRed = `<span style="color: red;">${registro[2]}</span>`;
+        const textoEstadoGreen = `<span style="color: green;">${registro[2]}</span>`;
+          col0.textContent = registro[0];
+          col1.textContent = registro[5];
+          col2.textContent = registro[1];
+          col3.innerHTML = registro[2] === "EN CUSTODIA" ? textoEstadoRed + buttonEntregar : textoEstadoGreen;
+          col3.id =  `registro-${registro[0]}`;
+          col4.textContent = registro[3];
+          col5.textContent = registro[4];
+          col6.textContent = registro[7];
+          col7.textContent = registro[8];
+          col8.textContent = registro[6];
+          col9.textContent = registro[9];
+          col9.id =  `registroFechaEntrega-${registro[0]}`;
+          tableBody.appendChild(tr)
+        })
+        buttonBuscar.hidden=false;
+        buttonBuscarLoading.hidden=true;
+        dataTableBiopack();
+      }else{
+        swal("Oops!", "No se encontraron registros!", "error");
+        buttonBuscar.hidden=false;
+        buttonBuscarLoading.hidden=true;
+      }
+    })
+    .buscarRegistrosBiopack(estadoBiopack);
+}
+
+
+
+function grabarRegistroBiopack(){
+    const formEdit = document.getElementById("registerBiopacksForm");
+   
+    google.script.run
+    .withSuccessHandler()
+    .agregarCRUDBiopack(formEdit);  
+      formEdit.reset();
+      const crearModal = bootstrap.Modal.getOrCreateInstance("#registerBiopacks");
+      crearModal.hide();
+    swal("Bien hecho!", "Datos guardados correctamente!", "success");
+  
+   }
+
+   function validarCamporVacios(){
+    const buttonGrabar = document.getElementById("ButtonGrabarBiopack");
+
+    const codigoEmpaque = document.getElementById("codigoEmpaque").value;
+    const tipoEmpaque = document.getElementById("tipoEmpaque").value;
+    const nroOficio = document.getElementById("nroOficio").value;
+    const procedenciaBIOPACK = document.getElementById("procedenciaBIOPACK").value;
+    const BioFechaRec = document.getElementById("BioFechaRec").value;
+
+    if ( codigoEmpaque.length > 1 && tipoEmpaque.length > 1 && nroOficio.length > 1 && procedenciaBIOPACK.length > 1 && BioFechaRec.length > 1){
+    buttonGrabar.disabled = false;
+    return true;
+  } else {
+    buttonGrabar.disabled = true;
+   }
+}
+
+
+function entregarRegistroBiopack(codigoBiopack){
+    console.log(codigoBiopack);
+    const col2 = document.getElementById(`registro-${codigoBiopack}`);
+    const col7 = document.getElementById(`registroFechaEntrega-${codigoBiopack}`);
+        
+    const hoy = new Date();
+    const mes = hoy.getMonth() + 1;
+    const mes2d = mes.toString().padStart(2, '0');
+    const dia = hoy.getDate().toString().padStart(2, '0');
+    const fecha = hoy.getFullYear() + '-' + mes2d + '-' + dia ;
+    const hora = hoy.getHours().toString().padStart(2, '0') + ':' + hoy.getMinutes().toString().padStart(2, '0');
+    const fechaYHora = fecha + ' ' + hora;
+    
+   google.script.run
+   .withSuccessHandler()
+   .actualizarEstadoBiopack(codigoBiopack);  
+   col2.innerHTML = '<span style="color: green;">ENTREGADO</span>';
+   col7.innerHTML = fechaYHora;
+
+   swal("Bien hecho!", "Empaque entregado", "success");
+}
+                
+function actualizarProcedenciaBiopack(datalist){
+    const camposVacios = validarCamporVacios();
+    
+              const dtlProcedencia = document.getElementById("datalistOptionsBiopack");
+               for (let i = 0; i < dtlProcedencia.options.length; i++){
+                 
+                 if (dtlProcedencia.options[i].value === datalist.value){
+                 document.getElementById("labRefBiopack").value = dtlProcedencia.options[i].getAttribute("data-referencia");
+                 break;
+                 }else{
+                   document.getElementById("labRefBiopack").value = "";
+                 }
+               }
+             }
+
+const inputProcedenciaBiopack = document.getElementById("procedenciaBIOPACK"); 
+inputProcedenciaBiopack.addEventListener("blur", validarProcedencia);
+
+function validarProcedencia(e){
+validarCamporVacios();
+  const inputlabRef = document.getElementById("labRefBiopack").value;
+  const alertalabRef = document.getElementById("alertaValidacionProcedenciaBio");
+  const buttonGrabar = document.getElementById("ButtonGrabarBiopack");
+  if ( inputlabRef.length == 0){
+    alertalabRef.hidden = false;
+    buttonGrabar.disabled = true;
+
+  } else if (inputlabRef.length > 0){
+    alertalabRef.hidden = true;
+    }
+}
+
+
+document.addEventListener('DOMContentLoaded', (event) => {
+  const form = document.getElementById('registerBiopacksForm');
+  const registerBiopacksModal = new bootstrap.Modal(document.getElementById('registerBiopacks'));
+  document.getElementById('registerBiopacks').addEventListener('hidden.bs.modal', function () {
+    form.reset();
+  });
+});
+
+function dataTableBiopack(){
+    $(document).ready(function() {
+    $('#tableBiopacks').DataTable({
+        "paging": true, // habilita la paginación
+        "pageLength": 5, // número de filas por página
+        "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "Mostrar todo"]], // opciones de selección de filas por página
+        "order": [[6, "dsc"]], // ordenar por la primera columna de forma ascendente
+        "language": {
+            "sProcessing": "Procesando...",
+            "sLengthMenu": "Mostrar _MENU_ registros",
+            "sZeroRecords": "No se encontraron resultados",
+            "sEmptyTable": "Ningún dato disponible en esta tabla",
+            "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+            "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+            "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+            "sInfoPostFix": "",
+            "sSearch": "Buscar:",
+            "sUrl": "",
+            "sInfoThousands": ",",
+            "sLoadingRecords": "Cargando...",
+            "oPaginate": {
+                "sFirst": "Primero",
+                "sLast": "Último",
+                "sNext": "Siguiente",
+                "sPrevious": "Anterior"
+            },
+            "oAria": {
+                "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+            }
+        }
+    });
+});
+}
+
+function handleEmpaquesProps(selectElement){
+  const divCantEMPAQUES = document.getElementById("divCantEMPAQUES");
+  const divCantREFRIGERANTES = document.getElementById("divCantREFRIGERANTES");
+  const valorSeleccionado = selectElement.value;
+  if(valorSeleccionado === "SI") {
+    divCantEMPAQUES.hidden = false;
+    divCantREFRIGERANTES.hidden = false;
+  } else {
+    divCantEMPAQUES.hidden = true;
+    divCantREFRIGERANTES.hidden = true;
+  }
+}
+
+</script>

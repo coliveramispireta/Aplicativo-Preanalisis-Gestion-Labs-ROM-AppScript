@@ -24,7 +24,7 @@
                   *Campo obligatorio
                 </div>
               </div>
-            </div>
+            </div> 
 
             <img src="https://png.pngtree.com/png-vector/20191113/ourlarge/pngtree-barcode-scanner-isometric-icon-png-image_1976675.jpg" jsaction="load:XAeZkd;" jsname="HiaYvf" class="n3VNCb KAlRDb" alt="Icono Isométrico Del Escáner De Código De Barras PNG , Codigo De Barras,  Scanner, Icono PNG y Vector para Descargar Gratis | Pngtree" data-noaft="1" style="filter: brightness(1.1); mix-blend-mode: multiply; width: 250px; height: 180px; margin-left:-10px; margin-top: -4%; z-index:-1">
           </div>
@@ -105,7 +105,7 @@
                   <div class="invalid-feedback">
                     *Campo obligatorio
                   </div>
-                </div>
+                </div> 
               </div>
               <div class="col-md-4">
                 <div class="form-floating mb-3 ">
@@ -485,6 +485,24 @@
                 </div>
               </div>
               <div class="col-md-3">
+                <div class="input-group input-group-sm mb-3">
+
+                  <div class="form-floating mb-3 ">
+
+                    <input type="number" step="any" min="-20" max="30" name="temperatura" id="temperatura" class="form-control" data-placeholder="" required>
+
+                    <label for="temperatura" >Temperatura </label>
+                    <div class="invalid-feedback">
+                      *Campo obligatorio
+                    </div>
+                  </div>
+                  <div id="gradosC">
+                    <label  class="input-group-text" for="inputGroupSelect02"> °C</label>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+              <div class="col-md-3">
                 <div class="form-floating mb-3 ">
                   <select type="text" name="tipoEmpaque" id="tipoEmpaque" class="form-select" placeholder=" " required>
                     <option selected></option>
@@ -502,22 +520,46 @@
                 </div>
               </div>
               <div class="col-md-3">
-                <div class="input-group input-group-sm mb-3">
+                <div class="form-floating mb-3 ">
+                  <select type="text" name="empaqueQuestion" id="empaqueQuestion" class="form-select" onchange="handleEmpaquesProps(this)" placeholder=" " required>
+                    <option selected></option>
+                    <option value="SI">SI</option>
+                    <option value="NO">NO</option>
+                    <option value="REGISTRADO EN OTRO CÓDIGO">REGISTRADO EN OTRO CÓDIGO</option>
+               </select>
+                  <label for="empaqueQuestion" ><span style="color:rgb(121, 5, 5)"> ¿Deja empaque en custodia? </span> </label>
+                  <div class="invalid-feedback">
+                    *Campo obligatorio
+                  </div>
+                </div>
+              </div> 
 
+                <div class="col-md-2" id="divCantEMPAQUES" hidden>
                   <div class="form-floating mb-3 ">
-
-                    <input type="number" step="any" min="-20" max="30" name="temperatura" id="temperatura" class="form-control" data-placeholder="" required>
-
-                    <label for="temperatura" >Temperatura </label>
+                    <input type="number" min="1" max="999" name="cantEMPAQUES" id="cantEMPAQUES" class="form-control" data-placeholder="" required >
+                    <label for="cantEMPAQUES" >Cant. de<span style="font-weight: 800"> EMPAQUES </span> </label>
                     <div class="invalid-feedback">
                       *Campo obligatorio
                     </div>
                   </div>
-                  <div id="gradosC">
-                    <label  class="input-group-text" for="inputGroupSelect02"> °C</label>
+                </div>
+                <div class="col-md-2" id="divCantREFRIGERANTES" hidden> 
+                <div class="form-floating mb-3 ">
+                  <input type="number" min="1" max="999" name="cantREFRIGERANTES" id="cantREFRIGERANTES" class="form-control" data-placeholder="" required >
+                  <label for="cantREFRIGERANTES" >Cant. de<span style="font-weight: 800"> REFRIGERANTES </span> </label>
+                  <div class="invalid-feedback">
+                    *Campo obligatorio
                   </div>
                 </div>
               </div>
+            </div>
+            
+            
+
+
+
+
+              
               <div class="col-md-2">
                 <div class="form-floating mb-3 ">
                   <input type="number" min="1" max="999" name="cantidadMuestras" id="cantidadMuestras" class="form-control" data-placeholder="" required>

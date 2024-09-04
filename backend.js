@@ -10,6 +10,9 @@ const sheetProcedencia = sheetDataList.getSheetByName(CONFIG("BD_NAME_4"));
 const sheetEnfermedad = sheetDataList.getSheetByName(CONFIG("BD_NAME_5"));
 const sheetIDLogosLabs = sheetDataList.getSheetByName(CONFIG("BD_NAME_6"));
 
+const sheetDataBiopack = SpreadsheetApp.openById(CONFIG("BD_ID_4"));
+const sheetBiopack = sheetDataBiopack.getSheetByName(CONFIG("BD_NAME_7"));
+
 const url = CONFIG("URL");
 
 function doGet(e) {
@@ -1257,7 +1260,23 @@ function grabarNuevaMuestra(form) {
   var labDes5 = form.labDes5;
   var labDes6 = form.labDes6;
 
+  var empaqueQuestion = form.empaqueQuestion;
+
+  var cantEMPAQUES = form.cantEMPAQUES;
+  var cantREFRIGERANTES = form.cantREFRIGERANTES;
+
   var numeroUsuarioID = form.numeroUsuarioID;
+
+  const dataBiopack = {
+    codigoId: codigoId,
+    tipoEmpaque: tipoEmpaque,
+    cantEMPAQUES: cantEMPAQUES,
+    cantREFRIGERANTES: cantREFRIGERANTES,
+    fechaRecepcion: fechaRecepcion,
+    procedencia: procedencia,
+    labRef: labRef,
+    nroOficio: nroOficio
+  }
 
   const result = sheetFresh
     .createTextFinder(codigoId)
@@ -1267,6 +1286,8 @@ function grabarNuevaMuestra(form) {
     Looger.log("No se pudo grabar por ERROR de DUPLICIDAD");
     return false; //duplicado
   } else {
+     if (empaqueQuestion === "SI") {agregarCRUDBiopack(dataBiopack)};
+
     sheetFresh.appendRow([
       codigoId,
       sede,
@@ -2022,3 +2043,56 @@ function grabarNuevaMuestraBackup(form) {
     }
   }
 }
+
+
+function agregarCRUDBiopack(dataBiopack) {
+  console.log("dataBiopack")
+  console.log(dataBiopack)
+  const codigoId = dataBiopack.codigoId;
+  const tipoEmpaque = dataBiopack.tipoEmpaque;
+  const nroOficio = dataBiopack.nroOficio;
+  const procedencia = dataBiopack.procedencia;
+  const labRef = dataBiopack.labRef;
+  const fechaRecepcion = dataBiopack.fechaRecepcion;
+  const estado = "EN CUSTODIA";
+  const cantEMPAQUES = dataBiopack.cantEMPAQUES;
+  const cantREFRIGERANTES = dataBiopack.cantREFRIGERANTES;
+  sheetBiopack.appendRow([codigoId, tipoEmpaque, estado, procedencia, labRef, nroOficio, fechaRecepcion, cantEMPAQUES, cantREFRIGERANTES])
+      return "todo good";
+    }
+
+
+    function buscarRegistrosBiopack(estado = "TODO") {
+      console.log(estado)
+      let registrosBiopack = [];
+      const registros = sheetBiopack.getDataRange().getDisplayValues();
+      if (estado === "TODO") {
+        registros.forEach((registro) => { 
+          if (registro[2] != 'ESTADO') {
+            registrosBiopack.push(registro);
+          }
+        });
+      } else {
+        registros.forEach((registro) => { 
+          if (registro[2] === estado) {
+            registrosBiopack.push(registro);
+          }
+        });
+      }
+      return registrosBiopack;
+    }
+
+    function actualizarEstadoBiopack(codigo="123") {
+      const valores = sheetBiopack.getDataRange().getValues();
+      for (let i = 0; i < valores.length; i++) {
+        const fila = valores[i];
+        if (fila[0] == codigo) {
+          const INT_R = i + 1;
+          const newEstado = [["ENTREGADO"]];
+          var fechaHoy = [[new Date().toLocaleString()]];
+          sheetBiopack.getRange(INT_R, 3, 1, 1).setValues(newEstado);
+          sheetBiopack.getRange(INT_R, 10, 1, 1).setValues(fechaHoy);
+          return "todo good";
+        }
+      }
+    }
