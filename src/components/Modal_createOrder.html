@@ -502,15 +502,14 @@
                 </div>
               </div>
               <div class="row">
-              <div class="col-md-3">
+              <div class="col-md-2">
                 <div class="form-floating mb-3 ">
                   <select type="text" name="tipoEmpaque" id="tipoEmpaque" class="form-select" placeholder=" " required>
                     <option selected></option>
                     <option value="TECNOPOR">TECNOPOR</option>
                     <option value="BIOPACK">BIOPACK</option>
                     <option value="COOLER">COOLER</option>
-                    <option value="TRIPLE EMPAQUE">TRIPLE EMPAQUE</option>
-                    <option value="INADECUADO">INADECUADO</option>
+                    <option value="KST">KST</option>
                     <option value="OTROS">OTROS</option>
                </select>
                   <label for="tipoEmpaque" >Tipo de empaque </label>
@@ -519,7 +518,38 @@
                   </div>
                 </div>
               </div>
-              <div class="col-md-3">
+              <div class="col-md-2">
+                <div class="form-floating mb-3 ">
+                  <select type="text" name="tripleEmpaque" id="tripleEmpaque" class="form-select" placeholder=" " required>
+                    <option selected></option>
+                    <option value="SI">SI</option>
+                    <option value="NO">NO</option>
+               </select>
+                  <label for="tripleEmpaque" >¿Triple Embajale? </label>
+                  <div class="invalid-feedback">
+                    *Campo obligatorio
+                  </div>
+                </div>
+              </div> 
+              <div class="col-md-2">
+                <div class="form-floating mb-3 ">
+                  <select type="text" name="condicionEmpaque" id="condicionEmpaque" class="form-select" placeholder=" " required>
+                    <option selected></option>
+                    <option value="ADECUADO">ADECUADO</option>
+                    <option value="INADECUADO">INADECUADO</option>
+               </select>
+                  <label for="condicionEmpaque" >Condición de Empaque </label>
+                  <div class="invalid-feedback">
+                    *Campo obligatorio
+                  </div>
+                </div>
+              </div>
+
+
+
+
+
+              <div class="col-md-2">
                 <div class="form-floating mb-3 ">
                   <select type="text" name="empaqueQuestion" id="empaqueQuestion" class="form-select" onchange="handleEmpaquesProps(this)" placeholder=" " required>
                     <option selected></option>
