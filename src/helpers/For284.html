@@ -47,18 +47,38 @@ const for284_page = document.getElementById("for284_page");
           tableBody.appendChild(tr)
         })
                        
-            spinnerBusq.hidden=false;
-            spinnerLoadBusq.hidden=true;
+            spinnerBusqFOR284.hidden=false;
+            spinnerLoadBusqFOR284.hidden=true;
             
       }else{
         swal("Oops!", "No se encuentran registros en la base de datos!", "error");
-            spinnerBusq.hidden=false;
-            spinnerLoadBusq.hidden=true;
+            spinnerBusqFOR284.hidden=false;
+            spinnerLoadBusqFOR284.hidden=true;
       }
     })
     .buscarCamposRegistrosFOR284(dato);
-
-   
- 
 }
+
+
+const secctionFOR284 = document.getElementById("for284_page");
+const spinnerBusqFOR284 = secctionFOR284.querySelector("#buttonBuscarConsulta")
+const spinnerLoadBusqFOR284 = secctionFOR284.querySelector("#buttonBuscarLoadingC");
+
+
+function mostrarFechaSeleccionada() {
+        var fecha = secctionFOR284.querySelector("#fecha");
+        var fechaInicio = secctionFOR284.querySelector("#fechaInicio").value;
+        secctionFOR284.querySelector("#fecha").value = fechaInicio;
+    }
+
+
+    spinnerBusq.addEventListener("click", cargarEnvio);
+
+    function cargarEnvio(e) {
+        console.log(e);
+        spinnerBusqFOR284.hidden = true;
+        spinnerLoadBusqFOR284.hidden = false;
+    }
+
+
 </script>

@@ -16,8 +16,8 @@
 
     @media print {
         .contact-form {
-            margin-left: 5% !important;
-            margin-right: 5% !important;
+            margin-left: 2% !important;
+            margin-right: 2% !important;
             width: 90% !important;
             max-width: none !important;
         }
@@ -221,57 +221,3 @@
     </br>
 
 </div>
-
-
-
-
-
-<script>
-
-    n = 480
-    var l = document.getElementById("number");
-    var id = window.setInterval(function () {
-        document.onmousemove = function () {
-            n = 480
-        };
-        l.innerText = n;
-        n--;
-
-        const alertCerrarSesion = document.getElementById("alertCerrarSesion");
-        if (n > 60) {
-            alertCerrarSesion.hidden = true;
-        } if (n <= 60 && n > -1) {
-            alertCerrarSesion.hidden = false;
-        } if (n <= -1) {
-            const crearModal = bootstrap.Modal.getOrCreateInstance("#staticBackdrop");
-            crearModal.show();
-            alertCerrarSesion.hidden = true;
-            clearInterval(id);
-        }
-
-    }, 1000);
-
-    function mostrarFechaSeleccionada() {
-        var fecha = document.getElementById("fecha");
-        var fechaInicio = document.getElementById("fechaInicio").value;
-        document.getElementById("fecha").value = fechaInicio;
-    }
-
-
-
-
-
-    const spinnerBusq = document.getElementById("buttonBuscarConsulta");
-    const spinnerLoadBusq = document.getElementById("buttonBuscarLoadingC");
-
-    spinnerBusq.addEventListener("click", cargarEnvio);
-
-    function cargarEnvio(e) {
-        console.log(e);
-        spinnerBusq.hidden = true;
-        spinnerLoadBusq.hidden = false;
-    }
-
-
-
-</script>
