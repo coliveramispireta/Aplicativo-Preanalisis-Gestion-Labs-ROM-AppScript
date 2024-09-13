@@ -75,13 +75,13 @@ const for027_page = document.getElementById("for027_page");
           tableBody.appendChild(tr)
         })
                        
-            spinnerBusq.hidden=false;
-            spinnerLoadBusq.hidden=true;
+            spinnerBusqFOR027.hidden=false;
+            spinnerLoadBusqFOR027.hidden=true;
             
       }else{
         swal("Oops!", "No se encuentran registros en la base de datos!", "error");
-            spinnerBusq.hidden=false;
-            spinnerLoadBusq.hidden=true;
+            spinnerBusqFOR027.hidden=false;
+            spinnerLoadBusqFOR027.hidden=true;
       }
     })
     .buscarCamposRegistrosFOR027(dato);
@@ -90,6 +90,65 @@ const for027_page = document.getElementById("for027_page");
  
 }
               
+
+
+
+
+
+
+
+window.addEventListener("load", loadLabDesDatalistFOR027);
+
+function loadLabDesDatalistFOR027() {
+  google.script.run.withSuccessHandler(cargarDatalistdtlLaboDesFOR027).getdataLaboDes();
+}
+
+function cargarDatalistdtlLaboDesFOR027(datadtlLaboDes) {
+  const inputLaboDes = document.getElementById("datalistOptionsLaboDes");
+  
+  const opcionesUnicas = new Set();
+
+  datadtlLaboDes.forEach((laboDes) => {
+    opcionesUnicas.add(laboDes[1]);
+  });
+
+  const opcionesOrdenadas = Array.from(opcionesUnicas).sort();
+
+  agregarOpcionesDatalistFOR027(opcionesOrdenadas, inputLaboDes);
+}
+
+function agregarOpcionesDatalistFOR027(opciones, input) {
+  const optionTodos = document.createElement("option");
+  optionTodos.value = "TODOS";
+  optionTodos.text = "TODOS";
+  optionTodos.dataset.referencia = "TODOS";
+  optionTodos.selected = true; // Hacer que la opción "TODOS" esté seleccionada por defecto
+  input.appendChild(optionTodos);
+
+  opciones.forEach((opcion) => {
+    if (opcion !== "VARIOS LABORATORIOS") {
+      const option = document.createElement("option");
+      option.value = opcion;
+      option.text = opcion;
+      option.dataset.referencia = opcion;
+      input.appendChild(option);
+    }
+  });
+}
+    
+
+
+                        const secctionFOR027 = document.getElementById("for027_page");
+                        const spinnerBusqFOR027 = secctionFOR027.querySelector("#buttonBuscarConsulta");
+                        const spinnerLoadBusqFOR027 = secctionFOR027.querySelector("#buttonBuscarLoadingC");
+
+                        spinnerBusqFOR027.addEventListener("click", cargarEnvio);
+
+                        function cargarEnvio (e){
+                          console.log(e);
+                          spinnerBusqFOR027.hidden=true;
+                          spinnerLoadBusqFOR027.hidden=false;
+                        }
 
 
  </script>
