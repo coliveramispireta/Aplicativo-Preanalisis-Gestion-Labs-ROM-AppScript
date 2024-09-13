@@ -11,6 +11,11 @@ const for027_page = document.getElementById("for027_page");
     const laboDes = for027_page.querySelector("#laboDes").value;
     const dato = [sede, laboDes, fechaInicio, fechaFin];
 
+    document.getElementById('footerFOR284').classList.remove('si-print');
+    document.getElementById('footerFOR027').classList.remove('si-print');  
+    document.getElementById('footerFOR284').classList.add('no-print');
+    document.getElementById('footerFOR027').classList.add('no-print');
+
     google.script.run
     .withSuccessHandler( info =>{
       let tableBody = for027_page.querySelector("#RegistrosTablaBody");
@@ -86,8 +91,8 @@ const for027_page = document.getElementById("for027_page");
     })
     .buscarCamposRegistrosFOR027(dato);
 
-   
- 
+    document.getElementById('footerFOR027').classList.remove('no-print');
+    document.getElementById('footerFOR027').classList.add('si-print');
 }
               
 

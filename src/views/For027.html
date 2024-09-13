@@ -6,10 +6,10 @@
      }
   
      @media print {
-    #RegistrosTablaFOR tbody tr:nth-child(9n+1) {
+    #RegistrosTablaFOR027 tbody tr:nth-child(9n+1) {
       page-break-before: always;
     }
-    #RegistrosTablaFOR tbody tr:not(:nth-child(9n+1)) {
+    #RegistrosTablaFOR027 tbody tr:not(:nth-child(9n+1)) {
       page-break-inside: avoid;
     }
   }
@@ -41,64 +41,19 @@
       display: none;
     }
   }
-  
+
   @media print {
-   .si-print-027 {
+   .si-print {
       display: block !important;
     }
   }
   </style> 
 
-<main >
-
-    <div id="overlay">
-    <div class="loader">
-      <div class="spinner"></div>
-      <div class="logo-container">
-        <img class="logoSpinAppRom" src="https://github.com/coliveramispireta/imagenes/blob/main/AppRom-Logo.png?raw=true" alt="">
-      </div>
-    </div>
-  </div>
-
-<aside class="ocultar-div no-print">
-</aside>
-
-<div id="imageDerecha" class="no-print">
- <img class="imagenDerecha" src="https://st.depositphotos.com/1040728/2586/i/600/depositphotos_25865867-stock-photo-hand-holds-laboratory-test-dna.jpg"  alt="img" >
-</div>
-
 <div class="container contact-form">   
 <div class="no-print">    
-<div id="alertCerrarSesion" class="alert alert-danger position-absolute" role="alert" hidden> 
-            <p  style="font-weight: 700"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-exclamation-triangle-fill" viewBox="0 0 16 16">
-<path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
-</svg>&nbsp La sesión expira en: &nbsp</p>  <div style="zoom: 140%; font-weight: 500; margin-left: 15%; margin-top: -3.4%" id="number" class="text-danger"></div> 
-<p style="font-style: oblique">"Si aún desea continuar con la sesión, por favor mueva el mouse". &nbsp</p>
-        </div>
-        <!-- Modal -->
-                  <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <h1 class="modal-title fs-5" id="staticBackdropLabel">Notificación</h1>
-                           <a href="https://script.google.com/macros/s/AKfycbxs8J_-J6WiMNBLgc2X39DI_1djRdlFf07t42DZDj42RaaQEiQZJnI8tfMm9lNM2mzo/exec" class="btn-close"></a>
-                        </div>
-                        <div class="modal-body">
-  
-                          La sesión expiró.
-                        </div>
-                        <div class="modal-footer">
-                      <a href="https://script.google.com/macros/s/AKfycbxs8J_-J6WiMNBLgc2X39DI_1djRdlFf07t42DZDj42RaaQEiQZJnI8tfMm9lNM2mzo/exec" class="btn btn-secondary">Cerrar Sesión</a>
-                         </div>
-                      </div>
-                    </div>
-                  </div>
-
-
 <h3 style="margin-top: 2%" id="titulos">Imprimir Formulario FOR-CNSP-027</h3>  
 <div class="responsive">
        <div style="margin-top:-3%; margin-left: 7% " class="row d-flex justify-content-center ">             
-          
            <div style="zoom: 80%" class="col-md-3">
             <div class="form-floating mb-5 ">   
                <select type="text" name="sede" id="sede" class="form-select" data-placeholder="" required>
@@ -109,7 +64,6 @@
               <label for="sede" >Sede: </label>
                </div>
           </div>
-
            <div style="zoom: 80%" class="col-md-4">
             <div class="form-floating mb-5 ">   
             <input  id="laboDes" name="laboDes" list="datalistOptionsLaboDes" class="form-control" data-placeholder="" required>                  
@@ -118,7 +72,6 @@
               <label for="laboDes" >Laboratorio: </label>
                </div>
           </div>
-
           <div style="zoom: 80%" class="col-md-2">
             <div class="form-floating mb-5 ">   
                  <input type="date" name="fechaInicio" id="fechaInicio" class="form-control" data-placeholder="" required>
@@ -131,7 +84,6 @@
               <label for="fechaFin" >Fecha fin: </label>
             </div>             
           </div> 
-
             <div class="col-md-2">
               <button id="buttonBuscarConsulta" style="zoom: 90%"type="button" class="btn btn-primary btn-lg" onclick="buscarRegistrosBusquedaFOR027()">Buscar</button>
               <button id="buttonBuscarLoadingC" style="zoom: 90%" class="btn btn-primary btn-lg" type="button" hidden disabled>
@@ -141,16 +93,12 @@ Cargando...
             </div>
           </div>  
         </div> 
-      
-
 <div class="responsive">
  <div lass="row">  
-
       <button style="zoom: 80%" type="button" class="btn btn-warning btn-lg btn-print" onclick="window.print()"><svg  style="zoom: 150%" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-printer" viewBox="0 0 16 16">
         <path d="M2.5 8a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1z"/>
         <path d="M5 1a2 2 0 0 0-2 2v2H2a2 2 0 0 0-2 2v3a2 2 0 0 0 2 2h1v1a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-1h1a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-1V3a2 2 0 0 0-2-2H5zM4 3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2H4V3zm1 5a2 2 0 0 0-2 2v1H2a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1v-1a2 2 0 0 0-2-2H5zm7 2v3a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1z"/>
       </svg> Vista previa de impresión</button>
-
       <div style="margin-left: 1%; margin-top: -2%; zoom: 78%" class="accordion" id="accordionExample">
         <div class="accordion-item">
           <h1 class="accordion-header">
@@ -168,49 +116,38 @@ Cargando...
           </div>
         </div>
       </div>
-
 </div>
 </div>        
-
-
        </div>
-
-        <div class="table-responsive si-print-027"> 
-
-<table style="width:100%; text-align:center; border: none" id="RegistrosTablaFOR" class="table table-bordered">
+        <div class="table-responsive si-print"> 
+<table style="width:100%; text-align:center; border: none" id="RegistrosTablaFOR027" class="table table-bordered">
   <thead class="table">
-
-<div class="si-print-027">
-  <tr style="border-top: 2px solid transparent; border-bottom: 2px solid transparent; border-left: 2px solid transparent; border-right: 2px solid transparent; color: transparent" class="si-print-027" hidden>
+<div class="si-print">
+  <tr style="border-top: 2px solid transparent; border-bottom: 2px solid transparent; border-left: 2px solid transparent; border-right: 2px solid transparent; color: transparent" class="si-print" hidden>
      <th colspan="8" style="font-size: 18px; background-color: transparent" >.</th>
   </tr>  
    <tr style="border-top: 2px solid transparent; border-left: 2px solid transparent; border-right: 2px solid transparent; color: transparent" >
      <th colspan="8" style="font-size: 18px; background-color: transparent" >.</th>
   </tr> 
 </div>
-
-    <div class="si-print-027">
+    <div class="si-print">
         <tr style="color: #222222; border: 2px solid #000000; vertical-align: middle">
           <th style="width: 17%; border: 2px solid #000000"  rowspan="2"><img src="https://elfirmedelasalud.ins.gob.pe/wp-content/uploads/2022/08/logo-ins.png" style="max-width: 130px; height: 130px; margin: 0px; width: 130px;"></th>
           <th colspan="8" style="border: 2px solid #000000; font-size: 20px" >FORMULARIO</th>
           <th style="border: 2px solid #000000; width: 19%; font-size: 20px" colspan="1">FOR-CNSP-027</th>
-      
         </tr>  
         <tr style="color: #222222; border: 2px solid #000000; vertical-align: middle">
           <th colspan="8" style="border: 2px solid #000000; font-size: 20px">PARTE DIARIO DE ENTREGA DE MUESTRAS</th>
           <th style="border: 2px solid #000000; width: 19%; font-size: 20px">Edición N° 05</th>
         </tr>
     </div>
-
-<div class="si-print-027">
+<div class="si-print">
   <tr style="border-right: 2px solid transparent; background-color: transparent; border: none; vertical-align: middle">
      <th colspan="9" style="font-size: 18px; background-color: transparent; border-right: 2px solid transparent; border-left: 2px solid transparent" >
           
      </th>
   </tr>  
 </div>
-
-
   <tr style="border: 2px solid #000000; color: #222222; vertical-align: middle">
     <th id="procedencia-th" style="width: 25%; border: 2px solid #000000" colspan="2" rowspan="2">PROCEDENCIA</th>
     <th style="border: 2px solid #000000" colspan="2">MUESTRAS</th>
@@ -219,8 +156,6 @@ Cargando...
     <th style="border: 2px solid #000000" rowspan="2">LABORATORIO</th>
     <th style="border: 2px solid #000000" colspan="2">ENTREGA DE MUESTRAS</th>
     <th style="border: 2px solid #000000" rowspan="2">OBSERVACIÓN</th>
-   
-
   </tr>  
   <tr style="border: 2px solid #000000; color: #222222; vertical-align: middle">
     <th style="border: 2px solid #000000" >CANT.</th>
@@ -233,11 +168,7 @@ Cargando...
 <tbody style="border: 2px solid #000000" id="RegistrosTablaBody">
 </tbody>
 </table>
-
-
-
       </div>
-
        <template id="registrosRow">
           <tr height="90" style="color: #222222">
             <td colspan="2" style="border: 2px solid #000000; vertical-align: middle" class="registro1"></td>
@@ -253,19 +184,6 @@ Cargando...
          </tr>
        </template>
         </br>
-    
-
-
-
-
-
-
-    
-
-    </br>
-        
-</br>
-
 </div> 
       
-        </main> 
+  

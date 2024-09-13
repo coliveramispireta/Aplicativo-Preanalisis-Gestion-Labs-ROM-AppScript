@@ -9,6 +9,11 @@ const for284_page = document.getElementById("for284_page");
     const fechaInicio = for284_page.querySelector("#fechaInicio").value;
     const dato = [fechaInicio, sede];
 
+    document.getElementById('footerFOR284').classList.remove('si-print');
+    document.getElementById('footerFOR027').classList.remove('si-print');  
+    document.getElementById('footerFOR284').classList.add('no-print');
+    document.getElementById('footerFOR027').classList.add('no-print');
+
     google.script.run
     .withSuccessHandler( info =>{
       let tableBody = for284_page.querySelector("#RegistrosTablaBody");
@@ -57,6 +62,9 @@ const for284_page = document.getElementById("for284_page");
       }
     })
     .buscarCamposRegistrosFOR284(dato);
+
+    document.getElementById('footerFOR284').classList.remove('no-print');
+    document.getElementById('footerFOR284').classList.add('si-print');
 }
 
 
