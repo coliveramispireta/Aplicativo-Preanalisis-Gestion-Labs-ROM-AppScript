@@ -1,10 +1,58 @@
 <style> 
 
 @media print {
-        .no-print {
-            display: none;
+    .no-print {
+      display: none;
+    }
+  }
+
+  @media print {
+   .si-print {
+      display: block !important;
+    }
+  }
+
+  .btn-print,
+     .accordion {
+         display: inline-block;
+     }
+  
+     @media print {
+    #RegistrosTablaFOR027 tbody tr:nth-child(9n+1) {
+      page-break-before: always;
+    }
+    #RegistrosTablaFOR027 tbody tr:not(:nth-child(9n+1)) {
+      page-break-inside: avoid;
+    }
+  }
+
+  @media print {
+        #RegistrosTablaFOR284 tbody tr:nth-child(14n+1) {
+            page-break-before: always;
+        }
+
+        #RegistrosTablaFOR284 tbody tr:not(:nth-child(14n+1)) {
+            page-break-inside: avoid;
         }
     }
+  
+  
+           @media print {
+    .contact-form {
+      margin-left: 2% !important;
+      margin-right: 2% !important;
+      width: 94% !important;
+      max-width: none !important;
+    }
+  }
+
+        @media print {
+    /* Define el tamaño de fuente */
+    body {
+      font-size: 14px;
+     }
+  }
+
 
 #alertCerrarSesion{
   z-index: 9999;

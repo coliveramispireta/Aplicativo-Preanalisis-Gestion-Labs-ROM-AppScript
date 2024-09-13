@@ -14,6 +14,22 @@ const for284_page = document.getElementById("for284_page");
     document.getElementById('footerFOR284').classList.add('no-print');
     document.getElementById('footerFOR027').classList.add('no-print');
 
+    let style = document.getElementById('printStyle');
+    if (style) {
+      style.remove();
+    }
+    let orientation = 'portrait';
+    let printStyle = document.createElement('style');
+    printStyle.id = 'printStyle';
+    printStyle.innerHTML = `
+      @media print {
+        @page {
+          size: A4 ${orientation};
+        }
+      }
+    `;
+    document.head.appendChild(printStyle);
+
     google.script.run
     .withSuccessHandler( info =>{
       let tableBody = for284_page.querySelector("#RegistrosTablaBody");
